@@ -27,16 +27,8 @@ class MyApp(ShowBase):
         base.cam.setHpr(-20,0,0)
         base.disableMouse()
 
-        #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam').find('**/*bottomRight')
-        #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
-        #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.options = OptionsMenu()
-        # phase_3/models/gui/ttr_m_gui_gen_buttons.bam for sliders and what not
-        # use settings panel for the entire thing.
-        # dynamic frame is a piece of the options menu
-        # dynamic frame yellow for the generate Toon button
-        # dyanimc frame default for the buttons
-        # Generic GUI for the sliders
+
 
 
     

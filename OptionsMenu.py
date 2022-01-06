@@ -5,10 +5,20 @@ from direct.gui.DirectGuiGlobals import HORIZONTAL, VERTICAL
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import NodePath, TextNode
 
+    #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam').find('**/*bottomRight')
+    #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
+    #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+    # phase_3/models/gui/ttr_m_gui_gen_buttons.bam for sliders and what not
+    # use settings panel for the entire thing.
+    # dynamic frame is a piece of the options menu
+    # dynamic frame yellow for the generate Toon button
+    # dynamic frame default for the buttons
+    # Generic GUI for the sliders
 
-class OptionsMenu(DirectGui.DirectFrame):
+
+class OptionsMenu:
     '''The main OptionsMenu
-    Houses the DirectGUI'''
+       Houses the DirectFrame that is the entire frame.'''
     def __init__(self):
         self.main_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
@@ -55,6 +65,7 @@ class OptionsMenu(DirectGui.DirectFrame):
         )
         
         label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
+
         self.label_inner_text = OnscreenText(text='Toon Creator',
         parent=self.First_Page,
         font=label_outer_font,
@@ -80,7 +91,7 @@ class OptionsMenu(DirectGui.DirectFrame):
             # GUI of the box
             frameSize=(-0.8,0.85,-0.55,0.35),
             canvasSize=(-1,0,-2,1),
-            frameColor=(0,0,0,0.1),
+            frameColor=(0,0,0,0),
 
             # GUI DirectScrollBar attributes
             horizontalScroll_frameSize=(0,0,0,0),
@@ -90,7 +101,27 @@ class OptionsMenu(DirectGui.DirectFrame):
             scrollBarWidth=0.02,
         )
         
-        self.firstTabGeom.reparentTo(self.optionsScroll.getCanvas())
-        self.firstTabGeom.setScale(0.1)
-        self.firstTabGeom.setPos(-0.8,0,0.7)
-        
+        #self.firstTabGeom.reparentTo(self.optionsScroll.getCanvas())
+        #self.firstTabGeom.setScale(0.1)
+        #self.firstTabGeom.setPos(-0.8,0,0.7)
+
+        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA', -0.7, 0.8)
+        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing', -0.74, 0.5)
+        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories', -0.65, 0.1)
+
+
+class OptionsLabel:
+    '''Used as labels for the bigger letters'''
+    def __init__(self, labelParent, labelText, x, z):
+        label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
+        self.label = DirectGui.DirectLabel(
+            parent=labelParent,        
+            pos=(x, 0, z)    
+        )
+        self.labelText = OnscreenText(
+            text=labelText,
+            font=label_outer_font,
+            fg=(0,0,0,1),
+            scale=0.1
+        )
+        self.labelText.reparentTo(self.label)

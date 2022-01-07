@@ -41,7 +41,7 @@ class OptionsMenu:
         self.second_page_geom = self.main_geom.find('**/*tabActive2')
 
         self.slider_geom = self.options_geom.find('**/*slider1')
-        self.trough_geom = self.options_geom.find('**/*lineSkinny')
+        self.trough_geom = self.options_geom.find('**/*lineThick')
     
         # There'll be nothing here, it's just the outer frame
         
@@ -114,9 +114,12 @@ class OptionsMenu:
             scrollBarWidth=0.1,
         )
         
-        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.8)
-        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  0.5)
-        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories',  0.1)
+        self.musicLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Music',  0.8)
+        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.4)
+        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  0)
+        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories',  -0.4)
+
+        self.first_modal= OptionsModal(self.optionsScroll.getCanvas(), 'True Friends:', 0.7)
 
 
 class OptionsLabel:
@@ -140,3 +143,23 @@ class OptionsLabel:
             align=TextNode.ALeft
         )
         self.labelText.reparentTo(self.label)
+
+class OptionsModal(DirectGui.DirectFrame):
+    '''This is the left part of any Options Modal, everything else past this class inherits from this and adds to it'''
+    def __init__(self, modalParent, modalText, z):
+        modal_font = loader.loadFont('phase_3/fonts/ImpressBT.ttf')
+
+        self.containerFrame = DirectGui.DirectLabel(
+            parent=modalParent,
+            pos=(-0.95, 0, z),
+            frameColor=(0,0,0,0),
+            frameSize=(-0.01,0.9,-0.01,0.06),
+            scale=0.9
+        )
+
+        self.modalTextNode = OnscreenText(
+            align=TextNode.ALeft,
+            text=modalText,
+            font=modal_font
+        )
+        self.modalTextNode.reparentTo(self.containerFrame)

@@ -1,7 +1,7 @@
 from typing import Text
 from direct.gui import DirectGui
 from direct.gui.DirectGui import *
-from direct.gui.DirectGuiGlobals import HORIZONTAL, VERTICAL
+from direct.gui.DirectGuiGlobals import FLAT, HORIZONTAL, SUNKEN, VERTICAL
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import NodePath, TextNode
 
@@ -41,7 +41,7 @@ class OptionsMenu:
         self.second_page_geom = self.main_geom.find('**/*tabActive2')
 
         self.slider_geom = self.options_geom.find('**/*slider1')
-        self.trough_geom = self.options_geom.find('**/*lineThick')
+        self.trough_geom = self.options_geom.find('**/*lineSkinny')
     
         # There'll be nothing here, it's just the outer frame
         
@@ -94,17 +94,26 @@ class OptionsMenu:
             frameColor=(0,0,0,0),
 
             # GUI DirectScrollBar attributes
-            horizontalScroll_frameSize=(0,0,0,0),
-            verticalScroll_thumb_geom = self.slider_geom,
-            verticalScroll_thumb_geom_scale=(0.06),
-            verticalScroll_range=(0,10),
-            scrollBarWidth=0.02,
+            horizontalScroll_frameSize=(0,0,0,0), # Getting rid of the horizontal scroll
+
+            # The button you click and hold.
+            verticalScroll_thumb_geom = self.slider_geom, 
+            verticalScroll_thumb_geom_scale=(0.1),
+            verticalScroll_thumb_frameSize=(-2.5,5,-2.5,5),
+
+            # The (invisible) bar you slide across.
+            verticalScroll_relief=None, 
+            verticalScroll_range=(0,5),
+            verticalScroll_incButton_relief=None,
+            verticalScroll_decButton_relief=None,
+            verticalScroll_thumb_relief=None,
+            verticalScroll_geom=self.trough_geom,
+            verticalScroll_geom_pos=(0.80,0,-0.10),
+            verticalScroll_geom_hpr=(0,0,90),
+            verticalScroll_geom_scale=(0.2,0.1,0.1),
+            scrollBarWidth=0.1,
         )
         
-        #self.firstTabGeom.reparentTo(self.optionsScroll.getCanvas())
-        #self.firstTabGeom.setScale(0.1)
-        #self.firstTabGeom.setPos(-0.8,0,0.7)
-
         self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA', -0.7, 0.8)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing', -0.74, 0.5)
         self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories', -0.65, 0.1)

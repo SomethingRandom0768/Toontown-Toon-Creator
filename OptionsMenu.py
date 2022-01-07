@@ -114,23 +114,29 @@ class OptionsMenu:
             scrollBarWidth=0.1,
         )
         
-        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA', -0.7, 0.8)
-        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing', -0.74, 0.5)
-        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories', -0.65, 0.1)
+        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.8)
+        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  0.5)
+        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories',  0.1)
 
 
 class OptionsLabel:
-    '''Used as labels for the bigger letters'''
-    def __init__(self, labelParent, labelText, x, z):
+    '''Used as labels for the bigger letters
+    Lower Z means lower on the DirectScrolledFrame'''
+    def __init__(self, labelParent, labelText, z):
         label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
+        
         self.label = DirectGui.DirectLabel(
             parent=labelParent,        
-            pos=(x, 0, z)    
+            pos=(-1, 0, z),
+            frameColor=(0,0,0,0),
+            frameSize=(0,0.9,0,0.1)    
         )
+
         self.labelText = OnscreenText(
             text=labelText,
             font=label_outer_font,
             fg=(0,0,0,1),
-            scale=0.1
+            scale=0.1,
+            align=TextNode.ALeft
         )
         self.labelText.reparentTo(self.label)

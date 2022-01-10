@@ -15,13 +15,14 @@ from panda3d.core import NodePath, TextNode
     # dynamic frame default for the buttons
     # Generic GUI for the sliders
 
+options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
 
 class OptionsMenu:
     '''The main OptionsMenu
        Houses the DirectFrame that is the entire frame.'''
     def __init__(self):
         self.main_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
-        self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
+        self.options_geom = loader.loadModel(options_geom)
         self.icon = loader.loadModel('phase_3/models/gui/toontown-logo.bam')
         self.toontaskicons = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_qst_toontask_icons.bam')
 
@@ -66,7 +67,7 @@ class OptionsMenu:
         
         label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
 
-        self.label_inner_text = OnscreenText(text='Toon Creator',
+        self.label_inner_text = OnscreenText(text='Test Project',
         parent=self.First_Page,
         font=label_outer_font,
         fg=(0.2,0.6,0.9,1),
@@ -115,11 +116,18 @@ class OptionsMenu:
         )
         
         self.musicLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Music',  0.8)
-        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.4)
+        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.35)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  0)
         self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories',  -0.4)
 
-        self.first_modal= OptionsModal(self.optionsScroll.getCanvas(), 'True Friends:', 0.7)
+
+        self.first_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'True Friends:', 0.65, printSliderValue)
+        self.second_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Big Brains:', 0.50)
+
+
+def printSliderValue():
+    print("test")
+
 
 
 class OptionsLabel:
@@ -163,3 +171,26 @@ class OptionsModal(DirectGui.DirectFrame):
             font=modal_font
         )
         self.modalTextNode.reparentTo(self.containerFrame)
+
+
+class OptionsSlider(OptionsModal):
+    def __init__(self, modalParent, modalText, z, slider_command=None):
+        super().__init__(modalParent, modalText, z) # Creates the text on the left
+        self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
+        self.slider_thumb_geom = self.options_geom.find('**/*slider2')
+        self.slider_scroll_geom = self.options_geom.find('**/*lineSkinny')
+
+        self.slider = DirectGui.DirectSlider(
+            thumb_geom=self.slider_thumb_geom,
+            thumb_geom_scale=(0.4,0.1,0.25),
+            thumb_relief=None,
+            geom=self.slider_scroll_geom, 
+            geom_scale=0.5,
+            scale=(0.3,0.1,0.4),
+            relief=None,
+            command=slider_command,
+            range=(0,100)
+        )
+        self.slider.reparentTo(self.containerFrame)
+        self.slider.setPos(1.3,0,0)
+    

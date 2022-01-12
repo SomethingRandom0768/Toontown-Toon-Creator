@@ -233,10 +233,10 @@ class OptionsToggle(OptionsModal):
 
         def animateToggle():
             if self.button['indicatorValue']:
-                toggle_forward_interval = LerpPosInterval(self.toggle_thumb_geom, 0.25, (0.65,0,-0.25), (0.35,0,-0.25) )
+                toggle_forward_interval = LerpPosInterval(self.toggle_thumb_geom, 0.15, (0.65,0,-0.25), (0.35,0,-0.25) )
                 toggle_forward_interval.start()
             else:
-                toggle_back_interval = LerpPosInterval(self.toggle_thumb_geom, 0.25, (0.35,0,-0.25), (0.65,0,-0.25) )
+                toggle_back_interval = LerpPosInterval(self.toggle_thumb_geom, 0.15, (0.35,0,-0.25), (0.65,0,-0.25) )
                 toggle_back_interval.start()
 
 

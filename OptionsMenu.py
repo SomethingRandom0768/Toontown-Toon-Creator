@@ -4,6 +4,7 @@ from direct.gui.DirectGui import *
 from direct.gui.DirectGuiGlobals import FLAT, HORIZONTAL, SUNKEN, VERTICAL
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import NodePath, TextNode
+from direct.interval.LerpInterval import *
 
     #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam').find('**/*bottomRight')
     #self.options = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
@@ -114,20 +115,23 @@ class OptionsMenu:
             verticalScroll_geom_scale=(0.2,0.1,0.1),
             scrollBarWidth=0.1,
         )
+
+        def updateHead():
+            '''Updates the Toon's head based on the value'''
+            sliderValue = self.first_slider.slider['value']
+            print(sliderValue)
+        
+        def changeGender():
+            print('test2')
         
         self.musicLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Music',  0.8)
-        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.35)
-        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  0)
-        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories',  -0.4)
-
-
-        self.first_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'True Friends:', 0.65, printSliderValue)
+        self.first_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'True Friends:', 0.65)
         self.second_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Big Brains:', 0.50)
-
-
-def printSliderValue():
-    print("test")
-
+        self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.35)
+        self.first_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', 0.20)
+        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  0)
+        self.second_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Clothing Tes:', -0.20)
+        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Accessories',  -0.4)
 
 
 class OptionsLabel:
@@ -172,7 +176,6 @@ class OptionsModal(DirectGui.DirectFrame):
         )
         self.modalTextNode.reparentTo(self.containerFrame)
 
-
 class OptionsSlider(OptionsModal):
     def __init__(self, modalParent, modalText, z, slider_command=None):
         super().__init__(modalParent, modalText, z) # Creates the text on the left
@@ -193,4 +196,49 @@ class OptionsSlider(OptionsModal):
         )
         self.slider.reparentTo(self.containerFrame)
         self.slider.setPos(1.3,0,0)
-    
+
+class OptionsToggle(OptionsModal):
+    def __init__(self, modalParent, modalText, z, toggle_command=None, fake_command=None):
+        super().__init__(modalParent, modalText, z) # Creates the text on the left
+        self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
+        self.toggle_thumb_geom = self.options_geom.find('**/*toggleButton')
+        self.warm_geom = self.options_geom.find('**/*toggleWarm')
+        self.cold_geom = self.options_geom.find('**/*toggleCool')
+
+        def executeFunction(self, toggle_command=None):
+            if toggle_command:
+                print("Function Executed")
+
+            animateToggle()
+
+        self.button= DirectGui.DirectCheckButton(
+            scale=0.25,
+            relief=None,
+            boxImageScale=0.5,
+            boxPlacement=('right'),
+            boxImage=(self.warm_geom, self.cold_geom),
+            boxRelief=None,
+            pressEffect=1,
+            command=executeFunction,
+            extraArgs=[toggle_command]
+        )
+
+        self.button.reparentTo(self.containerFrame)
+        self.button.setPos(1.25,0,0.1)
+
+        # The button on the thing.
+        self.toggle_thumb_geom.setScale(0.5)
+        self.toggle_thumb_geom.setPos(0.35,0,-0.25)
+        self.toggle_thumb_geom.reparentTo(self.button)
+
+        def animateToggle():
+            if self.button['indicatorValue']:
+                toggle_forward_interval = LerpPosInterval(self.toggle_thumb_geom, 0.25, (0.65,0,-0.25), (0.35,0,-0.25) )
+                toggle_forward_interval.start()
+            else:
+                toggle_back_interval = LerpPosInterval(self.toggle_thumb_geom, 0.25, (0.35,0,-0.25), (0.65,0,-0.25) )
+                toggle_back_interval.start()
+
+
+
+

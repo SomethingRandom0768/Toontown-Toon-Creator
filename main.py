@@ -1,6 +1,7 @@
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import WindowProperties
-from OptionsMenu import*
+from OptionsMenu import *
+from Toon import Toon
 
 class MyApp(ShowBase):
     def __init__(self):
@@ -9,7 +10,7 @@ class MyApp(ShowBase):
         # Window settings
         windowSettings = WindowProperties()
         windowSettings.setFullscreen(False)
-        windowSettings.setSize(1920, 1080)
+        windowSettings.setSize(1280, 720)
         self.win.requestProperties(windowSettings)
 
         # Music
@@ -23,12 +24,13 @@ class MyApp(ShowBase):
         self.environment.setHpr(-90,0,0)
 
         # Moving camera
-        base.cam.setPos(-4,7,5)
-        base.cam.setHpr(-20,0,0)
+        base.cam.setPos(5,20,3)
+        base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.options = OptionsMenu()
+        self.toon = Toon('dels')
 
+        self.options = OptionsMenu(self.toon)
 
 
     

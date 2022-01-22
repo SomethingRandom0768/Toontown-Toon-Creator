@@ -69,7 +69,7 @@ class OptionsMenu:
         
         label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
 
-        self.label_inner_text = OnscreenText(text='Test Project',
+        self.label_inner_text = OnscreenText(text='NPC Creator',
         parent=self.First_Page,
         font=label_outer_font,
         fg=(0.2,0.6,0.9,1),
@@ -122,72 +122,39 @@ class OptionsMenu:
             sliderValue = self.head_slider.slider['value']
             tested_value = int(sliderValue)
 
-            if (self.selectedToon.head.head_type[0] + self.selectedToon.head.head_type[1]) == 'ca': # If the Toon is a cat
-                if tested_value < 20 and tested_value > 0:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('css')
+            if self.selectedToon.species == 'ca': # If the Toon is a cat
+                if tested_value < 20:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'ca', 'ls')
                 elif tested_value < 40 and tested_value > 20:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('csl')
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'ca', 'll')
                 elif tested_value < 60 and tested_value > 40:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('cls')
-                elif tested_value > 60:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('cll')
-
-            elif self.selectedToon.head.head_type[0] == 'b': # If the Toon is a bear 
-                if tested_value < 20 and tested_value > 0:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('bss')
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'ca', 'sl')
+                elif tested_value > 80:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'ca', 'ss')
+            elif self.selectedToon.species == 'b': # If the Toon is a bear
+                if tested_value < 20:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'b', 'ls')
                 elif tested_value < 40 and tested_value > 20:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('bsl')
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'b', 'll')
                 elif tested_value < 60 and tested_value > 40:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('bls')
-                elif tested_value > 60:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('bll')
-            
-            elif (self.selectedToon.head.head_type[0] + self.selectedToon.head.head_type[1]) == 'cr': # If the Toon is a crocodile 
-                if tested_value < 20 and tested_value > 0:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('crss')
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'b', 'sl')
+                elif tested_value > 80:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'b', 'ss')
+            elif self.selectedToon.species == 'cr': # If the Toon is a crocodile
+                if tested_value < 20:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'cr', 'ls')
                 elif tested_value < 40 and tested_value > 20:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('crsl')
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'cr', 'll')
                 elif tested_value < 60 and tested_value > 40:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('crls')
-                elif tested_value > 60:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('crll')
-
-            elif (self.selectedToon.head.head_type[0] + self.selectedToon.head.head_type[1]) == 'de': # If the Toon is a crocodile 
-                if tested_value < 20 and tested_value > 0:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('dess')
-                elif tested_value < 40 and tested_value > 20:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('desl')
-                elif tested_value < 60 and tested_value > 40:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('dels')
-                elif tested_value > 60:
-                    self.selectedToon.head.removeHead()
-                    self.selectedToon.head.generateHead('dell')
-
-
-            #print(int(sliderValue))
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'cr', 'sl')
+                elif tested_value > 80:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'cr', 'ss')
         
-        def changeGender():
-            print('test2')
-        
-        #self.musicLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  0.8)
         self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.8)
-        self.head_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.7, updateHead)
-        self.first_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', 0.20)
+        self.head_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
+        #self.torso_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.50, updateLegs)
+        #self.legs_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35)
+        #self.first_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', 0.20)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
         self.second_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', -0.20)
         self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)

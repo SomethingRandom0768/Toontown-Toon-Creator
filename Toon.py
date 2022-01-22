@@ -1,10 +1,15 @@
 from direct.actor.Actor import Actor
-import ToonDNA
 from panda3d.core import *
+from ToonHead import *
 
-head_types = {}
-torso_types = {}
-leg_types = {}
+
+toonTorsoTypes = [ "ss", "ms", "ls", # short shorts, medium shorts, long shorts,
+                   "sd", "md", "ld", # short dress,  medium dress,  long dress.
+                   "s", "m", "l"     # short naked,  medium naked, long naked
+                 ] 
+
+toonLegTypes = [ "s", "m", "l" ] 
+# Short, Medium, Long.
 
 colorsList = {
     'White'        : VBase4(1.0, 1.0, 1.0, 1.0),                 
@@ -36,8 +41,29 @@ colorsList = {
     'Black'         :VBase4(0.3, 0.3, 0.35, 1.0), 
 }
 
-
 class Toon:
-    '''This is the Actor that is a toon. Reads from ToonDNA to create a Toon'''
-    def __init__(self, toon_dna):
-        self.toon = None
+    '''This is the Actor that is a toon. Reads from ToonDNA's data for clothing'''
+    def __init__(self, species, head_type=None, torso_type=None, leg_size=None, gender=None, head_color=None, glove_color=None, torso_color=None, leg_color=None, shirt_texture=None, shirt_color=None,bottom_color=None):
+        self.species = species
+        self.headtype = head_type # This basically helps set the species.
+        self.torso_type = torso_type
+        self.leg_size = leg_size
+        self.gender= gender
+        self.head_color = head_color
+        self.glove_color = glove_color
+        self.torso_color = torso_color
+        self.leg_color = leg_color
+        self.shirt_texture = shirt_texture
+        self.shirt_color = shirt_color
+        self.bottom_color = bottom_color
+
+        self.head = ToonHead(self.species, self.headtype)
+
+        #self.torso = self.generateTorso(self.torso_type)
+        #self.legs = NodePath('legs')
+    def returnHead(self):
+        '''Just returns the head node'''
+        return self.head.head_model
+    
+        
+        

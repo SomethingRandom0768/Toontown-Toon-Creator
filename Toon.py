@@ -8,7 +8,10 @@ toonTorsoTypes = [ "ss", "ms", "ls", # short shorts, medium shorts, long shorts,
                    "s", "m", "l"     # short naked,  medium naked, long naked
                  ] 
 
-toonLegTypes = [ "s", "m", "l" ] 
+toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam',
+                 "m":'phase_3/models/char/tt_a_chr_dgm_shorts_legs_1000.bam', 
+                 "l":'phase_3/models/char/tt_a_chr_dgl_shorts_legs_1000.bam' 
+                } 
 # Short, Medium, Long.
 
 colorsList = {
@@ -56,14 +59,61 @@ class Toon:
         self.shirt_texture = shirt_texture
         self.shirt_color = shirt_color
         self.bottom_color = bottom_color
+        self.toonActor = None
 
         self.head = ToonHead(self.species, self.headtype)
+        #self.torso = returnTorso(self.torso_type)
+        self.legs = toonLegTypes[leg_size]
 
-        #self.torso = self.generateTorso(self.torso_type)
-        #self.legs = NodePath('legs')
+        self.generateActor()
+        
+        # phase_3/models/char/tt_a_chr_dgl_shorts_head_neutral.bam
+        # phase_3/models/char/tt_a_chr_dgm_shorts_head_neutral.bam
+        # phase_3/models/char/tt_a_chr_dgs_shorts_head_neutral.bam
+
+    def generateActor(self):
+        '''Updates Toon's pieces, and then creates an actor.'''
+
+        if self.toonActor:
+            self.toonActor = None
+
+        self.toonActor = Actor(
+        
+        {
+            'head': self.returnHead(),
+            'torso': 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_1000.bam',
+            'legs': self.returnLegs()
+        },
+
+        {
+         'head': {'neutral': 'phase_3/models/char/tt_a_chr_dgl_shorts_head_neutral.bam' },
+         'torso': {'neutral':'phase_3/models/char/tt_a_chr_dgm_shorts_torso_neutral.bam'},
+         'legs':  {'neutral':'phase_3/models/char/tt_a_chr_dgs_shorts_legs_neutral.bam'} 
+        })
+
+        self.toonActor.attach('head', 'torso', 'def_head')
+        self.toonActor.attach('torso', 'legs', 'joint_hips')
+
+        self.toonActor.reparentTo(render)
+        self.toonActor.setPos(2,35,0)
+        self.toonActor.setHpr(180,0,0)
+        self.toonActor.loop('neutral')
+        
+    def updateHead(self, species, head_type):
+        self.head = ToonHead(species, head_type)
+        self.headtype = head_type
+
+    #def updateTorso(self, torso_type):
+
+    def updateLegs(self, legs_type):
+        self.legs = toonLegTypes[legs_type]
+
     def returnHead(self):
         '''Just returns the head node'''
         return self.head.head_model
-    
+
+    def returnLegs(self):
+        '''Returns legs'''
+        return self.legs    
         
         

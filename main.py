@@ -14,7 +14,7 @@ class MyApp(ShowBase):
         self.win.requestProperties(windowSettings)
 
         # Music
-        self.music = loader.loadSfx('phase_3/audio/bgm/create_a_toon.ogg')
+        self.music = loader.loadSfx('phase_3/audio/bgm/ttr_d_theme_phase1.ogg')
         self.music.setLoop(True)
         #self.music.play()
 
@@ -28,11 +28,8 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('dels')
-
+        self.toon = Toon('de', 'ls', None, 's')
         self.options = OptionsMenu(self.toon)
-
-
     
 app = MyApp()
 app.run()

@@ -98,6 +98,12 @@ class Toon:
         self.toonActor.setPos(2,35,0)
         self.toonActor.setHpr(180,0,0)
         self.toonActor.loop('neutral')
+
+        shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
+        shadow.reparentTo(self.toonActor.find('**/joint_shadow'))
+
+        shadow.setSx(0.5)
+        shadow.setSy(0.5)
         
     def updateHead(self, species, head_type):
         self.head = ToonHead(species, head_type)

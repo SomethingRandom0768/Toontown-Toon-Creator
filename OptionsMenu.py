@@ -128,11 +128,9 @@ class OptionsMenu:
                 if tested_value == 50:
                     self.selectedToon.toonActor.delete()
                     self.selectedToon.updateHead('mi', 'ls')
-                    self.selectedToon.generateActor()
                 elif tested_value == 100:
                     self.selectedToon.toonActor.delete()
                     self.selectedToon.updateHead('mi', 'ss')
-                    self.selectedToon.generateActor()
             else:
                 if tested_value < 20 and tested_value > 15:
                     self.selectedToon.toonActor.delete()
@@ -150,6 +148,8 @@ class OptionsMenu:
                     self.selectedToon.toonActor.delete()
                     self.selectedToon.updateHead(self.selectedToon.species, 'ss')
                     self.selectedToon.generateActor()
+                
+                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
         def updateLegs():
             '''Updates the Toon's legs based on the value'''
@@ -160,17 +160,27 @@ class OptionsMenu:
                 self.selectedToon.updateLegs('s')
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.generateActor()
-                print('s')
+                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
             elif tested_value < 40 and tested_value > 35:
                 self.selectedToon.updateLegs('m')
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.generateActor()
-                print('m')
+                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
             elif tested_value < 60 and tested_value > 55:
                 self.selectedToon.updateLegs('l')
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.generateActor()
-                print('l')
+                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
+
+        def rotateToon():
+            '''Updates the Toon's legs based on the value'''
+            sliderValue = self.rotation_slider.slider['value']
+            tested_value = int(sliderValue)
+
+            self.selectedToon.toonActor.setH(tested_value)
+
+        self.rotation_slider = OptionsSlider(aspect2d, '', 0.4, rotateToon, (0, 360))
+        self.rotation_slider.slider.setX(0.25)
 
         self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.8)
         self.head_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
@@ -224,7 +234,7 @@ class OptionsModal(DirectGui.DirectFrame):
 
 class OptionsSlider(OptionsModal):
     '''Creates a Slider which is useful for functions with arguments that include a range'''
-    def __init__(self, modalParent, modalText, z, slider_command=None):
+    def __init__(self, modalParent, modalText, z, slider_command=None, given_range=(0,100)):
         super().__init__(modalParent, modalText, z) # Creates the text on the left
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
         self.slider_thumb_geom = self.options_geom.find('**/*slider2')
@@ -239,7 +249,7 @@ class OptionsSlider(OptionsModal):
             scale=(0.3,0.1,0.4),
             relief=None,
             command=slider_command,
-            range=(0,100)
+            range=given_range
         )
         self.slider.reparentTo(self.containerFrame)
         self.slider.setPos(1.3,0,0)

@@ -149,12 +149,19 @@ class OptionsMenu:
                     self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'cr', 'sl')
                 elif tested_value > 80:
                     self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'cr', 'ss')
-        
+            elif self.selectedToon.species == 'de': # If the Toon is a deer
+                if tested_value < 20:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'de', 'ls')
+                elif tested_value < 40 and tested_value > 20:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'de', 'll')
+                elif tested_value < 60 and tested_value > 40:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'de', 'sl')
+                elif tested_value > 80:
+                    self.selectedToon.head.generateHeadDetails(self.selectedToon.returnHead(),'de', 'ss')
+
+
         self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.8)
         self.head_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
-        #self.torso_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.50, updateLegs)
-        #self.legs_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35)
-        #self.first_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', 0.20)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
         self.second_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', -0.20)
         self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)

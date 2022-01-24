@@ -346,7 +346,7 @@ class ToonHead:
             headModel.find('**/eyes-short').show()
             headModel.find('**/joint_pupilL_short').show()
             headModel.find('**/joint_pupilR_short').show()
-            headModel.find('**/muzzle-short-neutral').show()            
+            headModel.find('**/muzzle-long-neutral').show()            
         elif toonType == 'crss': # Small Head, Small Muzzle
             # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')

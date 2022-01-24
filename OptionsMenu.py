@@ -50,7 +50,7 @@ class OptionsMenu:
     
         # There'll be nothing here, it's just the outer frame
         
-        self.Outer_Page = DirectGui.DirectFrame(
+        self.outer_page = DirectGui.DirectFrame(
             frameSize=(0,0,0,0),
             geom = self.outer_page_geom, 
             geom_scale=0.15, 
@@ -61,8 +61,8 @@ class OptionsMenu:
 
         # First page, this'll be where the Toon controller is
 
-        self.First_Page = DirectGui.DirectFrame(
-            parent=self.Outer_Page,
+        self.first_page = DirectGui.DirectFrame(
+            parent=self.outer_page,
             geom = self.first_page_geom,
             geom_scale=0.15,
             geom_pos=(0,0,0.1),
@@ -72,7 +72,7 @@ class OptionsMenu:
         label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
 
         self.label_inner_text = OnscreenText(text='NPC Creator',
-        parent=self.First_Page,
+        parent=self.first_page,
         font=label_outer_font,
         fg=(0.2,0.6,0.9,1),
         scale=0.15,
@@ -88,11 +88,11 @@ class OptionsMenu:
             geom=self.firstTabGeom,
             geom_scale=0.045,
             geom_pos=(-0.6,0,0.680),
-            parent = self.First_Page,
+            parent = self.first_page,
             frameColor=(0,0,0,0))
         
         self.optionsScroll = DirectGui.DirectScrolledFrame(
-            parent=self.First_Page,
+            parent=self.first_page,
             # GUI of the box
             frameSize=(-0.8,0.85,-0.55,0.35),
             canvasSize=(-1,0,-2,1),
@@ -213,17 +213,18 @@ class OptionsMenu:
 
             self.selectedToon.toonActor.setH(tested_value)
 
-        self.rotation_slider = OptionsSlider(aspect2d, '', 0.4, rotateToon, (0, 360))
-        self.rotation_slider.slider.setX(0.25)
+        self.rotation_slider = OptionsSlider(self.first_page, 'Rotation:', 0.3, rotateToon, (0, 360))
+        self.rotation_slider.containerFrame.setX(-0.75)
+        self.rotation_slider.slider.setX(0.6)
         self.rotation_slider.slider['value'] = 180
         rotateToon()
 
         self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.8)
         self.head_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
-        self.torso_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.55, updateTorso)
-        self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.45, updateLegs)
+        self.torso_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.50, updateTorso)
+        self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35, updateLegs)
+        self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', -0.20)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
-        self.second_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', -0.20)
         self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
         #self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Test:', -0.7) 
 
@@ -293,7 +294,7 @@ class OptionsSlider(OptionsModal):
 
 class OptionsToggle(OptionsModal):
     '''Creates a toggle that creates an off/on switch'''
-    def __init__(self, modalParent, modalText, z, toggle_command=None, fake_command=None):
+    def __init__(self, modalParent, modalText, z, toggle_command=None):
         super().__init__(modalParent, modalText, z) # Creates the text on the left
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
         self.toggle_thumb_geom = self.options_geom.find('**/*toggleButton')

@@ -100,6 +100,10 @@ class Toon:
         self.toonActor.reparentTo(render)
         self.toonActor.setPos(2,35,0)
         self.toonActor.setHpr(180,0,0)
+
+        # 60 FPS animation
+        self.toonActor.setBlend(frameBlend=True)
+
         self.toonActor.loop('neutral')
 
         # Remove shoes

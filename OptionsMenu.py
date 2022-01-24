@@ -151,6 +151,41 @@ class OptionsMenu:
                 
                 self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
+        def updateTorso():
+            '''Updates the Toon's torso based on the value'''
+            sliderValue = self.torso_slider.slider['value']
+            tested_value = int(sliderValue)
+
+            if self.selectedToon.gender == 'm':
+                if tested_value < 20 and tested_value > 15:
+                    self.selectedToon.updateTorso('ss')
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.generateActor()
+                elif tested_value < 40 and tested_value > 35:
+                    self.selectedToon.updateTorso('ms')
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.generateActor()
+                elif tested_value < 60 and tested_value > 55:
+                    self.selectedToon.updateTorso('ls')
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.generateActor()
+            elif self.selectedToon.gender == 'f':
+                if tested_value < 20 and tested_value > 15:
+                    self.selectedToon.updateTorso('sd')
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.generateActor()
+                elif tested_value < 40 and tested_value > 35:
+                    self.selectedToon.updateTorso('md')
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.generateActor()
+                elif tested_value < 60 and tested_value > 55:
+                    self.selectedToon.updateTorso('ld')
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.generateActor()
+            
+            
+            self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
+
         def updateLegs():
             '''Updates the Toon's legs based on the value'''
             sliderValue = self.legs_slider.slider['value']
@@ -160,20 +195,19 @@ class OptionsMenu:
                 self.selectedToon.updateLegs('s')
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.generateActor()
-                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
             elif tested_value < 40 and tested_value > 35:
                 self.selectedToon.updateLegs('m')
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.generateActor()
-                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
             elif tested_value < 60 and tested_value > 55:
                 self.selectedToon.updateLegs('l')
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.generateActor()
-                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
+            
+            self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
         def rotateToon():
-            '''Updates the Toon's legs based on the value'''
+            '''Updates the Toon's rotation based on the value'''
             sliderValue = self.rotation_slider.slider['value']
             tested_value = int(sliderValue)
 
@@ -181,9 +215,12 @@ class OptionsMenu:
 
         self.rotation_slider = OptionsSlider(aspect2d, '', 0.4, rotateToon, (0, 360))
         self.rotation_slider.slider.setX(0.25)
+        self.rotation_slider.slider['value'] = 180
+        rotateToon()
 
         self.toonDNALabel = OptionsLabel(self.optionsScroll.getCanvas(),'Toon DNA',  0.8)
-        self.head_slider= OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
+        self.head_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
+        self.torso_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.55, updateTorso)
         self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.45, updateLegs)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
         self.second_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', -0.20)

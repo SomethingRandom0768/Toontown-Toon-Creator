@@ -3,14 +3,17 @@ from panda3d.core import *
 from ToonHead import *
 
 
-toonTorsoTypes = [ "ss", "ms", "ls", # short shorts, medium shorts, long shorts,
-                   "sd", "md", "ld", # short dress,  medium dress,  long dress.
-                   "s", "m", "l"     # short naked,  medium naked, long naked
-                 ] 
+toonTorsoTypes = { "ss": 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_1000.bam', # short shorts
+                   "ms": 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_1000.bam', # medium shorts
+                   "ls": 'phase_3/models/char/tt_a_chr_dgl_shorts_torso_1000.bam', # long shorts
+                   "sd": 'phase_3/models/char/tt_a_chr_dgs_skirt_torso_1000.bam', # short dress (Should be given this one and below if species is girl) 
+                   "md": 'phase_3/models/char/tt_a_chr_dgm_skirt_torso_1000.bam', # medium dress
+                   "ld": 'phase_3/models/char/tt_a_chr_dgl_skirt_torso_1000.bam', # long dress
+                 } 
 
-toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam',
-                 "m":'phase_3/models/char/tt_a_chr_dgm_shorts_legs_1000.bam', 
-                 "l":'phase_3/models/char/tt_a_chr_dgl_shorts_legs_1000.bam' 
+toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # small
+                 "m":'phase_3/models/char/tt_a_chr_dgm_shorts_legs_1000.bam', # medium
+                 "l":'phase_3/models/char/tt_a_chr_dgl_shorts_legs_1000.bam'  # long
                 } 
 # Short, Medium, Long.
 
@@ -62,8 +65,8 @@ class Toon:
         self.toonActor = None
 
         self.head = ToonHead(self.species, self.headtype)
-        #self.torso = returnTorso(self.torso_type)
-        self.legs = toonLegTypes[leg_size]
+        self.torso = toonTorsoTypes[self.torso_type]
+        self.legs = toonLegTypes[self.leg_size]
 
         self.generateActor()
         
@@ -81,14 +84,14 @@ class Toon:
         
         {
             'head': self.returnHead(),
-            'torso': 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_1000.bam',
+            'torso': self.returnTorso(),
             'legs': self.returnLegs()
         },
 
         {
-         'head': {'neutral': 'phase_3/models/char/tt_a_chr_dgl_shorts_head_neutral.bam' },
+         'head': {'neutral': self.returnHeadAnim(self.headtype)},
          'torso': {'neutral':'phase_3/models/char/tt_a_chr_dgm_shorts_torso_neutral.bam'},
-         'legs':  {'neutral':'phase_3/models/char/tt_a_chr_dgs_shorts_legs_neutral.bam'} 
+         'legs':  {'neutral': self.returnLegsAnim(self.leg_size)} 
         })
 
         self.toonActor.attach('head', 'torso', 'def_head')
@@ -99,6 +102,12 @@ class Toon:
         self.toonActor.setHpr(180,0,0)
         self.toonActor.loop('neutral')
 
+        # Remove shoes
+        self.toonActor.find('**/*shoes').removeNode()
+        self.toonActor.find('**/*boots_short').removeNode()
+        self.toonActor.find('**/*boots_long').removeNode()
+
+        # Add shadow
         shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
         shadow.reparentTo(self.toonActor.find('**/joint_shadow'))
 
@@ -106,20 +115,47 @@ class Toon:
         shadow.setSy(0.5)
         
     def updateHead(self, species, head_type):
+        '''Updates the head type.'''
         self.head = ToonHead(species, head_type)
-        self.headtype = head_type
-
-    #def updateTorso(self, torso_type):
+    
+    def updateTorso(self, torso_type):
+        '''Updates the torso type'''
+        self.torso = toonTorsoTypes[torso_type]
 
     def updateLegs(self, legs_type):
+        '''Updates the leg type'''
+        self.leg_size = legs_type
         self.legs = toonLegTypes[legs_type]
 
     def returnHead(self):
-        '''Just returns the head node'''
+        '''Just returns the head'''
         return self.head.head_model
 
+    def returnHeadAnim(self,headType):
+        headSizeIndex = headType[0]
+
+        if headSizeIndex == 'l':
+            return 'phase_3/models/char/tt_a_chr_dgl_shorts_head_neutral.bam'
+        elif headSizeIndex == 'm':
+            return 'phase_3/models/char/tt_a_chr_dgm_shorts_head_neutral.bam'
+        elif headSizeIndex == 's':
+            return 'phase_3/models/char/tt_a_chr_dgs_shorts_head_neutral.bam'
+    
+    def returnTorso(self):
+        '''Returns the torso'''
+        return self.torso
+
     def returnLegs(self):
-        '''Returns legs'''
+        '''Returns the legs'''
         return self.legs    
-        
+    
+    def returnLegsAnim(self, legsType):
+        legSizeIndex = legsType
+
+        if legSizeIndex == 'l':
+            return 'phase_3/models/char/tt_a_chr_dgl_shorts_legs_neutral.bam'
+        elif legSizeIndex == 'm':
+            return 'phase_3/models/char/tt_a_chr_dgm_shorts_legs_neutral.bam'
+        elif legSizeIndex == 's':
+            return 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_neutral.bam'
         

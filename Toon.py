@@ -90,7 +90,7 @@ class Toon:
 
         {
          'head': {'neutral': self.returnHeadAnim(self.headtype)},
-         'torso': {'neutral':'phase_3/models/char/tt_a_chr_dgm_shorts_torso_neutral.bam'},
+         'torso': {'neutral': self.returnTorsoAnim(self.torso_type)},
          'legs':  {'neutral': self.returnLegsAnim(self.leg_size)} 
         })
 
@@ -121,6 +121,7 @@ class Toon:
     def updateTorso(self, torso_type):
         '''Updates the torso type'''
         self.torso = toonTorsoTypes[torso_type]
+        self.torso_type = torso_type
 
     def updateLegs(self, legs_type):
         '''Updates the leg type'''
@@ -131,7 +132,7 @@ class Toon:
         '''Just returns the head'''
         return self.head.head_model
 
-    def returnHeadAnim(self,headType):
+    def returnHeadAnim(self, headType):
         headSizeIndex = headType[0]
 
         if headSizeIndex == 'l':
@@ -144,6 +145,22 @@ class Toon:
     def returnTorso(self):
         '''Returns the torso'''
         return self.torso
+    
+    def returnTorsoAnim(self, torsoType):
+
+        if torsoType == 'ss':
+            return 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_neutral.bam'
+        elif torsoType == 'ms':
+            return 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_neutral.bam'
+        elif torsoType == 'ls':
+            return 'phase_3/models/char/tt_a_chr_dgl_shorts_torso_neutral.bam'
+        elif torsoType == 'sd':
+            return 'phase_3/models/char/tt_a_chr_dgs_skirt_torso_neutral.bam'
+        elif torsoType == 'md':
+            return 'phase_3/models/char/tt_a_chr_dgm_skirt_torso_neutral.bam'
+        elif torsoType == 'ld':
+            return 'phase_3/models/char/tt_a_chr_dgl_skirt_torso_neutral.bam'
+        
 
     def returnLegs(self):
         '''Returns the legs'''

@@ -213,6 +213,9 @@ class OptionsMenu:
 
             self.selectedToon.toonActor.setH(tested_value)
 
+        def changeGender():
+            print("Gender change!")
+
         self.rotation_slider = OptionsSlider(self.first_page, 'Rotation:', 0.3, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-0.75)
         self.rotation_slider.slider.setX(0.6)
@@ -223,7 +226,7 @@ class OptionsMenu:
         self.head_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
         self.torso_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.50, updateTorso)
         self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35, updateLegs)
-        self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Test:', -0.20)
+        self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.20, changeGender)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
         self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
         #self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Test:', -0.7) 
@@ -303,14 +306,14 @@ class OptionsToggle(OptionsModal):
 
         def executeFunction(self, toggle_command=None):
             if toggle_command:
-                print("Function Executed")
+                toggle_command()
 
             animateToggle()
 
         self.button= DirectGui.DirectCheckButton(
-            scale=0.25,
+            scale=0.15,
             relief=None,
-            boxImageScale=0.5,
+            boxImageScale=1,
             boxPlacement=('right'),
             boxImage=(self.warm_geom, self.cold_geom),
             boxRelief=None,
@@ -320,19 +323,19 @@ class OptionsToggle(OptionsModal):
         )
 
         self.button.reparentTo(self.containerFrame)
-        self.button.setPos(1.25,0,0.1)
+        self.button.setPos(1.25,0,0.025)
 
         # The button on the thing.
-        self.toggle_thumb_geom.setScale(0.5)
-        self.toggle_thumb_geom.setPos(0.35,0,-0.25)
+        self.toggle_thumb_geom.setScale(1)
+        self.toggle_thumb_geom.setPos(0.6,0,-0.15)
         self.toggle_thumb_geom.reparentTo(self.button)
 
         def animateToggle():
             if self.button['indicatorValue']:
-                toggle_forward_interval = LerpPosInterval(self.toggle_thumb_geom, 0.15, (0.65,0,-0.25), (0.35,0,-0.25) )
+                toggle_forward_interval = LerpPosInterval(self.toggle_thumb_geom, 0.15, (1.2,0,-0.15), (0.6,0,-0.15) )
                 toggle_forward_interval.start()
             else:
-                toggle_back_interval = LerpPosInterval(self.toggle_thumb_geom, 0.15, (0.35,0,-0.25), (0.65,0,-0.25) )
+                toggle_back_interval = LerpPosInterval(self.toggle_thumb_geom, 0.15, (0.6,0,-0.15), (1.2,0,-0.15) )
                 toggle_back_interval.start()
 
 class OptionsChoosingMenu(OptionsModal):

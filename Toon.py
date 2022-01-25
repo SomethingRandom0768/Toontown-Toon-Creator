@@ -118,9 +118,9 @@ class Toon:
         shadow.setSx(0.5)
         shadow.setSy(0.5)
         
-    def updateHead(self, species, head_type):
+    def updateHead(self, species, head_type, has_eyelashes):
         '''Updates the head type.'''
-        self.head = ToonHead(species, head_type)
+        self.head = ToonHead(species, head_type, has_eyelashes)
     
     def updateTorso(self, torso_type):
         '''Updates the torso type'''

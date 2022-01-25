@@ -127,26 +127,26 @@ class OptionsMenu:
             if self.selectedToon.species == 'mi':
                 if tested_value == 50:
                     self.selectedToon.toonActor.delete()
-                    self.selectedToon.updateHead('mi', 'ls')
+                    self.selectedToon.updateHead('mi', 'ls', self.selectedToon.eyelashes)
                 elif tested_value == 100:
                     self.selectedToon.toonActor.delete()
-                    self.selectedToon.updateHead('mi', 'ss')
+                    self.selectedToon.updateHead('mi', 'ss', self.selectedToon.eyelashes)
             else:
                 if tested_value < 20 and tested_value > 15:
                     self.selectedToon.toonActor.delete()
-                    self.selectedToon.updateHead(self.selectedToon.species, 'ls')
+                    self.selectedToon.updateHead(self.selectedToon.species, 'ls', self.selectedToon.eyelashes)
                     self.selectedToon.generateActor()
                 elif tested_value < 40 and tested_value > 35:
                     self.selectedToon.toonActor.delete()
-                    self.selectedToon.updateHead(self.selectedToon.species, 'll')
+                    self.selectedToon.updateHead(self.selectedToon.species, 'll', self.selectedToon.eyelashes)
                     self.selectedToon.generateActor()
                 elif tested_value < 60 and tested_value > 55:
                     self.selectedToon.toonActor.delete()
-                    self.selectedToon.updateHead(self.selectedToon.species, 'sl')
+                    self.selectedToon.updateHead(self.selectedToon.species, 'sl', self.selectedToon.eyelashes)
                     self.selectedToon.generateActor()
                 elif tested_value < 80 and tested_value > 75:
                     self.selectedToon.toonActor.delete()
-                    self.selectedToon.updateHead(self.selectedToon.species, 'ss')
+                    self.selectedToon.updateHead(self.selectedToon.species, 'ss', self.selectedToon.eyelashes)
                     self.selectedToon.generateActor()
                 
                 self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
@@ -215,6 +215,9 @@ class OptionsMenu:
 
         def changeGender():
             print("Gender change!")
+        
+        def eyelashToggle():
+            print("Eyelash change!")
 
         self.rotation_slider = OptionsSlider(self.first_page, 'Rotation:', 0.3, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-0.75)

@@ -214,7 +214,17 @@ class OptionsMenu:
             self.selectedToon.toonActor.setH(tested_value)
 
         def changeGender():
-            print("Gender change!")
+            '''Changes the toon's gender based on the current gender'''
+            if self.selectedToon.gender == 'm':
+                self.selectedToon.gender = 'f'
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.updateTorso('sd')
+                self.selectedToon.generateActor()
+            elif self.selectedToon.gender == 'f':
+                self.selectedToon.gender = 'm'
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.updateTorso('ss')
+                self.selectedToon.generateActor()
         
         def eyelashToggle():
             '''Toggles the eyelashes on the Toon's head'''
@@ -229,9 +239,9 @@ class OptionsMenu:
                 self.selectedToon.updateHead(self.selectedToon.species, self.selectedToon.headtype, self.selectedToon.eyelashes)
                 self.selectedToon.generateActor()
 
-        self.rotation_slider = OptionsSlider(self.first_page, 'Rotation:', 0.3, rotateToon, (0, 360))
-        self.rotation_slider.containerFrame.setX(-0.75)
-        self.rotation_slider.slider.setX(0.6)
+        self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
+        self.rotation_slider.containerFrame.setX(-1.75)
+        self.rotation_slider.slider.setX(1.15)
         self.rotation_slider.slider['value'] = 180
         rotateToon()
 
@@ -240,8 +250,10 @@ class OptionsMenu:
         self.torso_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.50, updateTorso)
         self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35, updateLegs)
         self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Eyelashes:', 0.20, eyelashToggle)
-        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
-        self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
+        self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
+
+        #self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
+        #self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
         #self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Test:', -0.7) 
 
 class OptionsLabel:

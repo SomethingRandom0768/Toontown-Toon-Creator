@@ -70,10 +70,7 @@ class Toon:
         self.legs = toonLegTypes[self.leg_size]
 
         self.generateActor()
-        
-        # phase_3/models/char/tt_a_chr_dgl_shorts_head_neutral.bam
-        # phase_3/models/char/tt_a_chr_dgm_shorts_head_neutral.bam
-        # phase_3/models/char/tt_a_chr_dgs_shorts_head_neutral.bam
+
 
     def generateActor(self):
         '''Updates Toon's pieces, and then creates an actor.'''

@@ -49,7 +49,7 @@ colorsList = {
 
 class Toon:
     '''This is the Actor that is a toon. Reads from ToonDNA's data for clothing'''
-    def __init__(self, species, head_type=None, torso_type=None, leg_size=None, gender=None, head_color=None, glove_color=None, torso_color=None, leg_color=None, shirt_texture=None, shirt_color=None,bottom_color=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color=None, glove_color=None, torso_color=None, leg_color=None, shirt_texture=None, shirt_color=None,bottom_color=None):
         self.species = species
         self.headtype = head_type # This basically helps set the species.
         self.torso_type = torso_type
@@ -63,8 +63,9 @@ class Toon:
         self.shirt_color = shirt_color
         self.bottom_color = bottom_color
         self.toonActor = None
+        self.eyelashes = has_eyelashes
 
-        self.head = ToonHead(self.species, self.headtype)
+        self.head = ToonHead(self.species, self.headtype, self.eyelashes)
         self.torso = toonTorsoTypes[self.torso_type]
         self.legs = toonLegTypes[self.leg_size]
 
@@ -103,7 +104,6 @@ class Toon:
 
         # 60 FPS animation
         self.toonActor.setBlend(frameBlend=True)
-
         self.toonActor.loop('neutral')
 
         # Remove shoes

@@ -4,14 +4,14 @@ from panda3d.core import NodePath
 class ToonHead:
 #TODO NEED TO REWRITE IT TO WHERE THE SPECIES WILL AFFECT THE MODEL OF THE HEAD SHOWN. 
 #THE SLICE OF THE STRING THAT REPRESENTS THE MUZZLE AND THE HEAD SIZE WILL BE USED TO HIDE AND SHOW BITS AND PIECES.
-    def __init__(self, species, headType, gender='m'):
+    def __init__(self, species, headType, hasEyelashes, gender='m'):
         '''Species - what species the toon is
            Type - What type of head are we going for (what head type and muzzle type?)
         '''
 
         # generateHead creates the specific species head model, generateHeadDetails changes the head size and the muzzle size
         self.head_model = self.generateHead(species)
-        self.generateHeadDetails(self.head_model, species, headType)
+        self.generateHeadDetails(self.head_model, species, headType, hasEyelashes)
 
     def generateHead(self, species):
         '''Generates the head model based on the species. Passes headType and gender to the details function'''
@@ -52,7 +52,7 @@ class ToonHead:
     
         return headModel
 
-    def generateHeadDetails(self, headModel, species, head_type, gender='m'):
+    def generateHeadDetails(self, headModel, species, head_type, has_eyelashes):
         '''Based on the species and head type and gender, changes the head detail'''
         toonType = species + head_type # toonType is a string, basically returns something like "cls" or "cals"
 
@@ -470,9 +470,34 @@ class ToonHead:
         
         # Dogs (Need to hold off considering they have different models.)
 
+        # Generate the eyelashes if wanted
+        if has_eyelashes:
+            self.createEyelashes(species, head_type)
+        else:
+            pass
+    
+    def createEyelashes(self, species, head_type):
+        '''Creates eyelash model based on species and head type'''
 
-        
-        
+        if species == 'b' and head_type[0] == 'l':  # Bear and long head
+            eyelashes = loader.loadModel('phase_3/models/char/bear-lashes.bam').find('**/open-long')
+        elif species == 'b' and head_type[0] == 's': # Bear and small head
+            eyelashes = loader.loadModel('phase_3/models/char/bear-lashes.bam').find('**/open-short')
+
+        elif species == 'ca' and head_type[0] == 'l': # Cat and long head
+            eyelashes = loader.loadModel('phase_3/models/char/cat-lashes.bam').find('**/open-long')
+        elif species == 'ca' and head_type[0] == 's': # Cat and short head
+            eyelashes = loader.loadModel('phase_3/models/char/cat-lashes.bam').find('**/open-short')
+
+        elif species == 'cr' and head_type[0] == 'l': # Cat and long head
+            eyelashes = loader.loadModel('phase_3/models/char/crocodile-lashes.bam').find('**/open-long')
+        elif species == 'cr' and head_type[0] == 's': # Cat and short head
+            eyelashes = loader.loadModel('phase_3/models/char/crocodile-lashes.bam').find('**/open-short')
+
+        if head_type[0] == 'l':
+            eyelashes.reparentTo(self.head_model.find('**/eyes-long'))
+        elif head_type[0] == 's':
+            eyelashes.reparentTo(self.head_model.find('**/eyes-short'))
 
     def removeHead(self):
         self.head_model.getChildren().detach()

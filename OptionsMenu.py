@@ -149,7 +149,7 @@ class OptionsMenu:
                     self.selectedToon.updateHead(self.selectedToon.species, 'ss', self.selectedToon.eyelashes)
                     self.selectedToon.generateActor()
                 
-                self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
+            self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
         def updateTorso():
             '''Updates the Toon's torso based on the value'''
@@ -225,7 +225,9 @@ class OptionsMenu:
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.updateTorso('ss')
                 self.selectedToon.generateActor()
-        
+
+            self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
+            
         def eyelashToggle():
             '''Toggles the eyelashes on the Toon's head'''
             if self.selectedToon.eyelashes:
@@ -238,6 +240,7 @@ class OptionsMenu:
                 self.selectedToon.eyelashes = True
                 self.selectedToon.updateHead(self.selectedToon.species, self.selectedToon.headtype, self.selectedToon.eyelashes)
                 self.selectedToon.generateActor()
+            self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)

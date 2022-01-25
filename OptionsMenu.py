@@ -217,7 +217,17 @@ class OptionsMenu:
             print("Gender change!")
         
         def eyelashToggle():
-            print("Eyelash change!")
+            '''Toggles the eyelashes on the Toon's head'''
+            if self.selectedToon.eyelashes:
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.eyelashes = False
+                self.selectedToon.updateHead(self.selectedToon.species, self.selectedToon.headtype, self.selectedToon.eyelashes)
+                self.selectedToon.generateActor()
+            elif self.selectedToon.eyelashes == False:
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.eyelashes = True
+                self.selectedToon.updateHead(self.selectedToon.species, self.selectedToon.headtype, self.selectedToon.eyelashes)
+                self.selectedToon.generateActor()
 
         self.rotation_slider = OptionsSlider(self.first_page, 'Rotation:', 0.3, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-0.75)
@@ -229,7 +239,7 @@ class OptionsMenu:
         self.head_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Head:', 0.65, updateHead)
         self.torso_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.50, updateTorso)
         self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35, updateLegs)
-        self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.20, changeGender)
+        self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Eyelashes:', 0.20, eyelashToggle)
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
         self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
         #self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Test:', -0.7) 

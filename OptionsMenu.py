@@ -244,6 +244,16 @@ class OptionsMenu:
                 self.selectedToon.generateActor()
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
+        def smoothanimationToggle():
+            if self.selectedToon.smooth_enabled:
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.smooth_enabled = False
+                self.selectedToon.generateActor()
+            else:
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.smooth_enabled = True
+                self.selectedToon.generateActor()
+
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -255,9 +265,10 @@ class OptionsMenu:
         self.torso_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Torso:', 0.50, updateTorso)
         self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35, updateLegs)
         self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Eyelashes:', 0.20, eyelashToggle)
-        self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
+        self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
+        self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), '60FPS Animation:', -0.1, smoothanimationToggle)
 
-        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.1)
+        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.3)
         #self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
         #self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Test:', -0.7) 
 

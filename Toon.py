@@ -99,8 +99,6 @@ class Toon:
         self.toonActor.setPos(2,35,0)
         self.toonActor.setHpr(180,0,0)
 
-        # 60 FPS animation
-        self.toonActor.setBlend(frameBlend=True)
         self.toonActor.loop('neutral')
 
         # Remove shoes
@@ -162,7 +160,6 @@ class Toon:
         elif torsoType == 'ld':
             return 'phase_3/models/char/tt_a_chr_dgl_skirt_torso_neutral.bam'
         
-
     def returnLegs(self):
         '''Returns the legs'''
         return self.legs    

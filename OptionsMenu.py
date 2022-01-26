@@ -71,7 +71,7 @@ class OptionsMenu:
         
         label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
 
-        self.label_inner_text = OnscreenText(text='NPC Creator',
+        self.label_inner_text = OnscreenText(text='Toon Creator',
         parent=self.first_page,
         font=label_outer_font,
         fg=(0.2,0.6,0.9,1),
@@ -128,9 +128,11 @@ class OptionsMenu:
                 if tested_value == 50:
                     self.selectedToon.toonActor.delete()
                     self.selectedToon.updateHead('mi', 'ls', self.selectedToon.eyelashes)
+                    self.selectedToon.generateActor()
                 elif tested_value == 100:
                     self.selectedToon.toonActor.delete()
                     self.selectedToon.updateHead('mi', 'ss', self.selectedToon.eyelashes)
+                    self.selectedToon.generateActor()
             else:
                 if tested_value < 20 and tested_value > 15:
                     self.selectedToon.toonActor.delete()
@@ -218,16 +220,16 @@ class OptionsMenu:
             if self.selectedToon.gender == 'm':
                 self.selectedToon.gender = 'f'
                 self.selectedToon.toonActor.delete()
-                self.selectedToon.updateTorso('sd')
+                self.selectedToon.updateTorso(self.selectedToon.torso_type[0] + 'd')
                 self.selectedToon.generateActor()
             elif self.selectedToon.gender == 'f':
                 self.selectedToon.gender = 'm'
                 self.selectedToon.toonActor.delete()
-                self.selectedToon.updateTorso('ss')
+                self.selectedToon.updateTorso(self.selectedToon.torso_type[0] + 's')
                 self.selectedToon.generateActor()
 
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
-            
+
         def eyelashToggle():
             '''Toggles the eyelashes on the Toon's head'''
             if self.selectedToon.eyelashes:
@@ -255,7 +257,7 @@ class OptionsMenu:
         self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Eyelashes:', 0.20, eyelashToggle)
         self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
 
-        #self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test:',  0)
+        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.1)
         #self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
         #self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Test:', -0.7) 
 

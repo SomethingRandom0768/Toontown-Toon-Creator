@@ -246,13 +246,11 @@ class OptionsMenu:
 
         def smoothanimationToggle():
             if self.selectedToon.smooth_enabled:
-                self.selectedToon.toonActor.delete()
+                self.selectedToon.toonActor.setBlend(frameBlend=False)
                 self.selectedToon.smooth_enabled = False
-                self.selectedToon.generateActor()
             else:
-                self.selectedToon.toonActor.delete()
+                self.selectedToon.toonActor.setBlend(frameBlend=True)
                 self.selectedToon.smooth_enabled = True
-                self.selectedToon.generateActor()
 
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)

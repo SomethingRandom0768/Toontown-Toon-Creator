@@ -13,8 +13,9 @@ class ToonHead:
         self.head_model = self.generateHead(species)
         self.generateHeadDetails(self.head_model, species, headType, hasEyelashes)
 
-    def generateHead(self, species):
-        '''Generates the head model based on the species. Passes headType and gender to the details function'''
+    def generateHead(self, species, headType=None):
+        '''Generates the head model based on the species. Passes headType and gender to the details function.
+        Use headType only for dogs.'''
 
         # All the bears
         if species == 'b': 
@@ -29,6 +30,7 @@ class ToonHead:
         elif species == 'de':
             headModel = loader.loadModel('phase_3/models/char/deer-heads-1000.bam')
         # All the dogs (WIP)
+        #elif species == 'do'
         # All the ducks
         elif species == 'du':
             headModel = loader.loadModel('phase_3/models/char/duck-heads-1000.bam')
@@ -470,6 +472,364 @@ class ToonHead:
         
         # Dogs (Need to hold off considering they have different models.)
 
+        # Ducks 
+        elif toonType == 'duls': # Big Head, Small Muzzle
+
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-short').hide()
+            headModel.find('**/head-front-short').hide()
+            headModel.find('**/eyes-short').hide()
+            headModel.find('**/joint_pupilL_short').hide()
+            headModel.find('**/joint_pupilR_short').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-long').show()
+            headModel.find('**/head-front-long').show()
+            headModel.find('**/eyes-long').show()
+            headModel.find('**/joint_pupilL_long').show()
+            headModel.find('**/joint_pupilR_long').show()
+            headModel.find('**/muzzle-short-neutral').show()
+        elif toonType == 'dull': # Big Head, Big Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-short').hide()
+            headModel.find('**/head-front-short').hide()
+            headModel.find('**/eyes-short').hide()
+            headModel.find('**/joint_pupilL_short').hide()
+            headModel.find('**/joint_pupilR_short').hide()
+            headModel.find('**/muzzle-long-surprise').hide()
+            headModel.find('**/muzzle-long-sad').hide()
+            headModel.find('**/muzzle-long-smile').hide()
+            headModel.find('**/muzzle-long-angry').hide()
+            headModel.find('**/muzzle-long-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-long').show()
+            headModel.find('**/head-front-long').show()
+            headModel.find('**/eyes-long').show()
+            headModel.find('**/joint_pupilL_long').show()
+            headModel.find('**/joint_pupilR_long').show()
+            headModel.find('**/muzzle-long-neutral').show()           
+        elif toonType == 'dusl': # Small Head, Big Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-long').hide()
+            headModel.find('**/head-front-long').hide()
+            headModel.find('**/eyes-long').hide()
+            headModel.find('**/joint_pupilL_long').hide()
+            headModel.find('**/joint_pupilR_long').hide()
+            headModel.find('**/muzzle-long-surprise').hide()
+            headModel.find('**/muzzle-long-sad').hide()
+            headModel.find('**/muzzle-long-smile').hide()
+            headModel.find('**/muzzle-long-angry').hide()
+            headModel.find('**/muzzle-long-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-short').show()
+            headModel.find('**/head-front-short').show()
+            headModel.find('**/eyes-short').show()
+            headModel.find('**/joint_pupilL_short').show()
+            headModel.find('**/joint_pupilR_short').show()
+            headModel.find('**/muzzle-short-neutral').show()            
+        elif toonType == 'duss': # Small Head, Small Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-long').hide()
+            headModel.find('**/head-front-long').hide()
+            headModel.find('**/eyes-long').hide()
+            headModel.find('**/joint_pupilL_long').hide()
+            headModel.find('**/joint_pupilR_long').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-short').show()
+            headModel.find('**/head-front-short').show()
+            headModel.find('**/eyes-short').show()
+            headModel.find('**/joint_pupilL_short').show()
+            headModel.find('**/joint_pupilR_short').show()
+            headModel.find('**/muzzle-short-neutral').show()
+
+        # Horses
+        elif toonType == 'hls': # Big Head, Small Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-short').hide()
+            headModel.find('**/head-front-short').hide()
+            headModel.find('**/ears-short').hide()
+            headModel.find('**/eyes-short').hide()
+            headModel.find('**/joint_pupilL_short').hide()
+            headModel.find('**/joint_pupilR_short').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-long').show()
+            headModel.find('**/head-front-long').show()
+            headModel.find('**/ears-long').show()
+            headModel.find('**/eyes-long').show()
+            headModel.find('**/joint_pupilL_long').show()
+            headModel.find('**/joint_pupilR_long').show()
+            headModel.find('**/muzzle-short-neutral').show()
+        elif toonType == 'hll': # Big Head, Big Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-short').hide()
+            headModel.find('**/head-front-short').hide()
+            headModel.find('**/ears-short').hide()
+            headModel.find('**/eyes-short').hide()
+            headModel.find('**/joint_pupilL_short').hide()
+            headModel.find('**/joint_pupilR_short').hide()
+            headModel.find('**/muzzle-long-surprise').hide()
+            headModel.find('**/muzzle-long-sad').hide()
+            headModel.find('**/muzzle-long-smile').hide()
+            headModel.find('**/muzzle-long-angry').hide()
+            headModel.find('**/muzzle-long-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-long').show()
+            headModel.find('**/head-front-long').show()
+            headModel.find('**/ears-long').show()
+            headModel.find('**/eyes-long').show()
+            headModel.find('**/joint_pupilL_long').show()
+            headModel.find('**/joint_pupilR_long').show()
+            headModel.find('**/muzzle-long-neutral').show()  
+        elif toonType == 'hsl': # Small Head, Big Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-long').hide()
+            headModel.find('**/head-front-long').hide()
+            headModel.find('**/ears-long').hide()
+            headModel.find('**/eyes-long').hide()
+            headModel.find('**/joint_pupilL_long').hide()
+            headModel.find('**/joint_pupilR_long').hide()
+            headModel.find('**/muzzle-long-surprise').hide()
+            headModel.find('**/muzzle-long-sad').hide()
+            headModel.find('**/muzzle-long-smile').hide()
+            headModel.find('**/muzzle-long-angry').hide()
+            headModel.find('**/muzzle-long-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-short').show()
+            headModel.find('**/head-front-short').show()
+            headModel.find('**/ears-short').show()
+            headModel.find('**/eyes-short').show()
+            headModel.find('**/joint_pupilL_short').show()
+            headModel.find('**/joint_pupilR_short').show()
+            headModel.find('**/muzzle-long-neutral').show()   
+        elif toonType == 'hss': # Small Head, Small Muzzle 
+        # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-long').hide()
+            headModel.find('**/head-front-long').hide()
+            headModel.find('**/ears-long').hide()
+            headModel.find('**/eyes-long').hide()
+            headModel.find('**/joint_pupilL_long').hide()
+            headModel.find('**/joint_pupilR_long').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-short').show()
+            headModel.find('**/head-front-short').show()
+            headModel.find('**/ears-short').show()
+            headModel.find('**/eyes-short').show()
+            headModel.find('**/joint_pupilL_short').show()
+            headModel.find('**/joint_pupilR_short').show()
+            headModel.find('**/muzzle-short-neutral').show()                        
+
+        # Monkeys
+        elif toonType == 'mols': # Big Head, Small Muzzle
+        # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-short').hide()
+            headModel.find('**/head-front-short').hide()
+            headModel.find('**/ears-short').hide()
+            headModel.find('**/eyes-short').hide()
+            headModel.find('**/joint_pupilL_short').hide()
+            headModel.find('**/joint_pupilR_short').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-long').show()
+            headModel.find('**/head-front-long').show()
+            headModel.find('**/ears-long').show()
+            headModel.find('**/eyes-long').show()
+            headModel.find('**/joint_pupilL_long').show()
+            headModel.find('**/joint_pupilR_long').show()
+            headModel.find('**/muzzle-short-neutral').show()
+        elif toonType == 'moll': # Big Head, Big Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-short').hide()
+            headModel.find('**/head-front-short').hide()
+            headModel.find('**/ears-short').hide()
+            headModel.find('**/eyes-short').hide()
+            headModel.find('**/joint_pupilL_short').hide()
+            headModel.find('**/joint_pupilR_short').hide()
+            headModel.find('**/muzzle-long-surprise').hide()
+            headModel.find('**/muzzle-long-sad').hide()
+            headModel.find('**/muzzle-long-smile').hide()
+            headModel.find('**/muzzle-long-angry').hide()
+            headModel.find('**/muzzle-long-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-long').show()
+            headModel.find('**/head-front-long').show()
+            headModel.find('**/ears-long').show()
+            headModel.find('**/eyes-long').show()
+            headModel.find('**/joint_pupilL_long').show()
+            headModel.find('**/joint_pupilR_long').show()
+            headModel.find('**/muzzle-long-neutral').show() 
+        elif toonType == 'mosl': # Small Head, Big Muzzle
+            # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-long').hide()
+            headModel.find('**/head-front-long').hide()
+            headModel.find('**/ears-long').hide()
+            headModel.find('**/eyes-long').hide()
+            headModel.find('**/joint_pupilL_long').hide()
+            headModel.find('**/joint_pupilR_long').hide()
+            headModel.find('**/muzzle-long-surprise').hide()
+            headModel.find('**/muzzle-long-sad').hide()
+            headModel.find('**/muzzle-long-smile').hide()
+            headModel.find('**/muzzle-long-angry').hide()
+            headModel.find('**/muzzle-long-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-short').show()
+            headModel.find('**/head-front-short').show()
+            headModel.find('**/ears-short').show()
+            headModel.find('**/eyes-short').show()
+            headModel.find('**/joint_pupilL_short').show()
+            headModel.find('**/joint_pupilR_short').show()
+            headModel.find('**/muzzle-long-neutral').show() 
+        elif toonType == 'moss': # Small Head, Small Muzzle
+        # All the stuff we hide
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
+            for piece in muzzleToRemove:
+                piece.hide()
+            headModel.find('**/head-long').hide()
+            headModel.find('**/head-front-long').hide()
+            headModel.find('**/ears-long').hide()
+            headModel.find('**/eyes-long').hide()
+            headModel.find('**/joint_pupilL_long').hide()
+            headModel.find('**/joint_pupilR_long').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+
+            headModel.find('**/head-short').show()
+            headModel.find('**/head-front-short').show()
+            headModel.find('**/ears-short').show()
+            headModel.find('**/eyes-short').show()
+            headModel.find('**/joint_pupilL_short').show()
+            headModel.find('**/joint_pupilR_short').show()
+            headModel.find('**/muzzle-short-neutral').show()    
+
+        # Mice (thank goodness they only have 2 types)
+        elif toonType == 'mils': # Big Head, Small Muzzle
+            # All the stuff we hide
+            headModel.find('**/head-short').hide()
+            headModel.find('**/head-front-short').hide()
+            headModel.find('**/ears-short').hide()
+            headModel.find('**/eyes-short').hide()
+            headModel.find('**/joint_pupilL_short').hide()
+            headModel.find('**/joint_pupilR_short').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+            headModel.find('**/head-long').show()
+            headModel.find('**/head-front-long').show()
+            headModel.find('**/ears-long').show()
+            headModel.find('**/eyes-long').show()
+            headModel.find('**/joint_pupilL_long').show()
+            headModel.find('**/joint_pupilR_long').show()
+            headModel.find('**/muzzle-short-neutral').show() 
+        elif toonType == 'miss': # Small head, Small Muzzle
+            # All the stuff we hide
+            headModel.find('**/head-long').hide()
+            headModel.find('**/head-front-long').hide()
+            headModel.find('**/ears-long').hide()
+            headModel.find('**/eyes-long').hide()
+            headModel.find('**/joint_pupilL_long').hide()
+            headModel.find('**/joint_pupilR_long').hide()
+            headModel.find('**/muzzle-short-surprise').hide()
+            headModel.find('**/muzzle-short-sad').hide()
+            headModel.find('**/muzzle-short-smile').hide()
+            headModel.find('**/muzzle-short-angry').hide()
+            headModel.find('**/muzzle-short-laugh').hide()
+
+            # All the stuff we show
+            headModel.find('**/head-short').show()
+            headModel.find('**/head-front-short').show()
+            headModel.find('**/ears-short').show()
+            headModel.find('**/eyes-short').show()
+            headModel.find('**/joint_pupilL_short').show()
+            headModel.find('**/joint_pupilR_short').show()
+            headModel.find('**/muzzle-short-neutral').show()
+
+
         # Generate the eyelashes if wanted
         if has_eyelashes:
             self.createEyelashes(species, head_type)
@@ -489,14 +849,41 @@ class ToonHead:
         elif species == 'ca' and head_type[0] == 's': # Cat and short head
             eyelashes = loader.loadModel('phase_3/models/char/cat-lashes.bam').find('**/open-short')
 
-        elif species == 'cr' and head_type[0] == 'l': # Cat and long head
+        elif species == 'cr' and head_type[0] == 'l': # Crocodile and long head
             eyelashes = loader.loadModel('phase_3/models/char/crocodile-lashes.bam').find('**/open-long')
-        elif species == 'cr' and head_type[0] == 's': # Cat and short head
+        elif species == 'cr' and head_type[0] == 's': # Crocodile and short head
             eyelashes = loader.loadModel('phase_3/models/char/crocodile-lashes.bam').find('**/open-short')
+        
+        elif species == 'de': # Deers only have one type of head, though they have eyelashes even for long heads, whichever those were. Interesting.
+            eyelashes = loader.loadModel('phase_3/models/char/deer-lashes.bam').find('**/open-short')
+        
+        elif species == 'du' and head_type[0] == 'l': # Ducks and long head
+            eyelashes = loader.loadModel('phase_3/models/char/duck-lashes.bam').find('**/open-long')
+        elif species == 'du' and head_type[0] == 's': # Ducks and short head
+            eyelashes = loader.loadModel('phase_3/models/char/duck-lashes.bam').find('**/open-short')
+        
+        elif species == 'h' and head_type[0] == 'l': # Horse and long head
+            eyelashes = loader.loadModel('phase_3/models/char/horse-lashes.bam').find('**/open-long')
+        elif species == 'h' and head_type[0] == 's': # Horse and short head
+            eyelashes = loader.loadModel('phase_3/models/char/horse-lashes.bam').find('**/open-short')
 
-        if head_type[0] == 'l':
+        elif species == 'mo' and head_type[0] == 'l': # Monkey and long head
+            eyelashes = loader.loadModel('phase_3/models/char/monkey-lashes.bam').find('**/open-long')
+        elif species == 'mo' and head_type[0] == 's': # Monkey and short head
+            eyelashes = loader.loadModel('phase_3/models/char/monkey-lashes.bam').find('**/open-short')
+        
+        elif species == 'mi' and head_type[0] == 'l': # Mouse and long head
+            eyelashes = loader.loadModel('phase_3/models/char/mouse-lashes.bam').find('**/open-long')
+        elif species == 'mi' and head_type[0] == 's': # Mouse and short head
+            eyelashes = loader.loadModel('phase_3/models/char/mouse-lashes.bam').find('**/open-short')
+
+        # I have to make some changes here to make sure deers can work since they don't have different head types, only antler types.
+
+        if head_type[0] == 'l' and species != 'de':
             eyelashes.reparentTo(self.head_model.find('**/eyes-long'))
-        elif head_type[0] == 's':
+        elif head_type[0] == 's' and species != 'de':
+            eyelashes.reparentTo(self.head_model.find('**/eyes-short'))
+        elif species == 'de':
             eyelashes.reparentTo(self.head_model.find('**/eyes-short'))
 
     def removeHead(self):

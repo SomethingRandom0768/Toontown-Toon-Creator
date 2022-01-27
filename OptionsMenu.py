@@ -264,11 +264,11 @@ class OptionsMenu:
         self.legs_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Legs:', 0.35, updateLegs)
         self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Eyelashes:', 0.20, eyelashToggle)
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
-        self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), '60FPS Animation:', -0.1, smoothanimationToggle)
+        self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
 
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.3)
         #self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
-        #self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Test:', -0.7) 
+        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.7)
 
 class OptionsLabel:
     '''Used as labels for the bigger letters
@@ -379,10 +379,13 @@ class OptionsToggle(OptionsModal):
 
 class OptionsChoosingMenu(OptionsModal):
     '''Creates a menu with a bunch of options'''
-    def __init__(self, modalParent, modalText, z, width=None):
+    def __init__(self, modalParent, modalText, z, width=6):
         super().__init__(modalParent, modalText, z)
-        dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+        
+        self.generateClickableFrame(width)
 
+    def generateClickableFrame(self, width=6):
+        dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
 
         # The Top Left piece
@@ -397,45 +400,56 @@ class OptionsChoosingMenu(OptionsModal):
         top_middle_model.setPos(1,0,0)
 
         # The Top Middle repetitions
-        for i in range(1, 10):
-            self.copyModel = top_middle_model.copyTo(self.top_leftdf)
-            self.copyModel.setPos(top_middle_model.getX()+i,0,0)
+        for i in range(1, width):
+            self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
+            self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
 
-        # The Top Right piece
+            # The Top Right piece
         top_right_model = dynamicFrameFile.find('**/topRight')
-        top_right_model.reparentTo(self.copyModel)
+        top_right_model.reparentTo(self.top_center_copy)
         top_right_model.setPos(1,0,0)
 
-        # The entire middle portion
-        #for i in range(1, 10):
-        #    self.center_leftdf = dynamicFrameFile.find('**/*centerLeft')
-        #    self.center_leftdf.setScale(0.05)
-        #    self.center_leftdf.reparentTo(self.dynamic_frame)
-        #    self.center_leftdf.setPos(0.5,0,-1)
+        
+        center_left_model = dynamicFrameFile.find('**/*centerLeft')
+        center_left_model.reparentTo(self.top_leftdf)
+        center_left_model.setPos(0,0,-1)
+    
+        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
+        center_middle_model.reparentTo(center_left_model)
+        center_middle_model.setPos(1,0,0)
 
-        #self.center_rightdf = dynamicFrameFile.find('**/*centerRight')
-        #self.center_rightdf.setScale(1)
-        #self.center_rightdf.reparentTo(self.center_middledf)
-        #self.center_rightdf.setPos(1,0,0)
+        # The Center Middle repetitions
+        for i in range(1, width+1):
+            self.center_middle_copy = center_middle_model.copyTo(self.top_leftdf)
+            self.center_middle_copy.setPos(i,0,-1)
 
-        #self.bottom_leftdf = dynamicFrameFile.find('**/*bottomLeft')
-        #self.bottom_leftdf.setScale(1)
-        #self.bottom_leftdf.reparentTo(self.center_middledf)
-        #self.bottom_leftdf.setPos(-1,0,-1)
+        center_right_model = dynamicFrameFile.find('**/*centerRight')
+        center_right_model.setScale(1)
+        center_right_model.reparentTo(self.center_middle_copy)
+        center_right_model.setPos(1,0,0)
 
-        #self.bottom_middledf = dynamicFrameFile.find('**/*bottomMiddle')
-        #self.bottom_middledf.setScale(1)
-        #self.bottom_middledf.reparentTo(self.center_middledf)
-        #self.bottom_middledf.setPos(0,0,-1)
+        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
+        bottom_left_model.setScale(1)
+        bottom_left_model.reparentTo(self.top_leftdf)
+        bottom_left_model.setPos(0,0,-2)
 
-        #self.bottom_rightdf = dynamicFrameFile.find('**/*bottomRight')
-        #self.bottom_rightdf.setScale(1)
-        #self.bottom_rightdf.reparentTo(self.center_middledf)
-        #self.bottom_rightdf.setPos(1,0,-1)
+        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
+        bottom_middle_model.setScale(1)
+        bottom_middle_model.reparentTo(bottom_left_model)
+        bottom_middle_model.setPos(1,0,0)
 
-        #self.dynamic_frame.setScale(1.5,1.5,1.5)
-        #self.dynamic_frame.setPos(1.5,0,0)
+        # The Center Middle repetitions
+        for i in range(1, width+1):
+            self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
+            self.bottom_middle_copy.setPos(i,0,-2)
+
+        self.bottom_rightdf = dynamicFrameFile.find('**/*bottomRight')
+        self.bottom_rightdf.setScale(1)
+        self.bottom_rightdf.reparentTo(self.bottom_middle_copy)
+        self.bottom_rightdf.setPos(1,0,0)
+
         self.dynamic_frame.reparentTo(self.containerFrame)
+        self.dynamic_frame.setPos(0.75,0,-0.45)
     
 
 

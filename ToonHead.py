@@ -49,6 +49,9 @@ class ToonHead:
         # All the rabbits
         elif species == 'r':
             headModel = loader.loadModel('phase_3/models/char/rabbit-heads-1000.bam')
+        # If someone wants riggy.
+        elif species == 'ri':
+            headModel = loader.loadModel('phase_3/models/char/tt_a_chr_rgy_shorts_head_1000.bam')
         else:
             print("Your head type doesn't exist in ToonHead.py")
     
@@ -879,12 +882,14 @@ class ToonHead:
 
         # I have to make some changes here to make sure deers can work since they don't have different head types, only antler types.
 
-        if head_type[0] == 'l' and species != 'de':
+        if head_type[0] == 'l' and species != 'de' and species != 'ri':
             eyelashes.reparentTo(self.head_model.find('**/eyes-long'))
-        elif head_type[0] == 's' and species != 'de':
+        elif head_type[0] == 's' and species != 'de' and species != 'ri':
             eyelashes.reparentTo(self.head_model.find('**/eyes-short'))
         elif species == 'de':
             eyelashes.reparentTo(self.head_model.find('**/eyes-short'))
+        elif species == 'ri':
+            print("There are no eyelashes for Riggy!!!!!")
 
     def removeHead(self):
         self.head_model.getChildren().detach()

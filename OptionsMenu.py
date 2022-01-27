@@ -379,12 +379,13 @@ class OptionsToggle(OptionsModal):
 
 class OptionsChoosingMenu(OptionsModal):
     '''Creates a menu with a bunch of options'''
-    def __init__(self, modalParent, modalText, z, width=6):
+    def __init__(self, modalParent, modalText, z, used_dictionary=None):
         super().__init__(modalParent, modalText, z)
-        
-        self.generateClickableFrame(width)
+        self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
+        self.generateClickableFrame(8, used_dictionary)
 
-    def generateClickableFrame(self, width=6):
+    def generateClickableFrame(self, width=8, used_dictionary=None):
+        '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
 
@@ -448,10 +449,20 @@ class OptionsChoosingMenu(OptionsModal):
         self.bottom_rightdf.reparentTo(self.bottom_middle_copy)
         self.bottom_rightdf.setPos(1,0,0)
 
-        self.dynamic_frame.reparentTo(self.containerFrame)
-        self.dynamic_frame.setPos(0.75,0,-0.45)
-    
+        #self.dynamic_frame.reparentTo(self.containerFrame)
+        self.dynamic_frame.setPos(0.6,0,-0.45)
 
+        self.clickable_button = DirectButton(
+            geom=self.dynamic_frame,
+            parent=self.containerFrame,
+            relief=None
+        )
+
+        arrow = self.options_geom.find('**/*ttr_t_gui_gen_buttons_arrowDown')
+        arrow.reparentTo(self.clickable_button)
+        arrow.setScale(0.2)
+        arrow.setPos(1.5,0,0)
+        arrow.setR(270)
 
 
 

@@ -35,7 +35,7 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('mi', 'ls', False, 'ss', 's', 'f')
+        self.toon = Toon('ca', 'ls', False, 'ld', 'l', 'f', animation_type='happy-dance', is60FPS=False)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

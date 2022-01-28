@@ -269,6 +269,7 @@ class OptionsMenu:
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.3)
         #self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
         self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.7)
+        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 
 class OptionsLabel:
     '''Used as labels for the bigger letters
@@ -378,11 +379,11 @@ class OptionsToggle(OptionsModal):
                 toggle_back_interval.start()
 
 class OptionsChoosingMenu(OptionsModal):
-    '''Creates a menu with a bunch of options'''
-    def __init__(self, modalParent, modalText, z, used_dictionary=None):
+    '''Creates a menu with a bunch of options that execute a certain function'''
+    def __init__(self, modalParent, modalText, z, used_dictionary=None, chosen_command=None):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.generateClickableFrame(8, used_dictionary)
+        self.generateClickableFrame(10, used_dictionary)
 
     def generateClickableFrame(self, width=8, used_dictionary=None):
         '''Creates the small frame that the player will click on'''
@@ -405,7 +406,7 @@ class OptionsChoosingMenu(OptionsModal):
             self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
             self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
 
-            # The Top Right piece
+        # The Top Right piece
         top_right_model = dynamicFrameFile.find('**/topRight')
         top_right_model.reparentTo(self.top_center_copy)
         top_right_model.setPos(1,0,0)
@@ -439,7 +440,7 @@ class OptionsChoosingMenu(OptionsModal):
         bottom_middle_model.reparentTo(bottom_left_model)
         bottom_middle_model.setPos(1,0,0)
 
-        # The Center Middle repetitions
+        # The Bottom Middle repetitions
         for i in range(1, width+1):
             self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
             self.bottom_middle_copy.setPos(i,0,-2)
@@ -450,12 +451,14 @@ class OptionsChoosingMenu(OptionsModal):
         self.bottom_rightdf.setPos(1,0,0)
 
         #self.dynamic_frame.reparentTo(self.containerFrame)
-        self.dynamic_frame.setPos(0.6,0,-0.45)
+        self.dynamic_frame.setPos(0.5,0,-0.45)
 
         self.clickable_button = DirectButton(
             geom=self.dynamic_frame,
             parent=self.containerFrame,
-            relief=None
+            relief=None,
+            command=self.generateSelectablesFrame,
+            extraArgs=[width]
         )
 
         arrow = self.options_geom.find('**/*ttr_t_gui_gen_buttons_arrowDown')
@@ -463,6 +466,103 @@ class OptionsChoosingMenu(OptionsModal):
         arrow.setScale(0.2)
         arrow.setPos(1.5,0,0)
         arrow.setR(270)
+
+    def generateSelectablesFrame(self, selectables_width):
+        dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+        self.dynamic_frame = NodePath('test')
+
+        # The Top Left piece
+        self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
+        self.top_leftdf.setScale(0.05)
+        self.top_leftdf.reparentTo(self.dynamic_frame)
+        self.top_leftdf.setPos(0.5,0,0.5)
+
+        # The top middle piece
+        top_middle_model = dynamicFrameFile.find('**/*topMiddle')
+        top_middle_model.reparentTo(self.top_leftdf)
+        top_middle_model.setPos(1,0,0)
+
+        # The Top Middle repetitions
+        for i in range(1, selectables_width):
+            self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
+            self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
+
+        # The Top Right piece
+        top_right_model = dynamicFrameFile.find('**/topRight')
+        top_right_model.reparentTo(self.top_center_copy)
+        top_right_model.setPos(1,0,0)
+
+        
+        center_left_model = dynamicFrameFile.find('**/*centerLeft')
+        center_left_model.reparentTo(self.top_leftdf)
+        center_left_model.setPos(0,0,-1)
+    
+        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
+        center_middle_model.reparentTo(center_left_model)
+        center_middle_model.setPos(1,0,0)
+
+        # The Center Middle repetitions
+        for i in range(1, selectables_width+1):
+            self.center_middle_copy = center_middle_model.copyTo(self.top_leftdf)
+            self.center_middle_copy.setPos(i,0,-1)
+
+        center_right_model = dynamicFrameFile.find('**/*centerRight')
+        center_right_model.setScale(1)
+        center_right_model.reparentTo(self.center_middle_copy)
+        center_right_model.setPos(1,0,0)
+
+        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
+        bottom_left_model.setScale(1)
+        bottom_left_model.reparentTo(self.top_leftdf)
+        bottom_left_model.setPos(0,0,-2)
+
+        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
+        bottom_middle_model.setScale(1)
+        bottom_middle_model.reparentTo(bottom_left_model)
+        bottom_middle_model.setPos(1,0,0)
+
+        # The Bottom Middle repetitions
+        for i in range(1, selectables_width+1):
+            self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
+            self.bottom_middle_copy.setPos(i,0,-2)
+
+        self.bottom_rightdf = dynamicFrameFile.find('**/*bottomRight')
+        self.bottom_rightdf.setScale(1)
+        self.bottom_rightdf.reparentTo(self.bottom_middle_copy)
+        self.bottom_rightdf.setPos(1,0,0)
+
+        #self.dynamic_frame.reparentTo(self.containerFrame)
+        #self.dynamic_frame.setPos(0.5,0,-0.45)
+
+        self.slider_geom = self.options_geom.find('**/*slider1')
+        self.trough_geom = self.options_geom.find('**/*lineThick')
+
+        self.selectables_frame = DirectGui.DirectScrolledFrame(
+            geom=self.dynamic_frame,
+            parent=self.containerFrame,
+            pos=(0.8,0,0),
+            scale=0.5,
+        #    relief=None,
+            verticalScroll_thumb_geom=self.slider_geom,
+            verticalScroll_thumb_geom_scale=0.1,
+            horizontalScroll_relief=None,
+            verticalScroll_relief=None,
+            horizontalScroll_incButton_relief=None,
+            horizontalScroll_decButton_relief=None,
+            verticalScroll_incButton_relief=None,
+            verticalScroll_decButton_relief=None,
+            verticalScroll_geom_pos=(0.5,0,0),
+            verticalScroll_geom_hpr=(0,0,90),
+            verticalScroll_geom_scale=0.5,
+            verticalScroll_geom=self.trough_geom
+        )
+
+
+        print("It worked")
+
+
+
+
 
 
 

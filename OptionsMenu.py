@@ -268,8 +268,8 @@ class OptionsMenu:
 
         self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.3)
         #self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
-        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.7)
-        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
+        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 10, -0.7)
+     #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 
 class OptionsLabel:
     '''Used as labels for the bigger letters
@@ -380,12 +380,12 @@ class OptionsToggle(OptionsModal):
 
 class OptionsChoosingMenu(OptionsModal):
     '''Creates a menu with a bunch of options that execute a certain function'''
-    def __init__(self, modalParent, modalText, z, used_dictionary=None, chosen_command=None):
+    def __init__(self, modalParent, modalText, width, z, used_dictionary=None, chosen_command=None):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.generateClickableFrame(10, used_dictionary)
+        self.clickable = self.generateClickableFrame(width, used_dictionary)
 
-    def generateClickableFrame(self, width=8, used_dictionary=None):
+    def generateClickableFrame(self, width=6, used_dictionary=None):
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
@@ -462,14 +462,18 @@ class OptionsChoosingMenu(OptionsModal):
         )
 
         arrow = self.options_geom.find('**/*ttr_t_gui_gen_buttons_arrowDown')
-        arrow.reparentTo(self.clickable_button)
+        arrow.reparentTo(center_right_model)
         arrow.setScale(0.2)
-        arrow.setPos(1.5,0,0)
+        arrow.setPos(0,0,0)
         arrow.setR(270)
 
-    def generateSelectablesFrame(self, selectables_width):
+        return self.clickable_button
+
+    def generateSelectablesFrame(self, selectables_width, height=6):
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
+
+        self.clickable.reparentTo(hidden)    
 
         # The Top Left piece
         self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
@@ -492,28 +496,42 @@ class OptionsChoosingMenu(OptionsModal):
         top_right_model.reparentTo(self.top_center_copy)
         top_right_model.setPos(1,0,0)
 
-        
-        center_left_model = dynamicFrameFile.find('**/*centerLeft')
-        center_left_model.reparentTo(self.top_leftdf)
-        center_left_model.setPos(0,0,-1)
-    
-        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
-        center_middle_model.reparentTo(center_left_model)
-        center_middle_model.setPos(1,0,0)
+        # Let's make a node that we can duplicate.
 
-        # The Center Middle repetitions
+        self.middlepiece = NodePath('middle_piece')
+        self.middlepiece.reparentTo(self.top_leftdf)
+        self.middlepiece.setPos(0,0,0)
+
+        center_left_model = dynamicFrameFile.find('**/*centerLeft')
+        center_left_model.reparentTo(self.middlepiece)
+        center_left_model.setPos(0,0,-1)
+
+        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
+        center_middle_model.reparentTo(self.middlepiece)
+        center_middle_model.setPos(1,0,-1)
+
+
+         # The Center Middle repetitions
         for i in range(1, selectables_width+1):
-            self.center_middle_copy = center_middle_model.copyTo(self.top_leftdf)
+            self.center_middle_copy = center_middle_model.copyTo(self.middlepiece)
             self.center_middle_copy.setPos(i,0,-1)
+            
 
         center_right_model = dynamicFrameFile.find('**/*centerRight')
         center_right_model.setScale(1)
         center_right_model.reparentTo(self.center_middle_copy)
         center_right_model.setPos(1,0,0)
 
+        # Now let's duplicate the amount of times the thing is made.
+
+        for i in range(1, height):
+            self.middle_piece_copy = self.middlepiece.copyTo(self.dynamic_frame)
+            self.middle_piece_copy.setPos(0.5, 0, 0.5 - (0.05 * i))
+            self.middle_piece_copy.setScale(0.05)
+
         bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
         bottom_left_model.setScale(1)
-        bottom_left_model.reparentTo(self.top_leftdf)
+        bottom_left_model.reparentTo(self.middle_piece_copy)
         bottom_left_model.setPos(0,0,-2)
 
         bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
@@ -522,43 +540,55 @@ class OptionsChoosingMenu(OptionsModal):
         bottom_middle_model.setPos(1,0,0)
 
         # The Bottom Middle repetitions
-        for i in range(1, selectables_width+1):
-            self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
-            self.bottom_middle_copy.setPos(i,0,-2)
+        for i in range(1, selectables_width):
+            self.bottom_middle_copy = bottom_middle_model.copyTo(bottom_middle_model)
+            self.bottom_middle_copy.setPos(i * 0.2,0,0)
+            #print(selectables_width)
 
-        self.bottom_rightdf = dynamicFrameFile.find('**/*bottomRight')
-        self.bottom_rightdf.setScale(1)
-        self.bottom_rightdf.reparentTo(self.bottom_middle_copy)
-        self.bottom_rightdf.setPos(1,0,0)
+        self.bottom_right = dynamicFrameFile.find('**/*bottomRight')
+        self.bottom_right.setScale(1)
+        self.bottom_right.reparentTo(self.bottom_middle_copy)
+        self.bottom_right.setPos(8.2,0,0)
 
         #self.dynamic_frame.reparentTo(self.containerFrame)
         #self.dynamic_frame.setPos(0.5,0,-0.45)
 
         self.slider_geom = self.options_geom.find('**/*slider1')
-        self.trough_geom = self.options_geom.find('**/*lineThick')
+        self.trough_geom = self.options_geom.find('**/*lineSkinny')
 
-        self.selectables_frame = DirectGui.DirectScrolledFrame(
+        self.selectables_geom = DirectGui.DirectFrame(
             geom=self.dynamic_frame,
             parent=self.containerFrame,
-            pos=(0.8,0,0),
+            pos=(0.5,0,-0.45)
+        )
+
+        self.selectables_frame = DirectGui.DirectScrolledFrame(
+            geom_scale=2.5,
+            geom_pos=(-2,0,-1),
+            parent=self.containerFrame,
+            frameSize=(-0.5,0.55,-0.75,0.1),
+            #canvasSize=(-1,5,-1,1),
+            pos=(1.25,0,0),
             scale=0.5,
-        #    relief=None,
+           # relief=None,
             verticalScroll_thumb_geom=self.slider_geom,
-            verticalScroll_thumb_geom_scale=0.1,
+            verticalScroll_thumb_geom_scale=0.15,
             horizontalScroll_relief=None,
             verticalScroll_relief=None,
+            verticalScroll_thumb_relief=None,
             horizontalScroll_incButton_relief=None,
             horizontalScroll_decButton_relief=None,
+            horizontalScroll_frameSize=(0,0,0,0), # Getting rid of the horizontal scroll
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
-            verticalScroll_geom_pos=(0.5,0,0),
             verticalScroll_geom_hpr=(0,0,90),
-            verticalScroll_geom_scale=0.5,
-            verticalScroll_geom=self.trough_geom
+            verticalScroll_geom_pos=(0.55,0,-0.25),
+            verticalScroll_geom=self.trough_geom,
+            verticalScroll_geom_scale=0.175,
+            scrollBarWidth=0.1
         )
 
 
-        print("It worked")
 
 
 

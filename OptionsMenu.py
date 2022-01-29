@@ -85,7 +85,7 @@ class OptionsMenu:
             parent=self.first_page,
             # GUI of the box
             frameSize=(-0.8,0.85,-0.55,0.35),
-            canvasSize=(-1,0,-2,1),
+            canvasSize=(-1,0,-5,1),
             frameColor=(0,0,0,0),
 
             # GUI DirectScrollBar attributes
@@ -260,6 +260,10 @@ class OptionsMenu:
             self.selectedToon.generateActor()
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
+        def updateAnim(anim):
+            self.selectedToon.toonActor.delete()
+            self.selectedToon.animationType = anim
+            self.selectedToon.generateActor()
 
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
@@ -275,8 +279,10 @@ class OptionsMenu:
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
-        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 10, -0.4, species_dict, updateSpecies)
-        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.6)
+        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 10, -0.4, species_dict, updateSpecies)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 10, -0.8, anim_dict, updateAnim)
+
+#        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.10)
      #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 
 class OptionsLabel:
@@ -590,7 +596,7 @@ class OptionsChoosingMenu(OptionsModal):
                 text=item,
                 text_font=toon_font,
                 text_align=TextNode.ALeft,
-                text_scale=0.75, 
+                text_scale=0.7, 
                 scale=0.2, 
                 pos=(-1.2,0,10 - (i*0.2) ), 
                 relief=None,

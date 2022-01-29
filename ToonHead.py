@@ -941,29 +941,29 @@ class ToonHead:
         # Rabbits
         elif toonType == 'rls':
             # All the stuff we hide
-            muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
+            muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
             for piece in muzzleToRemove:
                 piece.hide()
             headModel.find('**/head-short').hide()
             headModel.find('**/head-front-short').hide()
-            headModel.find('**/ears-short').hide()
+            headModel.find('**/ears-long').hide()
             headModel.find('**/joint_pupilL_short').hide()
             headModel.find('**/joint_pupilR_short').hide()
-            headModel.find('**/muzzle-short-surprise').hide()
-            headModel.find('**/muzzle-short-sad').hide()
-            headModel.find('**/muzzle-short-smile').hide()
-            headModel.find('**/muzzle-short-angry').hide()
-            headModel.find('**/muzzle-short-laugh').hide()
+            headModel.find('**/muzzle-long-surprise').hide()
+            headModel.find('**/muzzle-long-sad').hide()
+            headModel.find('**/muzzle-long-smile').hide()
+            headModel.find('**/muzzle-long-angry').hide()
+            headModel.find('**/muzzle-long-laugh').hide()
 
             # All the stuff we show
 
             headModel.find('**/head-long').show()
             headModel.find('**/head-front-long').show()
-            headModel.find('**/ears-long').show()
+            headModel.find('**/ears-short').show()
             headModel.find('**/eyes').show()
             headModel.find('**/joint_pupilL_long').show()
             headModel.find('**/joint_pupilR_long').show()
-            headModel.find('**/muzzle-short-neutral').show()
+            headModel.find('**/muzzle-long-neutral').show()
         elif toonType == 'rll':
         # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')

@@ -252,6 +252,17 @@ class OptionsMenu:
                 self.selectedToon.toonActor.setBlend(frameBlend=True)
                 self.selectedToon.smooth_enabled = True
 
+        def shoesToggle():
+            if self.selectedToon.wearsShoes:
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.wearsShoes = False
+                self.selectedToon.generateActor()
+            else:
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.wearsShoes = True
+                self.selectedToon.generateActor()
+                
+
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -265,10 +276,11 @@ class OptionsMenu:
         self.eyelash_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Eyelashes:', 0.20, eyelashToggle)
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
+        self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
 
-        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.3)
+        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.5)
         #self.accessoryLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Test',  -0.4)
-        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 10, -0.7)
+        self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 10, -0.9)
      #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 
 class OptionsLabel:
@@ -385,7 +397,7 @@ class OptionsChoosingMenu(OptionsModal):
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
         self.clickable = self.generateClickableFrame(width, used_dictionary)
 
-    def generateClickableFrame(self, width=6, used_dictionary=None):
+    def generateClickableFrame(self, width=2, used_dictionary=None):
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
@@ -451,7 +463,7 @@ class OptionsChoosingMenu(OptionsModal):
         self.bottom_rightdf.setPos(1,0,0)
 
         #self.dynamic_frame.reparentTo(self.containerFrame)
-        self.dynamic_frame.setPos(0.5,0,-0.45)
+        self.dynamic_frame.setPos(0.25,0,-0.45)
 
         self.clickable_button = DirectButton(
             geom=self.dynamic_frame,
@@ -474,7 +486,7 @@ class OptionsChoosingMenu(OptionsModal):
         self.dynamic_frame = NodePath('test')
 
         self.clickable.reparentTo(hidden)    
-
+        
         # The Top Left piece
         self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
         self.top_leftdf.setScale(0.05)
@@ -550,35 +562,34 @@ class OptionsChoosingMenu(OptionsModal):
         self.bottom_right.reparentTo(self.bottom_middle_copy)
         self.bottom_right.setPos(8.2,0,0)
 
-        #self.dynamic_frame.reparentTo(self.containerFrame)
-        #self.dynamic_frame.setPos(0.5,0,-0.45)
-
         self.slider_geom = self.options_geom.find('**/*slider1')
         self.trough_geom = self.options_geom.find('**/*lineSkinny')
 
         self.selectables_geom = DirectGui.DirectFrame(
             geom=self.dynamic_frame,
             parent=self.containerFrame,
-            pos=(0.5,0,-0.45)
+            pos=(0.25,0,-0.45)
         )
 
         self.selectables_frame = DirectGui.DirectScrolledFrame(
-            geom_scale=2.5,
-            geom_pos=(-2,0,-1),
             parent=self.containerFrame,
-            frameSize=(-0.5,0.55,-0.75,0.1),
-            #canvasSize=(-1,5,-1,1),
-            pos=(1.25,0,0),
+            frameSize=(-0.5,0.6,-0.6,0.1),
+            canvasSize=(-1,1,-1,10),
+            pos=(1,0,0),
             scale=0.5,
-           # relief=None,
-            verticalScroll_thumb_geom=self.slider_geom,
-            verticalScroll_thumb_geom_scale=0.15,
+            relief=None,
+
+        # Horizontal bar stuff
             horizontalScroll_relief=None,
-            verticalScroll_relief=None,
-            verticalScroll_thumb_relief=None,
             horizontalScroll_incButton_relief=None,
             horizontalScroll_decButton_relief=None,
             horizontalScroll_frameSize=(0,0,0,0), # Getting rid of the horizontal scroll
+
+        # Vertical bar
+            verticalScroll_thumb_geom=self.slider_geom,
+            verticalScroll_thumb_geom_scale=0.1,
+            verticalScroll_relief=None,
+            verticalScroll_thumb_relief=None,
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
             verticalScroll_geom_hpr=(0,0,90),

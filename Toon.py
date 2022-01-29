@@ -49,7 +49,7 @@ colorsList = {
 
 class Toon:
     '''This is the Actor that is a toon. Reads from ToonDNA's data for clothing'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color=None, glove_color=None, torso_color=None, leg_color=None, shirt_texture=None, shirt_color=None,bottom_color=None, animation_type=None, is60FPS=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color=None, glove_color=None, torso_color=None, leg_color=None, shirt_texture=None, shirt_color=None,bottom_color=None, animation_type=None, is60FPS=None, wearsShoes=None):
         self.species = species
         self.headtype = head_type # This basically helps set the species.
         self.torso_type = torso_type
@@ -66,6 +66,7 @@ class Toon:
         self.eyelashes = has_eyelashes
         self.animationType = animation_type
         self.smooth_enabled = is60FPS
+        self.wearsShoes = wearsShoes
 
         self.head = ToonHead(self.species, self.headtype, self.eyelashes)
         self.torso = toonTorsoTypes[self.torso_type]
@@ -109,9 +110,12 @@ class Toon:
         self.toonActor.loop(self.animationType)
 
         # Remove shoes
-        self.toonActor.find('**/*shoes').removeNode()
-        self.toonActor.find('**/*boots_short').removeNode()
-        self.toonActor.find('**/*boots_long').removeNode()
+        if self.wearsShoes:
+            pass
+        else:
+            self.toonActor.find('**/*shoes').removeNode()
+            self.toonActor.find('**/*boots_short').removeNode()
+            self.toonActor.find('**/*boots_long').removeNode()
 
         # Add shadow
         shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")

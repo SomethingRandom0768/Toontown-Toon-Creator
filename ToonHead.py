@@ -939,7 +939,7 @@ class ToonHead:
             headModel.find('**/muzzle-short-neutral').show()        
 
         # Rabbits
-        elif toonType == 'rls':
+        elif toonType == 'rls': # Big head, Small Ears
             # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
             for piece in muzzleToRemove:
@@ -964,7 +964,7 @@ class ToonHead:
             headModel.find('**/joint_pupilL_long').show()
             headModel.find('**/joint_pupilR_long').show()
             headModel.find('**/muzzle-long-neutral').show()
-        elif toonType == 'rll':
+        elif toonType == 'rll': # Big head, Small Ears
         # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
             for piece in muzzleToRemove:
@@ -989,7 +989,7 @@ class ToonHead:
             headModel.find('**/joint_pupilL_long').show()
             headModel.find('**/joint_pupilR_long').show()
             headModel.find('**/muzzle-long-neutral').show() 
-        elif toonType == 'rsl':
+        elif toonType == 'rsl': # Small head, Big Ears
             # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
             for piece in muzzleToRemove:
@@ -1014,7 +1014,7 @@ class ToonHead:
             headModel.find('**/joint_pupilL_short').show()
             headModel.find('**/joint_pupilR_short').show()
             headModel.find('**/muzzle-short-neutral').show() 
-        elif toonType == 'rss':
+        elif toonType == 'rss': # Small head, Big Ears
           # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
             for piece in muzzleToRemove:

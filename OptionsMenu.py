@@ -463,7 +463,7 @@ class OptionsChoosingMenu(OptionsModal):
         self.bottom_rightdf.setPos(1,0,0)
 
         #self.dynamic_frame.reparentTo(self.containerFrame)
-        self.dynamic_frame.setPos(0.25,0,-0.45)
+        self.dynamic_frame.setPos(0.5,0,-0.45)
 
         self.clickable_button = DirectButton(
             geom=self.dynamic_frame,
@@ -568,16 +568,16 @@ class OptionsChoosingMenu(OptionsModal):
         self.selectables_geom = DirectGui.DirectFrame(
             geom=self.dynamic_frame,
             parent=self.containerFrame,
-            pos=(0.25,0,-0.45)
+            pos=(0.5,0,-0.45)
         )
 
         self.selectables_frame = DirectGui.DirectScrolledFrame(
             parent=self.containerFrame,
             frameSize=(-0.5,0.6,-0.6,0.1),
             canvasSize=(-1,1,-1,10),
-            pos=(1,0,0),
+            pos=(1.25,0,0),
             scale=0.5,
-            relief=None,
+        #    relief=None,
 
         # Horizontal bar stuff
             horizontalScroll_relief=None,

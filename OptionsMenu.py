@@ -6,13 +6,16 @@ from panda3d.core import NodePath, TextNode
 from direct.interval.LerpInterval import *
 from Toon import Toon
 from ToonDNA import *
+from direct.showbase.DirectObject import DirectObject
 
 options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
 
-class OptionsMenu:
+class OptionsMenu(DirectObject):
     '''The main OptionsMenu
        Houses the DirectFrame that is the entire frame.'''
+
     def __init__(self, toon):
+        self.showOptions = False
         self.main_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
         self.options_geom = loader.loadModel(options_geom)
         self.icon = loader.loadModel('phase_3/models/gui/toontown-logo.bam')
@@ -20,6 +23,7 @@ class OptionsMenu:
 
         self.selectedToon = toon
 
+        self.accept('space', self.hideOrShowOptions)
         # Removing nodes that aren't needed
 
         stuffToDelete1 = self.main_geom.find('**/*tabInactive')
@@ -279,9 +283,18 @@ class OptionsMenu:
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
-        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 10, species_dict, updateSpecies)
+        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 7.5, species_dict, updateSpecies)
         self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.8, -5, anim_dict, updateAnim)
 
+    def hideOrShowOptions(self):
+        if self.showOptions:
+            self.showOptions = False
+            self.outer_page.hide()
+            self.rotation_slider.hide()
+        else:
+            self.showOptions = True
+            self.outer_page.show()
+            self.rotation_slider.show()
 #        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.10)
      #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 
@@ -565,7 +578,7 @@ class OptionsChoosingMenu(OptionsModal):
             pos=(0.75,0,0.45),
             scale=0.5,
             sortOrder=10,
-         #   relief=None,
+            relief=None,
 
         # Horizontal bar stuff
             horizontalScroll_relief=None,

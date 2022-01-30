@@ -279,8 +279,8 @@ class OptionsMenu:
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
-        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, species_dict, updateSpecies)
-        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.5, anim_dict, updateAnim)
+        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 10, species_dict, updateSpecies)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.8, -5, anim_dict, updateAnim)
 
 #        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.10)
      #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
@@ -393,13 +393,14 @@ class OptionsToggle(OptionsModal):
                 toggle_back_interval.start()
 
 class OptionsChoosingMenu(OptionsModal):
-    '''Creates a menu with a bunch of options that execute a certain function'''
-    def __init__(self, modalParent, modalText, z, used_dictionary=None, chosen_command=None):
+    '''Creates a menu with a bunch of options that execute a certain function the height of selectables controls
+    the bottom of the frame'''
+    def __init__(self, modalParent, modalText, z, height_of_selectables, used_dictionary=None, chosen_command=None):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.clickable = self.generateClickableFrame(chosen_command, used_dictionary)
+        self.clickable = self.generateClickableFrame(chosen_command, height_of_selectables, used_dictionary)
 
-    def generateClickableFrame(self, command, used_dictionary=None):
+    def generateClickableFrame(self, command, frame_height, used_dictionary=None):
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
@@ -457,9 +458,8 @@ class OptionsChoosingMenu(OptionsModal):
             parent=self.containerFrame,
             relief=None,
             command=self.generateSelectablesFrame,
-            extraArgs=[command, used_dictionary]
+            extraArgs=[command, frame_height, used_dictionary]
         )
-        
         return self.clickable_button
 
     def showAndHide(self, function, args_to_insert):
@@ -469,7 +469,7 @@ class OptionsChoosingMenu(OptionsModal):
         self.selectables_frame.removeNode()
         function(args_to_insert)
 
-    def generateSelectablesFrame(self, command_to_execute, selectables_dictionary=None, height=6):
+    def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, selectables_dictionary=None, height=6):
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.selectable_dynamic_frame = NodePath('test')
 
@@ -561,7 +561,7 @@ class OptionsChoosingMenu(OptionsModal):
         self.selectables_frame = DirectGui.DirectScrolledFrame(
             parent=self.selectables_geom,
             frameSize=(-0.5,0.7,-0.6,0.1),
-            canvasSize=(-1.25,1,-1,10),
+            canvasSize=(-1.25,0,selectable_frame_height,10),
             pos=(0.75,0,0.45),
             scale=0.5,
             sortOrder=10,

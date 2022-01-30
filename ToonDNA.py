@@ -36,7 +36,7 @@ species_dict = {
              'Cat'          :'ca',
              'Crocodile'    :'cr',
              'Deer'         :'de',
-             'Dog '         :'d1',
+             'Dog '         :'d',
              'Duck'         :'du',
              'Horse'        :'h',
              'Monkey'       :'mo',

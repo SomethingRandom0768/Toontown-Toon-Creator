@@ -127,6 +127,26 @@ class OptionsMenu(DirectObject):
                     self.selectedToon.toonActor.delete()
                     self.selectedToon.updateHead('mi', 'ss', self.selectedToon.eyelashes)
                     self.selectedToon.generateActor()
+            elif self.selectedToon.species == 'd':
+                if tested_value < 20 and tested_value > 15:
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.updateHead('d', 'ss', self.selectedToon.eyelashes)
+                    self.selectedToon.generateActor()
+                elif tested_value < 40 and tested_value > 35:
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.updateHead('d', 'sl', self.selectedToon.eyelashes)
+                    self.selectedToon.generateActor()
+                elif tested_value < 60 and tested_value > 55:
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.updateHead('d', 'ls', self.selectedToon.eyelashes)
+                    self.selectedToon.generateActor()
+                elif tested_value < 80 and tested_value > 75:
+                    self.selectedToon.toonActor.delete()
+                    self.selectedToon.updateHead('d', 'll', self.selectedToon.eyelashes)
+                    self.selectedToon.generateActor()
+
+                
+
             else:
                 if tested_value < 20 and tested_value > 15:
                     self.selectedToon.toonActor.delete()
@@ -290,11 +310,11 @@ class OptionsMenu(DirectObject):
         if self.showOptions:
             self.showOptions = False
             self.outer_page.hide()
-            self.rotation_slider.hide()
+            self.rotation_slider.slider.hide()
         else:
             self.showOptions = True
             self.outer_page.show()
-            self.rotation_slider.show()
+            self.rotation_slider.slider.show()
 #        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.10)
      #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 

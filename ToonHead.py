@@ -10,7 +10,10 @@ class ToonHead:
         '''
 
         # generateHead creates the specific species head model, generateHeadDetails changes the head size and the muzzle size
-        self.head_model = self.generateHead(species)
+        if species == 'd':
+            self.head_model = self.generateHead(species, headType)
+        else:
+            self.head_model = self.generateHead(species)
         self.generateHeadDetails(self.head_model, species, headType, hasEyelashes)
 
     def generateHead(self, species, headType=None):
@@ -30,7 +33,14 @@ class ToonHead:
         elif species == 'de':
             headModel = loader.loadModel('phase_3/models/char/deer-heads-1000.bam')
         # All the dogs (WIP)
-        #elif species == 'do'
+        elif species == 'd' and headType == 'ss':
+            headModel = loader.loadModel('phase_3/models/char/tt_a_chr_dgm_shorts_head_1000.bam')
+        elif species == 'd' and headType == 'sl':
+            headModel = loader.loadModel('phase_3/models/char/tt_a_chr_dgs_shorts_head_1000.bam')
+        elif species == 'd' and headType == 'ls':
+            headModel = loader.loadModel('phase_3/models/char/tt_a_chr_dgm_skirt_head_1000.bam')
+        elif species == 'd' and headType == 'll':
+            headModel = loader.loadModel('phase_3/models/char/tt_a_chr_dgl_shorts_head_1000.bam')
         # All the ducks
         elif species == 'du':
             headModel = loader.loadModel('phase_3/models/char/duck-heads-1000.bam')
@@ -473,8 +483,6 @@ class ToonHead:
             headModel.find('**/joint_pupilR_short').show()
             headModel.find('**/muzzle-short-neutral').show()     
         
-        # Dogs (Need to hold off considering they have different models.)
-
         # Ducks 
         elif toonType == 'duls': # Big Head, Small Muzzle
 
@@ -1064,6 +1072,11 @@ class ToonHead:
         elif species == 'cr' and head_type[0] == 's': # Crocodile and short head
             eyelashes = loader.loadModel('phase_3/models/char/crocodile-lashes.bam').find('**/open-short')
         
+        elif species == 'd' and head_type[0] == 'l': # Dogs and long head
+            eyelashes = loader.loadModel('phase_3/models/char/dog-lashes.bam').find('**/open-long')
+        elif species == 'd' and head_type[0] == 's': # Dogs and short head
+            eyelashes = loader.loadModel('phase_3/models/char/dog-lashes.bam').find('**/open-short')
+
         elif species == 'de': # Deers only have one type of head, though they have eyelashes even for long heads, whichever those were. Interesting.
             eyelashes = loader.loadModel('phase_3/models/char/deer-lashes.bam').find('**/open-short')
         
@@ -1096,13 +1109,13 @@ class ToonHead:
 
         # I have to make some changes here to make sure deers can work since they don't have different head types, only antler types.
 
-        if head_type[0] == 'l' and species != 'de' and species != 'ri' and species != 'r':
+        if head_type[0] == 'l' and species != 'de' and species != 'ri' and species != 'r' and species != 'd':
             eyelashes.reparentTo(self.head_model.find('**/eyes-long'))
-        elif head_type[0] == 's' and species != 'de' and species != 'ri' and species != 'r':
+        elif head_type[0] == 's' and species != 'de' and species != 'ri' and species != 'r' and species != 'd':
             eyelashes.reparentTo(self.head_model.find('**/eyes-short'))
         elif species == 'de':
             eyelashes.reparentTo(self.head_model.find('**/eyes-short'))
-        elif species == 'r':
+        elif species == 'r' or species == 'd':
             eyelashes.reparentTo(self.head_model.find('**/eyes'))
         elif species == 'ri':
             print("There are no eyelashes for Riggy!!!!!")

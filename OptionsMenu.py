@@ -317,7 +317,7 @@ class OptionsMenu(DirectObject):
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
-        self.color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Color:', -0.8, 7.5, colorsList, updateHeadColor)
+        self.color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Color:', -0.8, 7.5, colorsList, updateHeadColor, 0)
         self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.6, -5, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 7.5, species_dict, updateSpecies)
         
@@ -443,13 +443,13 @@ class OptionsToggle(OptionsModal):
 
 class OptionsChoosingMenu(OptionsModal):
     '''Creates a menu with a bunch of options that execute a certain function the height of selectables controls
-    the bottom of the frame'''
-    def __init__(self, modalParent, modalText, z, height_of_selectables, used_dictionary=None, chosen_command=None):
+    the bottom of the frame. keyOrValue simply returns the value if set to 1, key if 0.'''
+    def __init__(self, modalParent, modalText, z, height_of_selectables, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.clickable = self.generateClickableFrame(chosen_command, height_of_selectables, used_dictionary)
+        self.clickable = self.generateClickableFrame(chosen_command, height_of_selectables, keyOrValue, used_dictionary)
 
-    def generateClickableFrame(self, command, frame_height, used_dictionary=None):
+    def generateClickableFrame(self, command, frame_height, key_or_value, used_dictionary=None):
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
@@ -507,7 +507,7 @@ class OptionsChoosingMenu(OptionsModal):
             parent=self.containerFrame,
             relief=None,
             command=self.generateSelectablesFrame,
-            extraArgs=[command, frame_height, used_dictionary]
+            extraArgs=[command, frame_height, key_or_value, used_dictionary]
         )
         return self.clickable_button
 
@@ -518,7 +518,7 @@ class OptionsChoosingMenu(OptionsModal):
         self.selectables_frame.removeNode()
         function(args_to_insert)
 
-    def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, selectables_dictionary=None, height=6):
+    def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, keyOrValue, selectables_dictionary=None, height=6):
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.selectable_dynamic_frame = NodePath('test')
 
@@ -635,23 +635,43 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_geom_scale=0.175,
             scrollBarWidth=0.1
         )
-        i = 0
+
         toon_font = loader.loadFont('phase_3/fonts/ImpressBT.ttf')
-        for item in selectables_dictionary.keys():
-            i+=1
-            test_item = self.selectables_frame.getCanvas().attachNewNode(item)
-            button = DirectButton(
-                parent = self.selectables_frame.getCanvas(),
-                text=item,
-                text_font=toon_font,
-                text_align=TextNode.ALeft,
-                text_scale=0.7, 
-                scale=0.2, 
-                pos=(-1.2,0,10 - (i*0.2) ), 
-                relief=None,
-                command=self.showAndHide,
-                extraArgs=[command_to_execute,selectables_dictionary[item]]
-         )
+
+        if keyOrValue == 1: # If we want to return the values
+            i = 0
+            for item in selectables_dictionary.keys():
+                i+=1
+                test_item = self.selectables_frame.getCanvas().attachNewNode(item)
+                button = DirectButton(
+                    parent = self.selectables_frame.getCanvas(),
+                    text=item,
+                    text_font=toon_font,
+                    text_align=TextNode.ALeft,
+                    text_scale=0.7, 
+                    scale=0.2, 
+                    pos=(-1.2,0,10 - (i*0.2) ), 
+                    relief=None,
+                    command=self.showAndHide,
+                    extraArgs=[command_to_execute,selectables_dictionary[item]]
+            )
+        else: # If we want to return the key
+            i = 0
+            for item in selectables_dictionary.keys():
+                i+=1
+                test_item = self.selectables_frame.getCanvas().attachNewNode(item)
+                button = DirectButton(
+                    parent = self.selectables_frame.getCanvas(),
+                    text=item,
+                    text_font=toon_font,
+                    text_align=TextNode.ALeft,
+                    text_scale=0.7, 
+                    scale=0.2, 
+                    pos=(-1.2,0,10 - (i*0.2) ), 
+                    relief=None,
+                    command=self.showAndHide,
+                    extraArgs=[command_to_execute,item]
+            )
 
 
 

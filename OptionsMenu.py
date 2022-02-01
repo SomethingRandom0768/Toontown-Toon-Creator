@@ -167,6 +167,9 @@ class OptionsMenu(DirectObject):
                 
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
+        def updateHeadColor(color_to_change_to):
+            self.selectedToon.updateHeadColor(color_to_change_to)
+
         def updateTorso():
             '''Updates the Toon's torso based on the value'''
             sliderValue = self.torso_slider.slider['value']
@@ -202,6 +205,9 @@ class OptionsMenu(DirectObject):
             
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
+        def updateArmsColor(color_to_change_to):
+            self.selectedToon.updateArmsColo(color_to_change_to)
+
         def updateLegs():
             '''Updates the Toon's legs based on the value'''
             sliderValue = self.legs_slider.slider['value']
@@ -221,6 +227,12 @@ class OptionsMenu(DirectObject):
                 self.selectedToon.generateActor()
             
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
+
+        def updateLegsColor(color_to_change_to):
+            self.selectedToon.updateLegsColor(color_to_change_to)
+
+        def updateGloveColor(color_to_change_to):
+            self.selectedToon.updateGloveColor(color_to_change_to)
 
         def rotateToon():
             '''Updates the Toon's rotation based on the value'''
@@ -268,13 +280,15 @@ class OptionsMenu(DirectObject):
 
         def shoesToggle():
             if self.selectedToon.wearsShoes:
-                self.selectedToon.toonActor.delete()
+                self.selectedToon.toonActor.find('**/*shoes').hide()
+                self.selectedToon.toonActor.find('**/*boots_short').hide()
+                self.selectedToon.toonActor.find('**/boots_long*').hide() 
                 self.selectedToon.wearsShoes = False
-                self.selectedToon.generateActor()
             else:
-                self.selectedToon.toonActor.delete()
+                self.selectedToon.toonActor.find('**/*shoes').show()
+                self.selectedToon.toonActor.find('**/*boots_short').show()
+                self.selectedToon.toonActor.find('**/boots_long*').show()                  
                 self.selectedToon.wearsShoes = True
-                self.selectedToon.generateActor()
                 
         def updateSpecies(species):
             '''Updates the Toon's species'''
@@ -303,8 +317,10 @@ class OptionsMenu(DirectObject):
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
+        self.color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Color:', -0.8, 7.5, colorsList, updateHeadColor)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.6, -5, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 7.5, species_dict, updateSpecies)
-        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.8, -5, anim_dict, updateAnim)
+        
 
     def hideOrShowOptions(self):
         if self.showOptions:

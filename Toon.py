@@ -88,6 +88,9 @@ class Toon:
 
         # Add the coloring to the Toon based on its color variables.
         self.updateHeadColor(self.head_color)
+        self.updateArmsColor(self.arm_color)
+        self.updateLegsColor(self.leg_color)
+        self.updateGloveColor(self.glove_color)
 
         # Add shadow
         shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
@@ -119,6 +122,9 @@ class Toon:
             self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
+        elif self.species == 'ri': # Riggy only has one head type.
+            self.toonActor.find('**/*ears').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front').setColor(colorsList[self.head_color])
         else:
             self.toonActor.find('**/*ears-short').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])

@@ -206,7 +206,7 @@ class OptionsMenu(DirectObject):
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
         def updateArmsColor(color_to_change_to):
-            self.selectedToon.updateArmsColo(color_to_change_to)
+            self.selectedToon.updateArmsColor(color_to_change_to)
 
         def updateLegs():
             '''Updates the Toon's legs based on the value'''
@@ -317,8 +317,11 @@ class OptionsMenu(DirectObject):
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
-        self.color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Color:', -0.8, 7.5, colorsList, updateHeadColor, 0)
-        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.6, -5, anim_dict, updateAnim)
+        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', -1.4, 4.5, colorsList, updateGloveColor, 0)
+        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', -1.2, 4.5, colorsList, updateLegsColor, 0)
+        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', -1, 4.5, colorsList, updateArmsColor, 0)
+        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', -0.8, 4.5, colorsList, updateHeadColor, 0)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.6, -4.2, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 7.5, species_dict, updateSpecies)
         
 

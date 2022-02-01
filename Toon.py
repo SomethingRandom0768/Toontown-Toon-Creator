@@ -30,8 +30,6 @@ class Toon:
         self.glove_color = glove_color
         self.leg_color = leg_color
         self.shirt_texture = shirt_texture
-        self.shirt_color = shirt_color
-        self.bottom_color = bottom_color
         self.toonActor = None
         self.eyelashes = has_eyelashes
         self.animationType = animation_type

@@ -1,6 +1,7 @@
 from direct.actor.Actor import Actor
 from panda3d.core import *
 from ToonHead import *
+from ToonDNA import *
 
 
 toonTorsoTypes = { "ss": 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_1000.bam', # short shorts
@@ -18,15 +19,15 @@ toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # 
 
 class Toon:
     '''This is the Actor that is a toon. Reads from ToonDNA's data for clothing'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color=None, glove_color=None, torso_color=None, leg_color=None, shirt_texture=None, shirt_color=None,bottom_color=None, animation_type=None, is60FPS=None, wearsShoes=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, shirt_color=None,bottom_color=None, animation_type=None, is60FPS=None, wearsShoes=None):
         self.species = species
         self.headtype = head_type # This basically helps set the species.
         self.torso_type = torso_type
         self.leg_size = leg_size
         self.gender= gender
         self.head_color = head_color
+        self.arm_color = arm_color
         self.glove_color = glove_color
-        self.torso_color = torso_color
         self.leg_color = leg_color
         self.shirt_texture = shirt_texture
         self.shirt_color = shirt_color
@@ -42,7 +43,6 @@ class Toon:
         self.legs = toonLegTypes[self.leg_size]
 
         self.generateActor()
-
 
     def generateActor(self):
         '''Updates Toon's pieces, and then creates an actor.'''
@@ -82,9 +82,12 @@ class Toon:
         if self.wearsShoes:
             pass
         else:
-            self.toonActor.find('**/*shoes').removeNode()
-            self.toonActor.find('**/*boots_short').removeNode()
-            self.toonActor.find('**/*boots_long').removeNode()
+            self.toonActor.find('**/*shoes').hide()
+            self.toonActor.find('**/*boots_short').hide()
+            self.toonActor.find('**/*boots_long').hide()
+
+        # Add the coloring to the Toon based on its color variables.
+        self.updateHeadColor(self.head_color)
 
         # Add shadow
         shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
@@ -100,15 +103,55 @@ class Toon:
         '''Updates the head type.'''
         self.head = ToonHead(species, head_type, has_eyelashes)
     
+    def updateHeadColor(self, color_to_set):
+        '''Updates the Toon's head color'''
+        self.head_color = color_to_set
+
+        if self.species == 'd':
+            self.toonActor.find('**/head').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front').setColor(colorsList[self.head_color])
+        elif self.species == 'de': # Gotta account for Deers only having one head type.
+            self.toonActor.find('**/*ears-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
+        elif self.species == 'du': # Gotta account for ducks not having ears
+            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
+        else:
+            self.toonActor.find('**/*ears-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*ears-long').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
+        self.toonActor.find('**/neck').setColor(colorsList[self.head_color])
+
     def updateTorso(self, torso_type):
         '''Updates the torso type'''
         self.torso = toonTorsoTypes[torso_type]
         self.torso_type = torso_type
 
+    def updateArmsColor(self, color_to_set):
+        self.arm_color = color_to_set
+        self.toonActor.find('**/arms').setColor(colorsList[self.arm_color])
+
     def updateLegs(self, legs_type):
         '''Updates the leg type'''
         self.leg_size = legs_type
         self.legs = toonLegTypes[legs_type]
+
+    def updateLegsColor(self, color_to_set):
+        '''Update the Toon leg colors'''
+        self.leg_color = color_to_set
+        self.toonActor.find('**/legs').setColor(colorsList[self.leg_color])
+        self.toonActor.find('**/feet').setColor(colorsList[self.leg_color])
+        
+    def updateGloveColor(self, color_to_set):
+        '''Colors the Toon's gloves'''
+        self.glove_color = color_to_set
+        self.toonActor.find('**/hands').setColor(colorsList[self.glove_color])
 
     def returnHead(self):
         '''Just returns the head'''

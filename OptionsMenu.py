@@ -499,10 +499,12 @@ class OptionsChoosingMenu(OptionsModal):
         for i in range(1, 12):
             self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
             self.bottom_middle_copy.setPos(i,0,-2)
+
         self.bottom_rightdf = dynamicFrameFile.find('**/*bottomRight')
         self.bottom_rightdf.setScale(1)
         self.bottom_rightdf.reparentTo(self.bottom_middle_copy)
         self.bottom_rightdf.setPos(1,0,0)
+
         self.dynamic_frame.setPos(0.5,0,-0.45)
         self.clickable_button = DirectButton(
             sortOrder=5,
@@ -523,7 +525,7 @@ class OptionsChoosingMenu(OptionsModal):
 
     def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, keyOrValue, selectables_dictionary=None, height=6):
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
-        self.selectable_dynamic_frame = NodePath('test')
+        self.selectable_dynamic_frame = NodePath('selectable_frame')
 
         self.clickable.reparentTo(hidden)    
         
@@ -539,7 +541,7 @@ class OptionsChoosingMenu(OptionsModal):
         top_middle_model.setPos(self.top_leftdf.getX()+0.5,0,0)
 
         # The Top Middle repetitions
-        for i in range(1, 11):
+        for i in range(1, 15):
             self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
             self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
 
@@ -563,7 +565,7 @@ class OptionsChoosingMenu(OptionsModal):
         center_middle_model.setPos(1,0,-1)
 
          # The Center Middle repetitions
-        for i in range(1, 12):
+        for i in range(1, 16):
             self.center_middle_copy = center_middle_model.copyTo(self.middlepiece)
             self.center_middle_copy.setPos(i,0,-1)
             
@@ -591,14 +593,15 @@ class OptionsChoosingMenu(OptionsModal):
         bottom_middle_model.setPos(1,0,0)
 
         # The Bottom Middle repetitions
-        for i in range(1, 11):
-            self.bottom_middle_copy = bottom_middle_model.copyTo(bottom_middle_model)
+        for i in range(1, 16):
+            self.bottom_middle_copy = bottom_middle_model.copyTo(bottom_left_model)
+            self.bottom_middle_copy.setPos(i, 0, 0)
 
 
         self.bottom_right = dynamicFrameFile.find('**/*bottomRight')
         self.bottom_right.setScale(1)
         self.bottom_right.reparentTo(self.bottom_middle_copy)
-        self.bottom_right.setPos(10,0,0)
+        self.bottom_right.setPos(1,0,0)
 
         self.slider_geom = self.options_geom.find('**/*slider1')
         self.trough_geom = self.options_geom.find('**/*lineSkinny')
@@ -612,7 +615,7 @@ class OptionsChoosingMenu(OptionsModal):
 
         self.selectables_frame = DirectGui.DirectScrolledFrame(
             parent=self.selectables_geom,
-            frameSize=(-0.5,0.7,-0.6,0.1),
+            frameSize=(-0.5,1.05,-0.6,0.1),
             canvasSize=(-1.25,0,selectable_frame_height,10),
             pos=(0.75,0,0.45),
             scale=0.5,
@@ -633,7 +636,7 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
             verticalScroll_geom_hpr=(0,0,90),
-            verticalScroll_geom_pos=(0.65,0,-0.25),
+            verticalScroll_geom_pos=(self.bottom_right.getX(),0,-0.25),
             verticalScroll_geom=self.trough_geom,
             verticalScroll_geom_scale=0.175,
             scrollBarWidth=0.1
@@ -645,7 +648,6 @@ class OptionsChoosingMenu(OptionsModal):
             i = 0
             for item in selectables_dictionary.keys():
                 i+=1
-                test_item = self.selectables_frame.getCanvas().attachNewNode(item)
                 button = DirectButton(
                     parent = self.selectables_frame.getCanvas(),
                     text=item,
@@ -662,7 +664,6 @@ class OptionsChoosingMenu(OptionsModal):
             i = 0
             for item in selectables_dictionary.keys():
                 i+=1
-                test_item = self.selectables_frame.getCanvas().attachNewNode(item)
                 button = DirectButton(
                     parent = self.selectables_frame.getCanvas(),
                     text=item,
@@ -675,9 +676,6 @@ class OptionsChoosingMenu(OptionsModal):
                     command=self.showAndHide,
                     extraArgs=[command_to_execute,item]
             )
-
-
-
 
 
 

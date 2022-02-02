@@ -541,7 +541,7 @@ class OptionsChoosingMenu(OptionsModal):
         top_middle_model.setPos(self.top_leftdf.getX()+0.5,0,0)
 
         # The Top Middle repetitions
-        for i in range(1, 15):
+        for i in range(1, 20):
             self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
             self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
 
@@ -565,7 +565,7 @@ class OptionsChoosingMenu(OptionsModal):
         center_middle_model.setPos(1,0,-1)
 
          # The Center Middle repetitions
-        for i in range(1, 16):
+        for i in range(1, 21):
             self.center_middle_copy = center_middle_model.copyTo(self.middlepiece)
             self.center_middle_copy.setPos(i,0,-1)
             
@@ -593,7 +593,7 @@ class OptionsChoosingMenu(OptionsModal):
         bottom_middle_model.setPos(1,0,0)
 
         # The Bottom Middle repetitions
-        for i in range(1, 16):
+        for i in range(1, 21):
             self.bottom_middle_copy = bottom_middle_model.copyTo(bottom_left_model)
             self.bottom_middle_copy.setPos(i, 0, 0)
 
@@ -609,13 +609,13 @@ class OptionsChoosingMenu(OptionsModal):
         self.selectables_geom = DirectGui.DirectFrame(
             geom=self.selectable_dynamic_frame,
             parent=self.containerFrame,
-            pos=(0.25,0,-0.45),
+            pos=(0.05,0,-0.45),
             relief=None
         )
 
         self.selectables_frame = DirectGui.DirectScrolledFrame(
             parent=self.selectables_geom,
-            frameSize=(-0.5,1.05,-0.6,0.1),
+            frameSize=(-0.5,1.55,-0.6,0.1),
             canvasSize=(-1.25,0,selectable_frame_height,10),
             pos=(0.75,0,0.45),
             scale=0.5,
@@ -636,7 +636,7 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
             verticalScroll_geom_hpr=(0,0,90),
-            verticalScroll_geom_pos=(self.bottom_right.getX(),0,-0.25),
+            verticalScroll_geom_pos=(self.bottom_right.getX()+0.5,0,-0.25),
             verticalScroll_geom=self.trough_geom,
             verticalScroll_geom_scale=0.175,
             scrollBarWidth=0.1

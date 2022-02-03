@@ -115,6 +115,9 @@ class Toon:
 
     def updateHead(self, species, head_type, has_eyelashes):
         '''Updates the head type.'''
+        self.headtype = head_type
+        self.species = species
+        self.eyelashes = has_eyelashes
         self.head = ToonHead(species, head_type, has_eyelashes)
     
     def updateHeadColor(self, color_to_set):

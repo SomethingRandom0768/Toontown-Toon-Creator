@@ -144,9 +144,6 @@ class OptionsMenu(DirectObject):
                     self.selectedToon.toonActor.delete()
                     self.selectedToon.updateHead('d', 'll', self.selectedToon.eyelashes)
                     self.selectedToon.generateActor()
-
-                
-
             else:
                 if tested_value < 20 and tested_value > 15:
                     self.selectedToon.toonActor.delete()
@@ -615,7 +612,7 @@ class OptionsChoosingMenu(OptionsModal):
 
         self.selectables_frame = DirectGui.DirectScrolledFrame(
             parent=self.selectables_geom,
-            frameSize=(-0.5,1.55,-0.6,0.1),
+            frameSize=(-0.5,1.6,-0.6,0.1),
             canvasSize=(-1.25,0,selectable_frame_height,10),
             pos=(0.75,0,0.45),
             scale=0.5,
@@ -636,7 +633,7 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
             verticalScroll_geom_hpr=(0,0,90),
-            verticalScroll_geom_pos=(self.bottom_right.getX()+0.5,0,-0.25),
+            verticalScroll_geom_pos=(self.bottom_right.getX()+0.55,0,-0.25),
             verticalScroll_geom=self.trough_geom,
             verticalScroll_geom_scale=0.175,
             scrollBarWidth=0.1
@@ -653,7 +650,7 @@ class OptionsChoosingMenu(OptionsModal):
                     text=item,
                     text_font=toon_font,
                     text_align=TextNode.ALeft,
-                    text_scale=0.7, 
+                    text_scale=0.57, 
                     scale=0.2, 
                     pos=(-1.2,0,10 - (i*0.2) ), 
                     relief=None,
@@ -669,7 +666,7 @@ class OptionsChoosingMenu(OptionsModal):
                     text=item,
                     text_font=toon_font,
                     text_align=TextNode.ALeft,
-                    text_scale=0.7, 
+                    text_scale=0.57, 
                     scale=0.2, 
                     pos=(-1.2,0,10 - (i*0.2) ), 
                     relief=None,

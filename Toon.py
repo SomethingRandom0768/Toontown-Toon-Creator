@@ -18,10 +18,12 @@ toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # 
                 } 
 
 class Toon:
-    '''This is the Actor that is a toon. Reads from ToonDNA's data for clothing'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, shirt_color=None,bottom_color=None, animation_type=None, is60FPS=None, wearsShoes=None):
+    '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, bottom_texture=None, backpack=None, animation_type=None, is60FPS=None, wearsShoes=None):
+        # DNA based stuff
+        self.toonActor = None
         self.species = species
-        self.headtype = head_type # This basically helps set the species.
+        self.headtype = head_type 
         self.torso_type = torso_type
         self.leg_size = leg_size
         self.gender= gender
@@ -29,9 +31,17 @@ class Toon:
         self.arm_color = arm_color
         self.glove_color = glove_color
         self.leg_color = leg_color
-        self.shirt_texture = shirt_texture
-        self.toonActor = None
         self.eyelashes = has_eyelashes
+    
+        # Clothing based stuff
+        self.shirt_texture = shirt_texture
+        self.bottom_texture = bottom_texture
+
+        # Accessory based stuff
+        self.backpack = backpack
+        self.hat = None
+        self.mask = None
+
         self.animationType = animation_type
         self.smooth_enabled = is60FPS
         self.wearsShoes = wearsShoes
@@ -97,8 +107,11 @@ class Toon:
         shadow.setSx(0.5)
         shadow.setSy(0.5)
 
+# DNA Related functions
+
     def updateSpecies(self, species_to_change_to):
         self.species = species_to_change_to
+        self.head = ToonHead(self.species, self.headtype, self.eyelashes)
 
     def updateHead(self, species, head_type, has_eyelashes):
         '''Updates the head type.'''
@@ -203,4 +216,6 @@ class Toon:
             return 'phase_3/models/char/tt_a_chr_dgm_shorts_legs_' + animation_type + '.bam'
         elif legSizeIndex == 's':
             return 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_' + animation_type + '.bam'
-        
+
+ # Accessory related functions       
+    

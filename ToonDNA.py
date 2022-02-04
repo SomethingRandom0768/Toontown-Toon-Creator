@@ -33,7 +33,7 @@ colorsList = {
     'Pink'          :VBase4(0.898438, 0.617188, 0.90625, 1.0),
     'Purple'        :VBase4(0.546875, 0.28125, 0.75, 1.0),
     'Red'          : VBase4(0.863281, 0.40625, 0.417969, 1.0),
-    'Rose Pink'     :Vbase4(0.8823529411764706, 0.43529411764705883, 0.6901960784313725, 1.0),                          
+    'Rose Pink'     :VBase4(0.8823529411764706, 0.43529411764705883, 0.6901960784313725, 1.0),                          
     'Royal Blue'    :VBase4(0.285156, 0.328125, 0.726562, 1.0),
     'Sea Green'     :VBase4(0.242188, 0.742188, 0.515625, 1.0),
     'Sienna'       : VBase4(0.570312, 0.449219, 0.164062, 1.0),        
@@ -135,4 +135,77 @@ anim_dict = {
     'Water Gun' : 'water-gun',
     'Wave'      : 'wave',
 
+}
+
+# Backpack model, (potentially texture if reskin), (potentially what to retexture), small scale, medium scale, large scale, accessory scale
+
+backpack_dict = {
+    'A Broken Jetpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_jetPack.bam', (0,-0.5,1), (0,-0.2,1), (0,-0.32,1.5), 0.32],
+    'Angel Wings': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_angelWings.bam', (0,-0.5,0.7), (0,-0.2,0.7), (0,-0.32,1.5), 0.3],
+    'The Attack Pack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_gags.bam', (0,-0.5,0.7), (0,-0.5,0.7), (0,-0.5,1.5), 0.32],
+    #'Banana Bowtie':
+    'Basic Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', (0,-0.7,0.7), (0,-0.5,0.7), (0,-0.5,1.5), 0.32],
+    'Bat Wings': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_batWings.bam',(0,-0.5,0.7), (0,-0.2,0.7), (0,-0.32,1.5), 0.3],
+#    'Bear Backpack': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackA.bam',
+#    'Bee Wings': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_beeWings.bam',
+#    'Bird Wings': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_birdWings.bam',
+#    'Blue Backpack': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackDog.bam',
+   # 'Blue Winter Scarf':
+#    'Butterfly Wings': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_butterflyWings.bam',
+  #  'Carrot Bowtie':
+  #  'Chocolate Bowtie'
+  #  'Crazy Bowtie'
+#    'Dragon Fly Wings': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_dragonFlyWings.bam',
+#    'Dragon Wings': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_dragonWing.bam',
+    #'Dreamland Bowtie'
+#    'Emergency Cream Pack': 'phase_4/models/accessories/ttr_m_chr_avt_acc_pac_creamPack.bam',
+#    'Emergency Seltzer': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_scubaTank.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_seltzerTank.jpg' ],
+    #'Extraordinaire Bowtie'
+#    'Fairy Wings': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_butterflyWings.bam', 'phase_4/maps/tt_t_chr_avt_acc_pac_butterflyWingsStyle1.jpg'],
+#    'The Flunk-Trunk': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_flunky.bam',
+    #'Green Fancy Bowtie'
+    #'Green Fancy Scarf'
+    #'Holiday Scarf'
+#    'Infinity and Beyond Backpack': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_airplane.bam',
+#    'Jellybean Bag': 'phase_4/models/accessories/ttr_m_chr_avt_acc_pac_jellybeanJar.bam',
+#    'Kitty Kit': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackCat.bam',
+#    'Lipstick Jetpack': 'phase_4/models/accessories/ttr_m_chr_avt_acc_pac_lipstickPack.bam',
+   # 'Melodyland Bowtie'
+#    'Oil Pale Pack': 'phase_4/models/accessories/ttr_m_chr_avt_acc_pac_oilJar.bam',
+#    'One-Toon Band': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_band.bam',
+    #'Orange Knapsack'
+    #'Pink Water Scarf'
+#    'Pirate Sword': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_woodenSword.bam',
+    #'Polka Bowtie'
+    #'Portable Blanket'
+    #'Purple Fancy Bowtie'
+    #'Purple Pouch'
+    #'Rainbow Scarf'
+    #'Rainbow Wings'
+    #'Red Bowtie'
+    #'Red Fancy Bowtie'
+    #'Red Polka-pack'
+    #'Resistance Cape'
+#    "Santa's Bag": 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_santa.bam',
+#    'Scuba Tank': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_scubaTank.bam',
+#    'Shark Fin': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_sharkFin.bam',
+    #'Sly Scarf'
+    #'Soft Scarf'
+#    'Spider Legs': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_spiderLegs.bam',
+    #'Starry Bowtie'
+    #'Strawberry Bowtie'
+    #'Strawberry Cape'
+#    "SuperToon's Cape": 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_supertoonCape.bam',
+    #'Teal Bowtie'
+#    'Token Tote': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_jellybeanJar.bam','phase_4/maps/ttr_t_avt_acc_pac_jellybeanJarTokens.jpg'],
+#    'ToonFest 2016 Blue Attendee Backpack':['phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackA.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_stuffedAnimalBackpackTFBlue.jpg'],
+#    'ToonFest 2016 Blue Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_backpackTFBlue.jpg'],
+#    'ToonFest 2016 Pink Attendee Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackA.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_stuffedAnimalBackpackTFPink.jpg'],
+#    'ToonFest 2016 Pink Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_backpackTFPink.jpg'],
+#    'Toonosaur Tail': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_dinosaurTail.bam',
+    #'Trainee Travel Pack'
+#    'Treasure Trove': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_jellybeanJar.bam', 'phase_4/maps/ttr_t_avt_acc_pac_jellybeanJarTreasures.jpg'],
+#    'Vampire Cloak': 'phase_4/models/accessories/tt_m_chr_avt_acc_pac_vampireCape.bam'
+    #'Vanilla Bowtie'
+    #'Yellow Polka-pack'
 }

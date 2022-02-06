@@ -19,7 +19,7 @@ toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # 
 
 class Toon:
     '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, bottom_texture=None, backpack=None, animation_type=None, is60FPS=None, wearsShoes=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, bottom_texture=None, backpack=None, glasses = None, animation_type=None, is60FPS=None, wearsShoes=None):
         # DNA based stuff
         self.toonActor = None
         self.species = species
@@ -41,7 +41,8 @@ class Toon:
         self.backpack_type = backpack
         self.backpack_model = None
         self.hat = None
-        self.mask = None
+        self.glasses_type = glasses # Also counts for mask since they're both the same.
+        self.glasses_model = None
 
         self.animationType = animation_type
         self.smooth_enabled = is60FPS
@@ -104,6 +105,11 @@ class Toon:
         # Accessory related stuff
         if self.backpack_type:
             self.attachBackpack(self.backpack_type)
+        else:
+            pass
+        
+        if self.glasses_type:
+            self.attachGlasses(self.glasses_type)
         else:
             pass
 
@@ -296,3 +302,11 @@ class Toon:
                 self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][5] )
             else:
                 print("What kind of torso are you rockin?")
+
+    def attachGlasses(self, glasses_to_attach):
+        self.glasses_type = glasses_to_attach
+        self.glasses_model = loader.loadModel(glasses_dict[glasses_to_attach])
+        self.glasses_model.reparentTo(self.toonActor.find('**/*head'))
+        self.glasses_model.setPos(0,0.1,0.2)
+        self.glasses_model.setHpr(180,0,0)
+        self.glasses_model.setScale(0.4)

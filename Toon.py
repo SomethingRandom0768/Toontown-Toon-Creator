@@ -38,7 +38,8 @@ class Toon:
         self.bottom_texture = bottom_texture
 
         # Accessory based stuff
-        self.backpack = backpack
+        self.backpack_type = backpack
+        self.backpack_model = None
         self.hat = None
         self.mask = None
 
@@ -99,6 +100,12 @@ class Toon:
         self.updateArmsColor(self.arm_color)
         self.updateLegsColor(self.leg_color)
         self.updateGloveColor(self.glove_color)
+
+        # Accessory related stuff
+        if self.backpack_type:
+            self.attachBackpack(self.backpack_type)
+        else:
+            pass
 
         # Add shadow
         shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
@@ -221,4 +228,71 @@ class Toon:
             return 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_' + animation_type + '.bam'
 
  # Accessory related functions       
-    
+    def attachBackpack(self, backpack_to_attach):
+        '''Attaches a backpack based on the type of backpack.'''
+
+        if self.backpack_model: # So if we already had a model before changing it, remove its node.
+            self.backpack_model.removeNode()
+        else:
+            pass
+
+        # Doing this because some backpacks require a model and texture while others just need the bam file.
+     
+        if len( backpack_dict[backpack_to_attach] ) == 5:
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][4] )
+            if 'Sword' in backpack_to_attach:
+                self.backpack_model.setHpr(180,15,30)
+            elif "Bag" in backpack_to_attach:
+                self.backpack_model.setHpr(0,0,0)
+            elif 'Tail' in backpack_to_attach or 'Fin' in backpack_to_attach:
+                self.backpack_model.setHpr(180,20,0)
+            else:    
+                self.backpack_model.setHpr(180,0,0)
+
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][1] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            else:
+                print("What kind of torso are you rockin?")
+
+        elif len( backpack_dict[backpack_to_attach] ) == 6: # This is when we need to retexture something like the ToonFest backpacks, or scarves.
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture( backpack_dict[backpack_to_attach][1])
+            self.backpack_model.setTexture(texture, 1)
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][5] )
+
+            if 'Bowtie' in backpack_to_attach:
+                self.backpack_model.setHpr(180,-50,0)
+            else:
+                self.backpack_model.setHpr(180,0,0)
+
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+            else:
+                print("What kind of torso are you rockin?")
+
+        elif len( backpack_dict[backpack_to_attach] ) == 7: # This is when we need to retexture something like the Jellybean Jar reskins, which have an RGB file.
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture( texturePath = backpack_dict[backpack_to_attach][1], alphaPath= backpack_dict[backpack_to_attach][2])
+            self.backpack_model.setTexture(texture, 1)
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
+
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][5] )
+            else:
+                print("What kind of torso are you rockin?")

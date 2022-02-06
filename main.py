@@ -21,7 +21,7 @@ class MyApp(ShowBase):
         self.win.requestProperties(windowSettings)
 
         # Music
-        self.music = loader.loadSfx('phase_5/audio/bgm/ttr_s_ara_cbe_cogdoStreet.ogg')
+        self.music = loader.loadSfx('music/ttr_s_ara_cbe_cogdoStreet.ogg')
         self.music.setLoop(True)
         #self.music.play()
 
@@ -31,11 +31,11 @@ class MyApp(ShowBase):
         self.environment.setHpr(-90,0,0)
 
         # Moving camera
-        base.cam.setPos(5,17.5,3)
+        base.cam.setPos(5.5,18,3)
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('ca', 'ls', False, 'ld', 'l', 'f', animation_type='happy-dance', is60FPS=False)
+        self.toon = Toon('du', 'ss', False, 'ms', 's', 'f', head_color='Yellow', arm_color='Yellow', leg_color='Yellow', animation_type='neutral', backpack="Spider Legs", glasses='3D Glasses', is60FPS=True)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

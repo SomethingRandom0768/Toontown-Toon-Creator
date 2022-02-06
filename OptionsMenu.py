@@ -300,6 +300,14 @@ class OptionsMenu(DirectObject):
             self.selectedToon.animationType = anim
             self.selectedToon.generateActor()
 
+        def updateBackpack(backpack_type):
+            self.selectedToon.backpack_type = backpack_type
+            self.selectedToon.attachBackpack(backpack_type)
+
+        def updateGlasses(glasses_type):
+            self.selectedToon.glasses_type = glasses_type
+            self.selectedToon.attachGlasses(glasses_type)
+
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -314,10 +322,14 @@ class OptionsMenu(DirectObject):
         self.gender_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
-        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', -1.4, 3.75, colorsList, updateGloveColor, 0)
-        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', -1.2, 3.75, colorsList, updateLegsColor, 0)
-        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', -1, 3.75, colorsList, updateArmsColor, 0)
-        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', -0.8, 3.75, colorsList, updateHeadColor, 0)
+
+        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -2.9, 1, glasses_dict, updateGlasses, 0)
+        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -2.7, 1, backpack_dict, updateBackpack, 0)
+        self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.5)
+        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', -1.4, 1.25, colorsList, updateGloveColor, 0)
+        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', -1.2, 1.25, colorsList, updateLegsColor, 0)
+        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', -1, 1.25, colorsList, updateArmsColor, 0)
+        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', -0.8, 1.25, colorsList, updateHeadColor, 0)
         self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.6, -4.2, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 7.5, species_dict, updateSpecies)
         

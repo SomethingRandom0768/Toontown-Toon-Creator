@@ -35,7 +35,7 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('du', 'ss', False, 'ms', 's', 'f', head_color='Yellow', arm_color='Yellow', leg_color='Yellow', animation_type='neutral', backpack="Spider Legs", glasses='3D Glasses', is60FPS=True)
+        self.toon = Toon('ri', 'ss', False, 'ls', 'l', 'f', head_color='Cartoonival Blue', arm_color='Cartoonival Blue', leg_color='Cartoonival Blue', animation_type='riggyNeutral', backpack="Spider Legs", glasses='3D Glasses', gm_type=1, is60FPS=True)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

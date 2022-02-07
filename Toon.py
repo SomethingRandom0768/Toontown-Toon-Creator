@@ -2,6 +2,8 @@ from direct.actor.Actor import Actor
 from panda3d.core import *
 from ToonHead import *
 from ToonDNA import *
+from direct.task import Task
+from direct.interval.LerpInterval import LerpHprInterval
 
 
 toonTorsoTypes = { "ss": 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_1000.bam', # short shorts
@@ -19,7 +21,7 @@ toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # 
 
 class Toon:
     '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, bottom_texture=None, backpack=None, glasses = None, animation_type=None, is60FPS=None, wearsShoes=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, bottom_texture=None, backpack=None, glasses = None, gm_type=0, animation_type=None, is60FPS=None, wearsShoes=None):
         # DNA based stuff
         self.toonActor = None
         self.species = species
@@ -43,6 +45,10 @@ class Toon:
         self.hat = None
         self.glasses_type = glasses # Also counts for mask since they're both the same.
         self.glasses_model = None
+
+        # Miscellaneous things
+        self.gm_type = gm_type
+        self.gm_icon_model = None
 
         self.animationType = animation_type
         self.smooth_enabled = is60FPS
@@ -110,6 +116,13 @@ class Toon:
         
         if self.glasses_type:
             self.attachGlasses(self.glasses_type)
+        else:
+            pass
+
+        # GM Icon
+
+        if self.gm_type:
+            self.attachGMIcon(self.gm_type)
         else:
             pass
 
@@ -235,7 +248,7 @@ class Toon:
 
  # Accessory related functions       
     def attachBackpack(self, backpack_to_attach):
-        '''Attaches a backpack based on the type of backpack.'''
+        '''Attaches a backpack based on the type of backpack, and if it has a texture.'''
 
         if self.backpack_model: # So if we already had a model before changing it, remove its node.
             self.backpack_model.removeNode()
@@ -304,9 +317,52 @@ class Toon:
                 print("What kind of torso are you rockin?")
 
     def attachGlasses(self, glasses_to_attach):
+        '''Attaches glasses based on the model, Toon species type, and texture'''
         self.glasses_type = glasses_to_attach
         self.glasses_model = loader.loadModel(glasses_dict[glasses_to_attach])
         self.glasses_model.reparentTo(self.toonActor.find('**/*head'))
         self.glasses_model.setPos(0,0.1,0.2)
         self.glasses_model.setHpr(180,0,0)
         self.glasses_model.setScale(0.4)
+
+ # Miscellaneous functions
+    def attachGMIcon(self, GMType):
+        '''Attaches a GM Icon for the funzies'''
+        self.gm_type = GMType
+
+        if self.gm_icon_model:
+            self.gm_icon_model.removeNode()
+        else:
+            pass
+
+        if self.gm_type == 0: # None
+            pass
+        elif self.gm_type == 1: # Staff member
+            self.gm_icon_model = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_gm_badge.bam').find('**/*geo_staffMember')
+            icon_ival = LerpHprInterval(self.gm_icon_model, 2.0, (360,0,0), (0,0,0))
+            icon_ival.loop()
+            self.gm_icon_model.setScale(2)
+        elif self.gm_type == 2: # Featured Toon
+            self.gm_icon_model = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_gm_badge.bam').find('**/*geo_featuredToon')
+            icon_ival = LerpHprInterval(self.gm_icon_model, 2.0, (360,0,0), (0,0,0))
+            icon_ival.loop()
+            self.gm_icon_model.setScale(2)
+        elif self.gm_type == 3: # Resistance Ranger
+            self.gm_icon_model = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_gm_badge.bam').find('**/*geo_toonResistance')
+            icon_ival = LerpHprInterval(self.gm_icon_model, 2.0, (360,0,0), (0,0,0))
+            icon_ival.loop()
+            self.gm_icon_model.setScale(2)
+        elif self.gm_type == 4: # Toon Trooper
+            self.gm_icon_model = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_gm_badge.bam').find('**/*geo_toonTrooper')
+            icon_ival = LerpHprInterval(self.gm_icon_model, 2.0, (360,0,0), (0,0,0))
+            icon_ival.loop()
+            self.gm_icon_model.setScale(2)
+        elif self.gm_type == 5: # Party Hat
+            self.gm_icon_model = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_gm_badge.bam').find('**/*geo_party')
+            self.gm_icon_model.setScale(1)
+        else:
+            print("You do not have a proper GM Icon type.")
+        
+        self.gm_icon_model.reparentTo(self.toonActor.find('**/*head'))
+        self.gm_icon_model.setPos(0,0,-0.3)
+

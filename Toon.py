@@ -108,11 +108,6 @@ class Toon:
         else:
             pass
         
-        if self.glasses_type:
-            self.attachGlasses(self.glasses_type)
-        else:
-            pass
-
         # Add shadow
         shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
         shadow.reparentTo(self.toonActor.find('**/joint_shadow'))
@@ -306,10 +301,3 @@ class Toon:
                 if 'Oil' in backpack_to_attach: # OIl Pale Pack's rotation is correct, unlike the other models
                     self.backpack_model.setHpr(180,0,0)
 
-    def attachGlasses(self, glasses_to_attach):
-        self.glasses_type = glasses_to_attach
-        self.glasses_model = loader.loadModel(glasses_dict[glasses_to_attach])
-        self.glasses_model.reparentTo(self.toonActor.find('**/*head'))
-        self.glasses_model.setPos(0,0.1,0.2)
-        self.glasses_model.setHpr(180,0,0)
-        self.glasses_model.setScale(0.4)

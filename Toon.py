@@ -303,6 +303,9 @@ class Toon:
             else:
                 print("What kind of torso are you rockin?")
 
+                if 'Oil' in backpack_to_attach: # OIl Pale Pack's rotation is correct, unlike the other models
+                    self.backpack_model.setHpr(180,0,0)
+
     def attachGlasses(self, glasses_to_attach):
         self.glasses_type = glasses_to_attach
         self.glasses_model = loader.loadModel(glasses_dict[glasses_to_attach])

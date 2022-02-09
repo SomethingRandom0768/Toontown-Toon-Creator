@@ -304,10 +304,6 @@ class OptionsMenu(DirectObject):
             self.selectedToon.backpack_type = backpack_type
             self.selectedToon.attachBackpack(backpack_type)
 
-        def updateGlasses(glasses_type):
-            self.selectedToon.glasses_type = glasses_type
-            self.selectedToon.attachGlasses(glasses_type)
-
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -323,7 +319,6 @@ class OptionsMenu(DirectObject):
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
 
-        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -2.9, 1, glasses_dict, updateGlasses, 0)
         self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -2.7, 1, backpack_dict, updateBackpack, 0)
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.5)
         self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', -1.4, 1.25, colorsList, updateGloveColor, 0)

@@ -298,6 +298,7 @@ class Toon:
             else:
                 print("What kind of torso are you rockin?")
 
-                if 'Oil' in backpack_to_attach: # OIl Pale Pack's rotation is correct, unlike the other models
-                    self.backpack_model.setHpr(180,0,0)
+
+            if 'Oil Pale Pack' in backpack_to_attach: # Oil Pale Pack's rotation is correct, unlike the other models
+                self.backpack_model.setHpr(180,0,0)
 

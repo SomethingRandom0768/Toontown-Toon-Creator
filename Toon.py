@@ -294,9 +294,6 @@ class Toon:
             self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
             self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
 
-            if 'Oil' in backpack_to_attach:
-                self.backpack_model.setPos(0,0,100)
-                print(backpack_to_attach)
 
             if self.torso_type[0] == 's':
                 self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
@@ -307,7 +304,7 @@ class Toon:
             else:
                 print("What kind of torso are you rockin?")
 
-            if 'Oil' in backpack_to_attach: # OIl Pale Pack's rotation is correct, unlike the other models
+            if 'Oil' in backpack_to_attach: # Oil Pale Pack's rotation is correct, unlike the other models
                 self.backpack_model.setHpr(180,0,0)
 
     def attachGlasses(self, glasses_to_attach):

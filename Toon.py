@@ -308,10 +308,15 @@ class Toon:
                 self.backpack_model.setHpr(180,0,0)
 
     def attachGlasses(self, glasses_to_attach):
+        '''Attaches glasses to the Toon.'''
+
+        # If we already have glasses
+        if self.glasses_model:
+            self.glasses_model.removeNode()
+
         self.glasses_type = glasses_to_attach
         self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
         self.glasses_model.reparentTo(self.toonActor.find('**/*def_head'))
-        #self.toonActor.ls
         self.glasses_model.setPos(0,0.1,0.2)
         self.glasses_model.setHpr(180,0,0)
         self.glasses_model.setScale(0.45)

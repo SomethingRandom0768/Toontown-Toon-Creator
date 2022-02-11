@@ -315,8 +315,41 @@ class Toon:
             self.glasses_model.removeNode()
 
         self.glasses_type = glasses_to_attach
-        self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+
+        if len(glasses_dict[glasses_to_attach]) == 1: # Regular glasses model.
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+        elif len(glasses_dict[glasses_to_attach]) == 2: # Glasses model with different texture
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+            texture = loader.loadTexture(glasses_dict[glasses_to_attach][1])
+            self.glasses_model.setTexture(texture, 1)     
+        elif len(glasses_dict[glasses_to_attach]) == 3: # Glasses model with different texture and different rgb file
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+            texture = loader.loadTexture(glasses_dict[glasses_to_attach][1], alphaPath=glasses_dict[glasses_to_attach][2])
+            self.glasses_model.setTexture(texture, 1)
+
         self.glasses_model.reparentTo(self.toonActor.find('**/*def_head'))
-        self.glasses_model.setPos(0,0.1,0.2)
+
+        # Based on each species type, we'll move the glasses to a different place and scale it
+        placement_list = glasses_placement_dict[self.species]
+
+        self.glasses_model.setPos(placement_list[0])
         self.glasses_model.setHpr(180,0,0)
-        self.glasses_model.setScale(0.45)
+        self.glasses_model.setScale(placement_list[1])
+
+        print(len(glasses_dict.keys()))
+        
+        # if 'Snowy Shades' == glasses_to_attach or 'Experimental Eyewear' == glasses_to_attach: # Without this, it's extremely tiny and ends up inside the Toon's head o.o .
+        #     self.glasses_model.setHpr(0,0,0)
+        #     self.glasses_model.setScale(1.25)
+        # elif 'Black Mask' in glasses_to_attach or 'Blue Mask' in glasses_to_attach:
+        #     self.glasses_model.setPos(0,0.47,0)
+        #     self.glasses_model.setScale(0.2)
+        #     self.glasses_model.setHpr(180,0,0)
+        # elif 'Bug-eyed' in glasses_to_attach: # Little higher than the head
+        #     self.glasses_model.setPos(0,0.25,0)
+        #     self.glasses_model.setHpr(180,0,0)
+        # elif 'ToonFest 2020 Pink Glasses' == glasses_to_attach or 'ToonFest 2020 Blue Glasses' == glasses_to_attach: # Gotta move these down a little bit.
+        #     self.glasses_model.setPos(0,0.25,0.05)
+        #     self.glasses_model.setHpr(180,0,0)
+        # else:
+        #     self.glasses_model.setHpr(180,0,0)

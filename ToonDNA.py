@@ -286,3 +286,19 @@ glasses_dict = {
     'Yellow Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_4.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_4_a.rgb']
 }
 
+# Species type : model position, scale
+
+glasses_placement_dict = {
+    'b': [ (0,0.25,0.175), 0.32 ],
+    'ca': [ (0,0.2,0.15), 0.32 ],
+    # 'cr'
+    # 'de'
+    # 'd'
+    # 'du'
+    # 'h'
+    # 'mo'
+    # 'mi'
+    # 'p'
+    # 'r'
+    # 'ri'
+}

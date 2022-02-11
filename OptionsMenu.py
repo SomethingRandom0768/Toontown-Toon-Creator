@@ -324,7 +324,7 @@ class OptionsMenu(DirectObject):
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
 
         self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -2.9, 1, glasses_dict, updateGlasses, 0)
-        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -2.7, 1, backpack_dict, updateBackpack, 0)
+        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -2.7, -4, backpack_dict, updateBackpack, 0)
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.5)
         self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', -1.4, 1.25, colorsList, updateGloveColor, 0)
         self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', -1.2, 1.25, colorsList, updateLegsColor, 0)

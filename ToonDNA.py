@@ -1,4 +1,4 @@
-# THIS FILE CONTAINS ALL THE DICTIONARIES USED FOR THE CHOOSING MENUS IN OPTIONSMENU.PY
+# THIS FILE CONTAINS ALL THE DICTIONARIES USED FOR THE CHOOSING MENUS IN OPTIONSMENU.PY AND EVERYTHING A TOON CAN WEAR
 from panda3d.core import *
 
 colorsList = {
@@ -138,7 +138,7 @@ anim_dict = {
 
 }
 
-# Backpack model, (potentially texture if reskin), (potentially what to retexture), small scale, medium scale, large scale, accessory scale
+# Backpack model, (potentially texture if reskin), (potentially what to retexture), small torso position, medium torso position, large torso position, accessory scale
 # Yes I manually positioned all of these per torso type for you. You're welcome.
 
 backpack_dict = {
@@ -168,7 +168,7 @@ backpack_dict = {
     'Green Fancy Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonFancy_2.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
     'Green Fancy Scarf':['phase_4/models/accessories/tt_m_chr_avt_acc_pac_scarf.bam', 'phase_4/maps/tt_t_chr_avt_acc_pac_scarf2.jpg', (0.25,-0.7,0.5), (0.25,-0.45,0.5), (0.25,-0.6,0.75), 1],
     'Holiday Scarf': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_scarf.bam', 'phase_4/maps/tt_t_chr_avt_acc_pac_scarfChristmas.jpg', (0.25,-0.7,0.5), (0.25,-0.45,0.5), (0.25,-0.6,0.75), 1],
-    'Infinity and Beyond Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_airplane.bam', (0.35,-1, 0.1), (0.2,-0.5,0.1), (0.2,-0.6,0.45), 0.2],
+    'Infinity and Beyond Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_airplane.bam', (0.35,-1, 0.1), (0.2,-0.6,0.1), (0.2,-0.6,0.45), 0.35],
     'Jellybean Jar': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_jellybeanJar.bam', (0.4,-1.25,-0.15), (0.3,-1,-0.15), (0.25,-1.1,0.025), 0.32],
     'Kitty Kit': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackCat.bam', (0.35,-1.6, 0.1), (0.35,-1.25,0.1), (0.35,-1,0.1), 0.3],
     'Lipstick Jetpack': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_lipstickPack.bam', (0.5,-1.25,0), (0.35,-0.75,0.3), (0.3,-0.9,0.45), 0.32],
@@ -187,7 +187,7 @@ backpack_dict = {
     'Red Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonPink_1.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
     'Red Fancy Bowtie':  ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonFancy_1.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
     'Red Polka-pack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', 'phase_4/maps/tt_t_chr_avt_acc_pac_backpackPolkaDotRed.jpg', (0.4,-1.5,0.1), (0.3,-1.1,0.1), (0.3,-1.25,0.2), 0.32],
-    'Resistance Cape': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_supertoonCape.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_crashcashCape.jpg', (0.35,-1.1, 0.55), (0.35, -0.75, 0.55), (0.25,-0.8,0.75), 0.3],
+    'Resistance Cape': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_supertoonCape.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_crashcashCape.jpg', (0.35,-1.1, 0.55), (0.25, -0.75, 0.55), (0.25,-0.8,0.75), 0.3],
     "Santa's Bag": ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_santa.bam', (0.3,-1.25,0), (0.3,-0.75,0), (0.3,-0.75,0), 1],
     'Scuba Tank': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_scubaTank.bam', (0.25,-1.5,0.1), (0.25,-1.1,0.1), (0.25,-1.1,0.25), 0.25],
     'Shark Fin': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_sharkFin.bam', (0.35,-1.4, 0), (0.35, -1, 0), (0.25,-1.1,0), 0.35],
@@ -197,13 +197,13 @@ backpack_dict = {
     'Starry Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonPink_2.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
     'Starry Scarf': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_scarf.bam', 'phase_4/maps/tt_t_chr_avt_acc_pac_scarf_starry.jpg', (0.25,-0.7,0.5), (0.25,-0.45,0.5), (0.25,-0.6,0.75), 1],
     'Strawberry Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonTasty_1.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
-    'Strawberry Cape': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_supertoonCape.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_superStrawberry.jpg', (0.35,-1.1, 0.55), (0.35, -0.75, 0.55), (0.25,-0.8,0.75), 0.3],
-    "SuperToon's Cape": ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_supertoonCape.bam', (0.35,-1.1, 0.55), (0.35, -0.75, 0.55), (0.25,-0.8,0.75), 0.3],
+    'Strawberry Cape': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_supertoonCape.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_superStrawberry.jpg', (0.35,-1.1, 0.55), (0.25, -0.75, 0.55), (0.25,-0.8,0.75), 0.3],
+    "SuperToon's Cape": ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_supertoonCape.bam', (0.35,-1.1, 0.55), (0.25, -0.75, 0.55), (0.25,-0.8,0.75), 0.3],
     'Teal Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonPink_4.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
     'Token Tote': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_jellybeanJar.bam', 'phase_4/maps/ttr_t_avt_acc_pac_jellybeanJarTokens.jpg', 'phase_4/maps/ttr_t_avt_acc_pac_jellybeanJarTokens_a.rgb', (0.4,-1.25,-0.15), (0.3,-1,-0.15), (0.25,-1.1,0.025), 0.32],
-    'ToonFest 2016 Blue Attendee Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackA.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_stuffedAnimalBackpackTFBlue.jpg', (0.3,-1.6,-0.5), (0.3,-1.35,-0.4), (0.3,-1.4,-0.25), 0.25],
+    'ToonFest 2016 Blue Attendee Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackA.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_stuffedAnimalBackpackTFBlue.jpg', (0.3,-1.6,-0.5), (0.3,-1.35,-0.4), (0.3,-1.4,-0.25), 0.32],
     'ToonFest 2016 Blue Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_backpackTFBlue.jpg', (0.4,-1.5,0.1), (0.3,-1.1,0.1), (0.3,-1.25,0.2), 0.32],
-    'ToonFest 2016 Pink Attendee Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackA.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_stuffedAnimalBackpackTFPink.jpg', (0.3,-1.6,-0.5), (0.3,-1.35,-0.4), (0.3,-1.4,-0.25), 0.25],
+    'ToonFest 2016 Pink Attendee Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_stuffedAnimalBackpackA.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_stuffedAnimalBackpackTFPink.jpg', (0.3,-1.6,-0.5), (0.3,-1.35,-0.4), (0.3,-1.4,-0.25), 0.32],
     'ToonFest 2016 Pink Backpack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_backpackTFPink.jpg', (0.4,-1.5,0.1), (0.3,-1.1,0.1), (0.3,-1.25,0.2), 0.32],
     'Toonosaur Tail': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_dinosaurTail.bam',  (0.35,-1.4, 0), (0.35, -0.75, 0), (0.25,-1,0), 0.3],
     'Trainee Travel Pack':  ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', 'phase_4/maps/ttr_t_chr_avt_acc_pac_backpackTrainee.jpg', (0.4,-1.5,0.1), (0.3,-1.1,0.1), (0.3,-1.25,0.2), 0.32],
@@ -213,66 +213,76 @@ backpack_dict = {
     'Yellow Polka-pack': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_backpack.bam', 'phase_4/maps/tt_t_chr_avt_acc_pac_backpackPolkaDotYellow.jpg', (0.4,-1.5,0.1), (0.3,-1.1,0.1), (0.3,-1.25,0.2), 0.32],
 }
 
+
+# Glasses model, (potentially texture if reskin), (rgb file if needed)
+
 glasses_dict = {
-    '3D Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_3dGlasses.bam'],
-    # 'Alien Eyes'
-    # 'Aviator Shades'
-    # 'Begazzled Eyepatch'
-    # 'Black Cool Summer Shades'
-    # 'Black Mask'
-    # 'Black Narrow Glasses'
-    # 'Black Spotted Glasses'
-    # 'Blue Cool Summer Shades'
-    # 'Blue Glasses'
-    # 'Blue Mask'
-    # 'Blue Snowy Shades'
-    # 'Brown Glasses'
-    # 'Bug-eyed Binoculars'
-    # 'Cateye Specs'
-    # 'Dark Blue Glasses'
-    # "Dr. Googlymoogly's Goggles"
-    # 'Experimental Eyewear'
-    # 'Fancy Blue Mask'
-    # 'Fancy Green Mask'
-    # 'Fancy Purple Mask'
-    # 'Four Eyes'
-    # 'Gadzooks Goggles'
-    # 'Green Glasses'
-    # 'Green Narrow Glasses'
-    # 'Green Snowy Shades'
-    # 'Green Summer Shades'
-    # 'Groucho Glasses'
-    # 'Heart Throbbers'
-    # 'Hypno-Goggle Glasses'
-    # 'Lavender Glasses'
-    # 'Pink Glasses'
-    # 'Pink Narrow Glasses'
-    # 'Pink Snowy Shades'
-    # 'Pink Spotted Shades'
-    # 'Pink Summer Shades'
-    # 'Purple Glasses'
-    # 'Purple Summer Shades'
-    # 'Red Glasses'
-    # 'Red Spotted Shades'
-    # 'Red Summer Shades'
-    # 'Resistance Eyepatch'
-    # 'Scuba Goggles'
-    # 'Sellbot Cog-Crusher Shades'
-    # 'Solid Black Narrow Glasses'
-    # 'Square Specs'
-    # 'Star Shades'
-    # 'Teal Summer Shades'
-    # 'The Fancy Focal'
-    # 'ToonFest 2020 Blue Attendee Glasses'
-    # 'ToonFest 2020 Blue Glasses'
-    # 'ToonFest 2020 Pink Attendee Glasses'
-    # 'ToonFest 2020 Pink Glasses'
-    # 'Vintage Teashades'
-    # 'White Cool Summer Shades'
-    # 'White Glasses'
-    # 'White Narrow Glasses'
-    # 'White Shutters'
-    # 'White Spotted Shades'
-    # 'Yellow Summer Shades'
+    '3D Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_3dGlasses.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_3dGlasses.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_3dGlasses_a.rgb'],
+    'Alien Eyes': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_alienGlasses.bam'],
+    'Aviator Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_aviator.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_aviator.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_aviator_a.rgb'],
+    'Begazzled Eyepatch': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_eyepatch.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_eyepatchGems.jpg'],
+    'Black Cool Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_12.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_12_a.rgb'],
+    'Black Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask.bam'],
+    'Black Narrow Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_narrowGlasses.bam','phase_4/maps/ttr_t_chr_avt_acc_msk_narrowGlassesPurple_2.jpg'],
+    'Black Spotted Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_5.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_5_a.rgb'],
+    'Blue Cool Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_15.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_15_a.rgb'],
+    'Blue Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_17.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_17_a.rgb'],
+    'Blue Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_masqueradeTypeMask2.jpg'],
+    'Blue Snowy Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_snowgoggles.bam'],
+    'Blue Spotted Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_7.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_7_a.rgb'],
+    'Brown Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_24.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_24_a.rgb'],
+    'Bug-eyed Binoculars': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_insectEyeGlasses.bam'],
+    'Cateye Specs': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_catEyeGlasses.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_catEyeGlasses.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_catEyeGlasses_a.rgb'],
+    'Celebrity Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_jackieOShades.bam'],
+    'Dark Blue Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_21.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_21_a.rgb'],
+    "Dr. Googlymoogly's Goggles": ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_goggles.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_gogglesGoogly.jpg'],
+    'Experimental Eyewear': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_snowgoggles.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_snowGogglesExplorer.jpg'],
+    'Fancy Blue Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask3.bam'],
+    'Fancy Green Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask3.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_masqueradeTypeMask5.jpg'],
+    'Fancy Purple Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask3.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_masqueradeTypeMask4.jpg'],
+    'Four Eyes': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23_a.rgb'],
+    'Gadzooks Goggles': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_goggles.bam'],
+    'Green Glasses':  ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23_a.rgb'],
+    'Green Narrow Glasses' : ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_narrowGlasses.bam','phase_4/maps/ttr_t_chr_avt_acc_msk_narrowGlassesPurple_4.jpg'],
+    'Green Snowy Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_snowgoggles.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_snowgoggles2.jpg'],
+    'Green Summer Shades':  ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_13.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_13_a.rgb'],
+    'Groucho Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_grouchoMarxEyebrow.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_grouchoMarxEyebrow.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_grouchoMarxEyebrow_a.rgb'],
+    'Heart Throbbers': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_heartGlasses.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_heartGlasses.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_heartGlasses_a.rgb'],
+    'Hypno-Goggle Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_jackieOShades.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_hypnoShades.jpg'],
+    'Lavender Glasses':  ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_22.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_22_a.rgb'],
+    'Magnifying Glasses' : ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_roundGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_roundGlassesSleuth.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_roundGlassesSleuth_a.rgb'],
+    'Orange Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_25.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_25_a.rgb'],
+    'Orange Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_14.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_14_a.rgb'],
+    'Pink Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_19.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_19_a.rgb'],
+    'Pink Narrow Glasses' : ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_narrowGlasses.bam','phase_4/maps/ttr_t_chr_avt_acc_msk_narrowGlassesPurple_5.jpg'],
+    'Pink Snowy Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_snowgoggles.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_snowgoggles1.jpg'],
+    'Pink Spotted Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_3.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_3_a.rgb'],
+    'Pink Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_10.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_10_a.rgb'],
+    'Purple Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_16.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_16_a.rgb'],
+    'Purple Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_9.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_9_a.rgb'],
+    'Red Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_20.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_20_a.rgb'],
+    'Red Spotted Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_2.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_2_a.rgb'],
+    'Red Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_1.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_1_a.rgb'],
+    'Regular Eyepatch': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_eyepatch.bam'],
+    'Resistance Eyepatch': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_eyepatch.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_eyepatchBrown.jpg'],
+    'Scuba Goggles': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_scubaMask.bam'],
+    'Sellbot Cog-Crusher Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_sellbotGlasses.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_sellbotGlasses_a.rgb'],
+    'Smasher Glasses (SPOILERS!)': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_3dGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_3dGlassesSmasher.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_3dGlassesSmasher_a.rgb'],
+    'Solid Black Narrow Glasses' : ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_narrowGlasses.bam','phase_4/maps/ttr_t_chr_avt_acc_msk_narrowGlassesPurple_1.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_narrowGlassesPurple_a.rgb'],
+    'Square Specs': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_squareRims.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_squareRims.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_squareRims_a.rgb'],
+    'Star Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_starGlasses.bam'],
+    'Teal Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_8.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_8_a.rgb'],
+    'The Fancy Focal': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_monocle.bam'],
+    'ToonFest 2020 Blue Attendee Glasses': ['phase_4/models/accessories/ttr_m_chr_avt_acc_msk_starryCatEyes.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryCatEyeBlue.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryCatEyeBlue_a.rgb'],
+    'ToonFest 2020 Blue Glasses': ['phase_4/models/accessories/ttr_m_chr_avt_acc_msk_starryRound.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryRoundBlue.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryRoundBlue_a.rgb'],
+    'ToonFest 2020 Pink Attendee Glasses': ['phase_4/models/accessories/ttr_m_chr_avt_acc_msk_starryCatEyes.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryCatEyePink.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryCatEyePink_a.rgb'],
+    'ToonFest 2020 Pink Glasses': ['phase_4/models/accessories/ttr_m_chr_avt_acc_msk_starryRound.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryRoundPink.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_starryRoundPink_a.rgb'],
+    'Vintage Teashades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_grouchoMarxEyebrow.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_grouchoTraineeSpecs.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_grouchoTraineeSpecs_a.rgb'],
+    'White Cool Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_11.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_11_a.rgb'],
+    'White Glasses': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_18.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_18_a.rgb'],
+    'White Narrow Glasses' : ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_narrowGlasses.bam','phase_4/maps/ttr_t_chr_avt_acc_msk_narrowGlassesPurple_3.jpg'],
+    'White Shutters': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_miniblinds.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_miniblindsWhite.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_miniblindsWhite_a.rgb'],
+    'White Spotted Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_6.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_6_a.rgb'],
+    'Yellow Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_4.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_4_a.rgb']
 }
 

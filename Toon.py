@@ -304,7 +304,7 @@ class Toon:
             else:
                 print("What kind of torso are you rockin?")
 
-            if 'Oil' in backpack_to_attach: # Oil Pale Pack's rotation is correct, unlike the other models
+            if 'Oil' in backpack_to_attach or 'Tote' in backpack_to_attach or 'Trove' in backpack_to_attach: # Oil Pale Pack's rotation is correct, unlike the other models
                 self.backpack_model.setHpr(180,0,0)
 
     def attachGlasses(self, glasses_to_attach):
@@ -335,21 +335,29 @@ class Toon:
         self.glasses_model.setPos(placement_list[0])
         self.glasses_model.setHpr(180,0,0)
         self.glasses_model.setScale(placement_list[1])
-
-        print(len(glasses_dict.keys()))
         
-        # if 'Snowy Shades' == glasses_to_attach or 'Experimental Eyewear' == glasses_to_attach: # Without this, it's extremely tiny and ends up inside the Toon's head o.o .
-        #     self.glasses_model.setHpr(0,0,0)
-        #     self.glasses_model.setScale(1.25)
-        # elif 'Black Mask' in glasses_to_attach or 'Blue Mask' in glasses_to_attach:
-        #     self.glasses_model.setPos(0,0.47,0)
-        #     self.glasses_model.setScale(0.2)
-        #     self.glasses_model.setHpr(180,0,0)
-        # elif 'Bug-eyed' in glasses_to_attach: # Little higher than the head
-        #     self.glasses_model.setPos(0,0.25,0)
-        #     self.glasses_model.setHpr(180,0,0)
-        # elif 'ToonFest 2020 Pink Glasses' == glasses_to_attach or 'ToonFest 2020 Blue Glasses' == glasses_to_attach: # Gotta move these down a little bit.
-        #     self.glasses_model.setPos(0,0.25,0.05)
-        #     self.glasses_model.setHpr(180,0,0)
-        # else:
-        #     self.glasses_model.setHpr(180,0,0)
+        if 'Snowy Shades' in glasses_to_attach or 'Experimental Eyewear' == glasses_to_attach: # Without this, it's extremely tiny and ends up inside the Toon's head o.o .
+            if self.species == 'de': # Deers need it to be a little bit lower.
+                self.glasses_model.setPos(0,0.2,0.2)
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.25)
+            else:
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.25)
+        elif 'Black Mask' in glasses_to_attach or 'Blue Mask' in glasses_to_attach:
+            if self.species == 'de':
+                self.glasses_model.setPos(0,0.5,0)
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setHpr(180,0,0)
+            else:
+                self.glasses_model.setPos(0,0.47,0)
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setHpr(180,0,0)
+        elif 'Bug-eyed' in glasses_to_attach: # Little higher than the head
+            self.glasses_model.setPos(0,0.25,0)
+            self.glasses_model.setHpr(180,0,0)
+        elif 'ToonFest 2020 Pink Glasses' == glasses_to_attach or 'ToonFest 2020 Blue Glasses' == glasses_to_attach: # Gotta move these down a little bit.
+            self.glasses_model.setPos(0,0.25,0.05)
+            self.glasses_model.setHpr(180,0,0)
+        else:
+            self.glasses_model.setHpr(180,0,0)

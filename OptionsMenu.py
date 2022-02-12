@@ -9,6 +9,9 @@ from ToonDNA import *
 from direct.showbase.DirectObject import DirectObject
 
 options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
+gui_click_sound = 'phase_3/sfx/GUI_create_toon_fwd.ogg'
+gui_rollover_sound = 'phase_3/sfx/GUI_rollover.ogg'
+toon_font = 'phase_3/fonts/ImpressBT.ttf'
 
 class OptionsMenu(DirectObject):
     '''The main OptionsMenu
@@ -97,15 +100,16 @@ class OptionsMenu(DirectObject):
 
             # The button you click and hold.
             verticalScroll_thumb_geom = self.slider_geom, 
+            verticalScroll_thumb_relief=None,
             verticalScroll_thumb_geom_scale=(0.1),
-            verticalScroll_thumb_frameSize=(-2.5,5,-2.5,5),
+            verticalScroll_thumb_clickSound=loader.loadSfx(gui_click_sound),
+            verticalScroll_thumb_rolloverSound=loader.loadSfx(gui_rollover_sound),
 
             # The (invisible) bar you slide across.
             verticalScroll_relief=None, 
-            verticalScroll_range=(0,5),
+            verticalScroll_range=(-0, 1),
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
-            verticalScroll_thumb_relief=None,
             verticalScroll_geom=self.trough_geom,
             verticalScroll_geom_pos=(0.80,0,-0.10),
             verticalScroll_geom_hpr=(0,0,90),
@@ -323,15 +327,15 @@ class OptionsMenu(DirectObject):
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
 
-        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -2.9, -3.5, glasses_dict, updateGlasses, 0)
-        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -2.7, -3.9, backpack_dict, updateBackpack, 0)
+        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -2.9, -3.5, 22, glasses_dict, updateGlasses, 0)
+        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -2.7, -3.9, 23, backpack_dict, updateBackpack, 0)
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.5)
-        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', -1.4, 1.25, colorsList, updateGloveColor, 0)
-        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', -1.2, 1.25, colorsList, updateLegsColor, 0)
-        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', -1, 1.25, colorsList, updateArmsColor, 0)
-        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', -0.8, 1.25, colorsList, updateHeadColor, 0)
-        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', -0.6, -4.2, anim_dict, updateAnim)
-        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', -0.4, 7.5, species_dict, updateSpecies)
+        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', 0, -1.4, 1.25, 10, colorsList, updateGloveColor, 0)
+        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 1.25, 10, colorsList, updateLegsColor, 0)
+        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 1.25, 10, colorsList, updateArmsColor, 0)
+        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 1.25, 10, colorsList, updateHeadColor, 0)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -4.2, 10, anim_dict, updateAnim)
+        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 7.5, 10, species_dict, updateSpecies)
         
 
     def hideOrShowOptions(self):
@@ -400,6 +404,8 @@ class OptionsSlider(OptionsModal):
             thumb_geom=self.slider_thumb_geom,
             thumb_geom_scale=(0.4,0.1,0.25),
             thumb_relief=None,
+            thumb_clickSound=loader.loadSfx(gui_click_sound),
+            thumb_rolloverSound=loader.loadSfx(gui_rollover_sound),
             geom=self.slider_scroll_geom, 
             geom_scale=0.5,
             scale=(0.3,0.1,0.4),
@@ -433,6 +439,8 @@ class OptionsToggle(OptionsModal):
             boxImage=(self.warm_geom, self.cold_geom),
             boxRelief=None,
             pressEffect=1,
+            clickSound=loader.loadSfx(gui_click_sound),
+            rolloverSound=loader.loadSfx(gui_rollover_sound),
             command=executeFunction,
             extraArgs=[toggle_command]
         )
@@ -456,12 +464,12 @@ class OptionsToggle(OptionsModal):
 class OptionsChoosingMenu(OptionsModal):
     '''Creates a menu with a bunch of options that execute a certain function the height of selectables controls
     the bottom of the frame. keyOrValue simply returns the value if set to 1, key if 0.'''
-    def __init__(self, modalParent, modalText, z, height_of_selectables, used_dictionary=None, chosen_command=None, keyOrValue=1):
+    def __init__(self, modalParent, modalText, x, z, height_of_selectables, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.clickable = self.generateClickableFrame(chosen_command, height_of_selectables, keyOrValue, used_dictionary)
+        self.clickable = self.generateClickableFrame(chosen_command, x, height_of_selectables, width_of_clickable, keyOrValue, used_dictionary)
 
-    def generateClickableFrame(self, command, frame_height, key_or_value, used_dictionary=None):
+    def generateClickableFrame(self, command, x, frame_height, width_of_clickable, key_or_value, used_dictionary=None):
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.dynamic_frame = NodePath('test')
@@ -469,13 +477,13 @@ class OptionsChoosingMenu(OptionsModal):
         self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
         self.top_leftdf.setScale(0.05)
         self.top_leftdf.reparentTo(self.dynamic_frame)
-        self.top_leftdf.setPos(0.25,0,0.5)
+        self.top_leftdf.setPos(x,0,0.5)
         # The top middle piece
         top_middle_model = dynamicFrameFile.find('**/*topMiddle')
         top_middle_model.reparentTo(self.top_leftdf)
         top_middle_model.setPos(1,0,0)
         # The Top Middle repetitions
-        for i in range(1, 11):
+        for i in range(1, width_of_clickable):
             self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
             self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
         # The Top Right piece
@@ -489,7 +497,7 @@ class OptionsChoosingMenu(OptionsModal):
         center_middle_model.reparentTo(center_left_model)
         center_middle_model.setPos(1,0,0)
         # The Center Middle repetitions
-        for i in range(1, 12):
+        for i in range(1, width_of_clickable+1):
             self.center_middle_copy = center_middle_model.copyTo(self.top_leftdf)
             self.center_middle_copy.setPos(i,0,-1)
         center_right_model = dynamicFrameFile.find('**/*centerRight')
@@ -505,7 +513,7 @@ class OptionsChoosingMenu(OptionsModal):
         bottom_middle_model.reparentTo(bottom_left_model)
         bottom_middle_model.setPos(1,0,0)
         # The Bottom Middle repetitions
-        for i in range(1, 12):
+        for i in range(1, width_of_clickable+1):
             self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
             self.bottom_middle_copy.setPos(i,0,-2)
 
@@ -515,19 +523,29 @@ class OptionsChoosingMenu(OptionsModal):
         self.bottom_rightdf.setPos(1,0,0)
 
         self.dynamic_frame.setPos(0.5,0,-0.45)
+
+        # The actual button
         self.clickable_button = DirectButton(
             sortOrder=5,
             geom=self.dynamic_frame,
             parent=self.containerFrame,
             relief=None,
             command=self.generateSelectablesFrame,
-            extraArgs=[command, frame_height, key_or_value, used_dictionary]
+            extraArgs=[command, frame_height, key_or_value, used_dictionary],
+            clickSound=loader.loadSfx(gui_click_sound),
+            rolloverSound=loader.loadSfx(gui_rollover_sound),
+            text='None', 
+            text_font=loader.loadFont(toon_font), 
+            text_pos =(x+0.5,-0.025), 
+            text_align=TextNode.ALeft,
+            text_scale=0.07
         )
         return self.clickable_button
 
     def showAndHide(self, function, args_to_insert):
         '''This basically reparents clickable so you can see it again and hides the selectables_frame'''
         self.clickable.reparentTo(self.containerFrame)
+        self.clickable['text'] = args_to_insert
         self.selectables_geom.removeNode()
         self.selectables_frame.removeNode()
         function(args_to_insert)
@@ -642,6 +660,8 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_thumb_geom_scale=0.1,
             verticalScroll_relief=None,
             verticalScroll_thumb_relief=None,
+            verticalScroll_thumb_clickSound=loader.loadSfx(gui_click_sound),
+            verticalScroll_thumb_rolloverSound=loader.loadSfx(gui_rollover_sound),
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
             verticalScroll_geom_hpr=(0,0,90),
@@ -651,7 +671,7 @@ class OptionsChoosingMenu(OptionsModal):
             scrollBarWidth=0.1
         )
 
-        toon_font = loader.loadFont('phase_3/fonts/ImpressBT.ttf')
+        selectable_gui_font = loader.loadFont(toon_font)
 
         if keyOrValue == 1: # If we want to return the values
             i = 0
@@ -660,13 +680,15 @@ class OptionsChoosingMenu(OptionsModal):
                 button = DirectButton(
                     parent = self.selectables_frame.getCanvas(),
                     text=item,
-                    text_font=toon_font,
+                    text_font=selectable_gui_font,
                     text_align=TextNode.ALeft,
                     text_scale=0.57, 
                     scale=0.2, 
                     pos=(-1.2,0,10 - (i*0.2) ), 
                     relief=None,
                     command=self.showAndHide,
+                    clickSound=loader.loadSfx(gui_click_sound),
+                    rolloverSound=loader.loadSfx(gui_rollover_sound),
                     extraArgs=[command_to_execute,selectables_dictionary[item]]
             )
         else: # If we want to return the key
@@ -676,13 +698,15 @@ class OptionsChoosingMenu(OptionsModal):
                 button = DirectButton(
                     parent = self.selectables_frame.getCanvas(),
                     text=item,
-                    text_font=toon_font,
+                    text_font=selectable_gui_font,
                     text_align=TextNode.ALeft,
                     text_scale=0.57, 
                     scale=0.2, 
                     pos=(-1.2,0,10 - (i*0.2) ), 
                     relief=None,
                     command=self.showAndHide,
+                    clickSound=loader.loadSfx(gui_click_sound),
+                    rolloverSound=loader.loadSfx(gui_rollover_sound),
                     extraArgs=[command_to_execute,item]
             )
 

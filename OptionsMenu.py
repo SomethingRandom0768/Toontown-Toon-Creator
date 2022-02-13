@@ -107,7 +107,7 @@ class OptionsMenu(DirectObject):
 
             # The (invisible) bar you slide across.
             verticalScroll_relief=None, 
-            verticalScroll_range=(-0, 1),
+            verticalScroll_range=(0, 1),
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
             verticalScroll_geom=self.trough_geom,
@@ -660,6 +660,7 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_thumb_geom_scale=0.1,
             verticalScroll_relief=None,
             verticalScroll_thumb_relief=None,
+            verticalScroll_range=(0, 0.5),
             verticalScroll_thumb_clickSound=loader.loadSfx(gui_click_sound),
             verticalScroll_thumb_rolloverSound=loader.loadSfx(gui_rollover_sound),
             verticalScroll_incButton_relief=None,

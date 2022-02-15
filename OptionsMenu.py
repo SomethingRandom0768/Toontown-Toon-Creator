@@ -66,14 +66,13 @@ class OptionsMenu(DirectObject):
             frameColor=(0,0,0,0)
         )
         
-        label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
+        label_outer_font = loader.loadFont('phase_3/fonts/MickeyFontMaximum.bam')
 
         self.label_inner_text = OnscreenText(text='Toon Creator',
         parent=self.first_page,
         font=label_outer_font,
-        fg=(0.2,0.6,0.9,1),
-        scale=0.15,
-        shadow=(0.11,0.27,0.34,1),
+        fg=(0.28,0.75111111111,1.08888888889 ,1),
+        scale=0.175,
         pos=(0,0.4)
         )
         

@@ -152,6 +152,11 @@ class Toon:
         elif self.species == 'ri': # Riggy only has one head type.
             self.toonActor.find('**/*ears').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-front').setColor(colorsList[self.head_color])
+        elif self.species == 'mo': # Monkeys can't get their ears colored.
+            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
         else:
             self.toonActor.find('**/*ears-short').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
@@ -336,14 +341,59 @@ class Toon:
         self.glasses_model.setHpr(180,0,0)
         self.glasses_model.setScale(placement_list[1])
         
-        if 'Snowy Shades' in glasses_to_attach or 'Experimental Eyewear' == glasses_to_attach: # Without this, it's extremely tiny and ends up inside the Toon's head o.o .
-            if self.species == 'de': # Deers need it to be a little bit lower.
+        # Some of the glasses don't have correctly placed models, so we do them here.
+
+        if 'Snowy Shades' in glasses_to_attach or 'Experimental Eyewear' == glasses_to_attach:
+            if self.species == 'b':
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+
+            elif self.species == 'ca':
+                print('To be worked on')
+
+            elif self.species == 'cr':
+                print('To be worked on')
+
+            elif self.species == 'de':
+                print('To be worked on')
+
+            elif self.species == 'd':
+                print('To be worked on')
+
+            elif self.species == 'du':
+                print('To be worked on')
+
+            elif self.species == 'h':
+                print('To be worked on')
+
+
+            elif self.species == 'mo':
+                print('To be worked on')
+
+            elif self.species == 'mi':
+                print('To be worked on')
+
+
+            elif self.species == 'p':
+                print('To be worked on')
+
+            elif self.species == 'r':
+                print('To be worked on')
+
+
+            elif self.species == 'ri': 
+                print('To be worked on')
+
+
+            elif self.species == 'de': 
                 self.glasses_model.setPos(0,0.2,0.2)
                 self.glasses_model.setHpr(0,0,0)        
                 self.glasses_model.setScale(1.25)
             else:
                 self.glasses_model.setHpr(0,0,0)        
                 self.glasses_model.setScale(1.25)
+
+
         elif 'Black Mask' in glasses_to_attach or 'Blue Mask' in glasses_to_attach:
             if self.species == 'de':
                 self.glasses_model.setPos(0,0.5,0)
@@ -353,9 +403,22 @@ class Toon:
                 self.glasses_model.setPos(0,0.47,0)
                 self.glasses_model.setScale(0.2)
                 self.glasses_model.setHpr(180,0,0)
-        elif 'Bug-eyed' in glasses_to_attach: # Little higher than the head
+
+                
+        elif 'Bug-eyed Binoculars' == glasses_to_attach: # Little higher than the head
             self.glasses_model.setPos(0,0.25,0)
             self.glasses_model.setHpr(180,0,0)
+
+        elif 'Groucho Glasses' == glasses_to_attach or 'Vintage Teashades' == glasses_to_attach:
+            print('To be worked on')
+        
+        elif 'Heart Throbbers' == glasses_to_attach:
+            print('To be worked on')
+
+        elif 'The Fancy Focal' == glasses_to_attach:
+            print('To be worked on')
+
+    
         elif 'ToonFest 2020 Pink Glasses' == glasses_to_attach or 'ToonFest 2020 Blue Glasses' == glasses_to_attach: # Gotta move these down a little bit.
             self.glasses_model.setPos(0,0.25,0.05)
             self.glasses_model.setHpr(180,0,0)

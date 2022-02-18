@@ -307,10 +307,6 @@ class OptionsMenu(DirectObject):
             self.selectedToon.backpack_type = backpack_type
             self.selectedToon.attachBackpack(backpack_type)
 
-        def updateGlasses(glasses_type):
-            self.selectedToon.glasses_type = glasses_type
-            self.selectedToon.attachGlasses(glasses_type)
-
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)

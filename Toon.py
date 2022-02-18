@@ -152,6 +152,11 @@ class Toon:
         elif self.species == 'ri': # Riggy only has one head type.
             self.toonActor.find('**/*ears').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-front').setColor(colorsList[self.head_color])
+        elif self.species == 'mo': # Monkeys can't get their ears colored.
+            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
+            self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
         else:
             self.toonActor.find('**/*ears-short').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
@@ -294,6 +299,7 @@ class Toon:
             self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
             self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
 
+
             if self.torso_type[0] == 's':
                 self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
             elif self.torso_type[0] == 'm':
@@ -308,9 +314,254 @@ class Toon:
                 self.backpack_model.setHpr(180,0,0)
 
     def attachGlasses(self, glasses_to_attach):
+        '''Attaches glasses to the Toon.'''
+
+        # If we already have glasses
+        if self.glasses_model:
+            self.glasses_model.removeNode()
+
         self.glasses_type = glasses_to_attach
-        self.glasses_model = loader.loadModel(glasses_dict[glasses_to_attach])
-        self.glasses_model.reparentTo(self.toonActor.find('**/*head'))
-        self.glasses_model.setPos(0,0.1,0.2)
+
+        if len(glasses_dict[glasses_to_attach]) == 1: # Regular glasses model.
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+        elif len(glasses_dict[glasses_to_attach]) == 2: # Glasses model with different texture
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+            texture = loader.loadTexture(glasses_dict[glasses_to_attach][1])
+            self.glasses_model.setTexture(texture, 1)     
+        elif len(glasses_dict[glasses_to_attach]) == 3: # Glasses model with different texture and different rgb file
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+            texture = loader.loadTexture(glasses_dict[glasses_to_attach][1], alphaPath=glasses_dict[glasses_to_attach][2])
+            self.glasses_model.setTexture(texture, 1)
+
+        self.glasses_model.reparentTo(self.toonActor.find('**/*def_head'))
+
+        # Based on each species type, we'll move the glasses to a different place and scale it
+        placement_list = glasses_placement_dict[self.species]
+
+        self.glasses_model.setPos(placement_list[0])
         self.glasses_model.setHpr(180,0,0)
-        self.glasses_model.setScale(0.4)
+        self.glasses_model.setScale(placement_list[1])
+        
+        # Some of the glasses don't have correctly placed models, so we do them here.
+
+        if 'Snowy Shades' in glasses_to_attach or 'Experimental Eyewear' == glasses_to_attach:
+            if self.species == 'b': # Bear
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'ca': # Cat
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'cr': # Crocodile
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'de': # Deer
+                self.glasses_model.setPos(0,0.2,0.2)
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.25)
+            elif self.species == 'd': # Dog
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'du': # Duck
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.75)
+            elif self.species == 'h': # Horse
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'mo': # Monkey
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'mi': # Mouse/Mice
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.6,1.5,1.5)
+                self.glasses_model.setPos(0,0.2,0.45)
+            elif self.species == 'p': # Pig
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'r': # Rabbit
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            elif self.species == 'ri': # Riggy
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.275)
+            else:
+                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setScale(1.25)
+        elif 'Black Mask' in glasses_to_attach or 'Blue Mask' in glasses_to_attach:
+            if self.species == 'b': # Bear
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setPos(0,0.5,0)
+            elif self.species == 'ca': # Cat
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setPos(0,0.5,0)
+            elif self.species == 'cr': # Crocodile
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setPos(0,0.39,-0.035)
+            elif self.species == 'de': # Deer
+                self.glasses_model.setPos(0,0.5,0)
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.2)
+            elif self.species == 'd': # Dog
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setPos(0,0.4,0.2)
+            elif self.species == 'du': # Duck
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.3,0.3,0.35)
+                self.glasses_model.setPos(0,0.5,-0.1)
+            elif self.species == 'h': # Horse
+                self.glasses_model.setHpr(180,-15,0)        
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setPos(0,0.3,0.05)
+            elif self.species == 'mo': # Monkey
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setPos(0,0.5,0.05)
+            elif self.species == 'mi': # Mouse/Mice
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.3)
+                self.glasses_model.setPos(0,0.4,0.15)
+            elif self.species == 'p': # Pig
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.2)
+                self.glasses_model.setPos(0,0.5,-0.09)
+            elif self.species == 'r': # Rabbit
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.25,0.2,0.25)
+                self.glasses_model.setPos(0,0.4,-0.2)
+            elif self.species == 'ri': # Riggy
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.25,0.2,0.25)
+                self.glasses_model.setPos(0,0.4,-0.2)
+            else:
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(1.25)
+        elif 'Bug-eyed Binoculars' == glasses_to_attach: # Little higher than the head
+            if self.species == 'b': # Bear
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.3, 0.35, 0.35)
+                self.glasses_model.setPos(0,0.2,0.1)
+            elif self.species == 'ca': # Cat
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.32, 0.35, 0.35)
+                self.glasses_model.setPos(0,0.25,0)
+            elif self.species == 'cr': # Crocodile
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.25, 0.3, 0.3)
+                self.glasses_model.setPos(0,0.25,0)
+            elif self.species == 'de': # Deer
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.32, 0.35, 0.35)
+                self.glasses_model.setPos(0,0.25,0)
+            elif self.species == 'd': # Dog
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.25, 0.35, 0.35)
+                self.glasses_model.setPos(0,0.25,0.25)
+            elif self.species == 'du': # Duck
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.375, 0.35, 0.35)
+                self.glasses_model.setPos(0,0.25,0)
+            elif self.species == 'h': # Horse
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.3,0.25,0.35)
+                self.glasses_model.setPos(0,0.1,0.05)
+            elif self.species == 'mo': # Monkey
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.35, 0.35, 0.35)
+                self.glasses_model.setPos(0,0.25,0.05)
+            elif self.species == 'mi': # Mouse/Mice
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.4)
+                self.glasses_model.setPos(0,0.1,0.25)
+            elif self.species == 'p': # Pig
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.35)
+                self.glasses_model.setPos(0,0.2,-0.1)
+            elif self.species == 'r': # Rabbit
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.32)
+                self.glasses_model.setPos(0,0.1,-0.1)
+            elif self.species == 'ri': # Riggy
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.32)
+                self.glasses_model.setPos(0,0.1,-0.1)
+            else:
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(1.25)
+        elif 'Groucho Glasses' == glasses_to_attach or 'Vintage Teashades' == glasses_to_attach:
+            if self.species == 'd':
+                self.glasses_model.setPos(0,0.1,0.25)
+            else:
+                self.glasses_model.setPos(0,0.1,-0.025)   
+        elif 'Heart Throbbers' == glasses_to_attach:
+            if self.species == 'd':
+                self.glasses_model.setPos(0,0.1,0.25)
+            else:
+                self.glasses_model.setPos(0,0.1,-0.025)
+        elif 'The Fancy Focal' == glasses_to_attach:
+            if self.species == 'b': # Bear
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.3, 0.35, 0.35)
+                self.glasses_model.setPos(0.175,0.5,-0.15)
+            elif self.species == 'ca': # Cat
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.32, 0.4, 0.3)
+                self.glasses_model.setPos(0.2,0.5,-0.15)
+            elif self.species == 'cr': # Crocodile
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.25, 0.3, 0.3)
+                self.glasses_model.setPos(0.2,0.5,-0.15)
+            elif self.species == 'de': # Deer
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.32, 0.35, 0.35)
+                self.glasses_model.setPos(0.2,0.55,-0.2)
+            elif self.species == 'd': # Dog
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.25, 0.35, 0.35)
+                self.glasses_model.setPos(0.2,0.45,0)
+            elif self.species == 'du': # Duck
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.25,0.55,-0.25)
+            elif self.species == 'h': # Horse
+                self.glasses_model.setHpr(180,-15,0)        
+                self.glasses_model.setScale(0.3,0.25,0.35)
+                self.glasses_model.setPos(0.2,0.35,-0.1)
+            elif self.species == 'mo': # Monkey
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.25,0.55,-0.2)
+            elif self.species == 'mi': # Mouse/Mice
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.5)
+                self.glasses_model.setPos(0.25,0.5,-0.1)
+            elif self.species == 'p': # Pig
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.35)
+                self.glasses_model.setPos(0.15,0.55,-0.25)
+            elif self.species == 'r': # Rabbit
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.35)
+                self.glasses_model.setPos(0.25,0.40,-0.25)
+            elif self.species == 'ri': # Riggy
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(0.35)
+                self.glasses_model.setPos(0.25,0.40,-0.25)
+            else:
+                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setScale(1.25)
+        elif 'ToonFest 2020 Pink Glasses' == glasses_to_attach or 'ToonFest 2020 Blue Glasses' == glasses_to_attach: # Gotta move these down a little bit.
+            if self.species == 'd':
+                self.glasses_model.setPos(0,0.1,0.25)
+                self.glasses_model.setHpr(180,0,0)
+            elif self.species == 'p':
+                self.glasses_model.setScale(0.3, 0.32, 0.35)
+                self.glasses_model.setPos(0,0.2,-0.1)
+                self.glasses_model.setHpr(180,0,0)
+            elif self.species == 'r' or self.species == 'ri':
+                self.glasses_model.setScale(0.35, 0.32, 0.35)
+                self.glasses_model.setPos(0,0.1,-0.1)
+                self.glasses_model.setHpr(180,0,0)
+            else:
+                self.glasses_model.setHpr(180,0,0)
+                self.glasses_model.setPos(0,0.25,0.05)

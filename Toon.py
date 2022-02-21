@@ -102,6 +102,12 @@ class Toon:
         self.updateLegsColor(self.leg_color)
         self.updateGloveColor(self.glove_color)
 
+        # Clothing related stuff
+        if self.shirt_texture:
+            self.setShirtTexture(self.shirt_texture)
+        else:
+            pass
+
         # Accessory related stuff
         if self.backpack_type:
             self.attachBackpack(self.backpack_type)
@@ -237,6 +243,19 @@ class Toon:
             return 'phase_3/models/char/tt_a_chr_dgm_shorts_legs_' + animation_type + '.bam'
         elif legSizeIndex == 's':
             return 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_' + animation_type + '.bam'
+
+ # Clothing related functions
+    def setShirtTexture(self, shirt):
+        '''Sets the Toon's texture based on the shirt variable (the key in the ToonDNA dictionary)'''
+        
+        shirtTexturePath = shirt_dict[shirt][0]
+        shirtTexture = loader.loadTexture(shirtTexturePath)
+        self.toonActor.find('**/torso-top').setTexture(shirtTexture, 1)
+        if shirt_dict[shirt][1]:
+            sleeveTexturePath = shirt_dict[shirt][1]
+            sleeveTexture = loader.loadTexture(sleeveTexturePath)
+            self.toonActor.find('**/sleeves').setTexture(sleeveTexture, 1)
+
 
  # Accessory related functions       
     def attachBackpack(self, backpack_to_attach):

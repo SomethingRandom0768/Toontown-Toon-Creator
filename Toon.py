@@ -255,6 +255,8 @@ class Toon:
             sleeveTexturePath = shirt_dict[shirt][1]
             sleeveTexture = loader.loadTexture(sleeveTexturePath)
             self.toonActor.find('**/sleeves').setTexture(sleeveTexture, 1)
+        else:
+            pass
 
 
  # Accessory related functions       

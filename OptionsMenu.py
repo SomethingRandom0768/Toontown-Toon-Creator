@@ -307,9 +307,13 @@ class OptionsMenu(DirectObject):
             self.selectedToon.backpack_type = backpack_type
             self.selectedToon.attachBackpack(backpack_type)
         
-        def updateGlasses(backpack_type):
-            self.selectedToon.backpack_type = backpack_type
-            self.selectedToon.attachGlasses(backpack_type)
+        def updateGlasses(glasses_type):
+            self.selectedToon.backpack_type = glasses_type
+            self.selectedToon.attachGlasses(glasses_type)
+        
+        def updateShirtTexture(shirt):
+            self.selectedToon.shirt_texture = shirt
+            self.selectedToon.setShirtTexture(shirt)
 
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
@@ -335,7 +339,8 @@ class OptionsMenu(DirectObject):
         self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 1.25, 10, colorsList, updateHeadColor, 0)
         self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -4.2, 10, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 7.5, 10, species_dict, updateSpecies)
-        
+        self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Clothing', -1.7)
+        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, -4, 25, shirt_dict, updateShirtTexture, 0)
 
     def hideOrShowOptions(self):
         if self.showOptions:
@@ -346,8 +351,6 @@ class OptionsMenu(DirectObject):
             self.showOptions = True
             self.outer_page.show()
             self.rotation_slider.slider.show()
-#        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.10)
-     #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 
 class OptionsLabel:
     '''Used as labels for the bigger letters
@@ -461,8 +464,16 @@ class OptionsToggle(OptionsModal):
                 toggle_back_interval.start()
 
 class OptionsChoosingMenu(OptionsModal):
-    '''Creates a menu with a bunch of options that execute a certain function the height of selectables controls
-    the bottom of the frame. keyOrValue simply returns the value if set to 1, key if 0.'''
+    '''modalParent - sets parent as the parent of the menu
+       modalText(string) - what text does the model show?
+       x(float) - What position in the x-position (left or right) do you want the menu?
+       z(float) - What position in the z direction (up or down) do you want the menu?
+       height_of_selectables(float) - How much space do you want in the selection menu? Lower numbers means a bigger height
+       width_of_clickable(float) - How big do you want the button you click to open a selectable menu
+       used_dictionary - What dictionary should this menu read from?
+       chosen_command - What function does this menu run once an object in the selection menu is chosen?
+       keyOrValue - 0 returns the key, 1 returns the value in the used_dictionary 
+    '''
     def __init__(self, modalParent, modalText, x, z, height_of_selectables, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')

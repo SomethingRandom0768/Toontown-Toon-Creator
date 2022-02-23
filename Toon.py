@@ -110,6 +110,16 @@ class Toon:
         else:
             pass
 
+        if self.shirt_color:
+            self.setShirtColor(self.shirt_color)
+        else:
+            pass
+
+        if self.bottom_color:
+            self.setBottomColor(self.bottom_color)
+        else:
+            pass
+
         # Accessory related stuff
         if self.backpack_type:
             self.attachBackpack(self.backpack_type)
@@ -262,8 +272,13 @@ class Toon:
             pass
 
     def setShirtColor(self, shirt_color):
+        '''Colors the Toon's current shirt'''
         self.toonActor.find('**/torso-top').setColorScale( colorsList[shirt_color] )
         self.toonActor.find('**/sleeves').setColorScale( colorsList[shirt_color] )
+    
+    def setBottomColor(self, shirt_color):
+        '''Colors the Toon's current bottom'''
+        self.toonActor.find('**/torso-bot').setColorScale( colorsList[shirt_color] )
 
  # Accessory related functions       
     def attachBackpack(self, backpack_to_attach):

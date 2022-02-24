@@ -308,13 +308,21 @@ class OptionsMenu(DirectObject):
             self.selectedToon.attachBackpack(backpack_type)
         
         def updateGlasses(glasses_type):
-            self.selectedToon.backpack_type = glasses_type
+            self.selectedToon.glasses_type = glasses_type
             self.selectedToon.attachGlasses(glasses_type)
         
         def updateShirtTexture(shirt):
             self.selectedToon.shirt_texture = shirt
             self.selectedToon.setShirtTexture(shirt)
-
+        
+        def updateShirtColor(shirt_color):
+            self.selectedToon.shirt_color = shirt_color
+            self.selectedToon.setShirtColor(shirt_color)
+        
+        def updateBottomColor(bottom_color):
+            self.selectedToon.bottom_color = bottom_color
+            self.selectedToon.setBottomColor(bottom_color)
+        
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -340,7 +348,9 @@ class OptionsMenu(DirectObject):
         self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -4.2, 10, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 7.5, 10, species_dict, updateSpecies)
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Clothing', -1.7)
-        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, -4, 25, shirt_dict, updateShirtTexture, 0)
+        self.bottom_coloring_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Bottom Color:', 0, -2.3, 1.25, 10, colorsList, updateBottomColor, 0)
+        self.shirt_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt Color:', -0.1, -2.1, 1.25, 10, colorsList, updateShirtColor, 0)
+        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, -8, 25, shirt_dict, updateShirtTexture, 0)
 
     def hideOrShowOptions(self):
         if self.showOptions:

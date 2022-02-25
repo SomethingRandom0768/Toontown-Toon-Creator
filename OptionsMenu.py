@@ -18,7 +18,7 @@ class OptionsMenu(DirectObject):
        Houses the DirectFrame that is the entire frame.'''
 
     def __init__(self, toon):
-        self.showOptions = False
+        self.showOptions = True
         self.main_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
         self.options_geom = loader.loadModel(options_geom)
         self.icon = loader.loadModel('phase_3/models/gui/toontown-logo.bam')

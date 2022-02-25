@@ -4,6 +4,7 @@ from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'interpolate-frames true')
 loadPrcFileData('', 'fullscreen false')
 loadPrcFileData('', 'window-title Toon Creator')
+loadPrcFileData('', 'notify-level fatal')
 
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import WindowProperties
@@ -35,7 +36,7 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('b', 'ss', False, 'ms', 's', 'f', head_color='Yellow', arm_color='Yellow', leg_color='Yellow', animation_type='neutral', backpack="Spider Legs", glasses='3D Glasses', is60FPS=True)
+        self.toon = Toon('ri', 'ls', False, 'ms', 'l', 'f', head_color='Periwinkle', arm_color='Periwinkle', leg_color='Periwinkle', animation_type='neutral', shirt_texture='Beta Bug Hunter Shirt', short_texture='Beta Bug Hunter Shorts', skirt_texture='Bee Skirt', backpack="The Flunk-Trunk", glasses='ToonFest 2020 Blue Attendee Glasses', is60FPS=True)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

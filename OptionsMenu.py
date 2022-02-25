@@ -307,10 +307,30 @@ class OptionsMenu(DirectObject):
             self.selectedToon.backpack_type = backpack_type
             self.selectedToon.attachBackpack(backpack_type)
         
-        def updateGlasses(backpack_type):
-            self.selectedToon.backpack_type = backpack_type
-            self.selectedToon.attachGlasses(backpack_type)
+        def updateGlasses(glasses_type):
+            self.selectedToon.glasses_type = glasses_type
+            self.selectedToon.attachGlasses(glasses_type)
+        
+        def updateShirtTexture(shirt):
+            self.selectedToon.shirt_texture = shirt
+            self.selectedToon.setShirtTexture(shirt)
+        
+        def updateShortTexture(short_texture):
+            self.selectedToon.short_texture = short_texture
+            self.selectedToon.setShortTexture(short_texture)
 
+        def updateSkirtTexture(skirt_texture):
+            self.selectedToon.skirt_texture = skirt_texture
+            self.selectedToon.setSkirtTexture(skirt_texture)
+        
+        def updateShirtColor(shirt_color):
+            self.selectedToon.shirt_color = shirt_color
+            self.selectedToon.setShirtColor(shirt_color)
+        
+        def updateBottomColor(bottom_color):
+            self.selectedToon.bottom_color = bottom_color
+            self.selectedToon.setBottomColor(bottom_color)
+        
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -326,16 +346,24 @@ class OptionsMenu(DirectObject):
         self.smoothanim_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle= OptionsToggle(self.optionsScroll.getCanvas(), 'Shoes:', -0.25, shoesToggle)
 
-        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -2.9, -3.5, 22, glasses_dict, updateGlasses, 0)
-        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -2.7, -3.9, 23, backpack_dict, updateBackpack, 0)
-        self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.5)
+        
+        self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.9)
+        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, -3.5, 22, glasses_dict, updateGlasses, 0)
+        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, -3.9, 23, backpack_dict, updateBackpack, 0)
+
         self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', 0, -1.4, 1.25, 10, colorsList, updateGloveColor, 0)
         self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 1.25, 10, colorsList, updateLegsColor, 0)
         self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 1.25, 10, colorsList, updateArmsColor, 0)
         self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 1.25, 10, colorsList, updateHeadColor, 0)
         self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -4.2, 10, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 7.5, 10, species_dict, updateSpecies)
-        
+
+        self.clothing_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Clothing', -1.7)
+        self.bottom_coloring_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Bottom Color:', 0, -2.7, 1.25, 10, colorsList, updateBottomColor, 0)
+        self.skirts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Skirt:', 0, -2.5, 1.25, 20, skirt_dict, updateSkirtTexture, 0)
+        self.shorts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shorts:', 0, -2.3, 1.25, 20, short_dict, updateShortTexture, 0)
+        self.shirt_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt Color:', -0.1, -2.1, 1.25, 10, colorsList, updateShirtColor, 0)
+        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, -8, 25, shirt_dict, updateShirtTexture, 0)
 
     def hideOrShowOptions(self):
         if self.showOptions:
@@ -346,8 +374,6 @@ class OptionsMenu(DirectObject):
             self.showOptions = True
             self.outer_page.show()
             self.rotation_slider.slider.show()
-#        self.clothingLabel = OptionsLabel(self.optionsScroll.getCanvas(),'Clothing',  -0.10)
-     #   self.test_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'test:', -0.9)
 
 class OptionsLabel:
     '''Used as labels for the bigger letters
@@ -461,8 +487,16 @@ class OptionsToggle(OptionsModal):
                 toggle_back_interval.start()
 
 class OptionsChoosingMenu(OptionsModal):
-    '''Creates a menu with a bunch of options that execute a certain function the height of selectables controls
-    the bottom of the frame. keyOrValue simply returns the value if set to 1, key if 0.'''
+    '''modalParent - sets parent as the parent of the menu
+       modalText(string) - what text does the model show?
+       x(float) - What position in the x-position (left or right) do you want the menu?
+       z(float) - What position in the z direction (up or down) do you want the menu?
+       height_of_selectables(float) - How much space do you want in the selection menu? Lower numbers means a bigger height
+       width_of_clickable(float) - How big do you want the button you click to open a selectable menu
+       used_dictionary - What dictionary should this menu read from?
+       chosen_command - What function does this menu run once an object in the selection menu is chosen?
+       keyOrValue - 0 returns the key, 1 returns the value in the used_dictionary 
+    '''
     def __init__(self, modalParent, modalText, x, z, height_of_selectables, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')

@@ -232,10 +232,99 @@ shirt_dict = {
     "Victor's Varsity Shirt": ['phase_4/maps/ttr_t_chr_avt_shirt_victorsVarsity.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_victorsVarsity.jpg']
 }
 
+# How does this work?
+# Short Name - Short Texture
 
+short_dict = {
+    'Bee Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_bee.jpg',
+    'Beta Bug Hunter Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_betaBugHunter.jpg',
+    'Blue Winter Shorts' : 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_3.jpg',
+    'Candy Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter3.jpg',
+    'Cashbot Cog-Crusher Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_cashbotCrusher.jpg',
+    'Cashbot Rental Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_cashbotRental.jpg',
+    'Cog Buster Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_cogbuster.jpg',
+    'Explorer Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_taskForceExplorer.jpg',
+    'Extraordinaire Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_toonfest_1.jpg',
+    'Fireworks Shorts': 'phase_4/maps/4thJulyShorts1.jpg',
+    'Golfing Grandeur Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_golfingMax.jpg',
+    'Green Winter Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_2.jpg',
+    'Holiday Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter4.jpg',
+    'Jarred Jester Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_halloweenJester.jpg',
+    'Jellybean Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_trolley1.jpg',
+    'Leprechaun Shorts': 'phase_4/maps/shorts5.jpg',
+    'Lure Shorts': 'phase_4/maps/Purple_shorts_1.jpg',
+    "O'Shorts": 'phase_4/maps/tt_t_chr_avt_shorts_greentoon1.jpg',
+    'Pink Winter Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_1.jpg',
+    'Pirate Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_pirate.jpg',
+    'Profishional Angler Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_fishingMax.jpg',
+    'Santa Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_8.jpg',
+    "Santa's Helper Shorts": 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_4.jpg',
+    'Sellbot Cog-Crusher Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_sellbotCrusher.jpg',
+    'Sellbot Rental Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_sellbotRental.jpg',
+    'Silly Supercharger Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_racingMax.jpg',
+    'Skeleton Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_halloween3.jpg',
+    'Sleuth Slacks': 'phase_4/maps/ttr_t_chr_avt_shorts_taskForceSleuth.jpg',
+    'Snowflake Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter2.jpg',
+    'Snowman Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter1.jpg',
+    'Sound Shorts': 'phase_4/maps/Red_shorts_1.jpg',
+    'Spider Shorts': 'phase_4/maps/tt_t_chr_avt_shirt_halloween4.jpg',
+    'Squirt Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_playTime.jpg',
+    'Super Toon Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_supertoon.jpg',
+    'ToonFest 2014 Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_toonFest2014.jpg',
+    'ToonFest 2018 Blue Attendee Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_con18blue.jpg',
+    'ToonFest 2018 Blue Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_pub18blue.jpg',
+    'ToonFest 2018 Pink Attendee Shorts': 'phase_4/maps/ttr_t_chr_avt_skirt_con18pink.jpg',
+    'ToonFest 2018 Pink Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_pub18pink.jpg',
+    'Toonosaur Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_dinosaur.jpg' ,
+    'Trainee Trousers': 'phase_4/maps/ttr_t_chr_avt_shorts_taskForceTrainee.jpg',
+    'Trap Shorts': 'phase_4/maps/Blue_shorts_1.jpg',
+    'Treemendous Gardener Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_gardeningMax.jpg',
+    'Turtle Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_halloweenTurtle.jpg',
+    'Vampire Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_vampire.jpg'
+}
 
+# How does this work?
+# Skirt Name - Skirt Texture
 
-
+skirt_dict = {
+    'Bee Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_halloween1.jpg',
+    'Beta Bug Hunter Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_betaBugHunter.jpg',
+    'Blue Winter Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_3.jpg',
+    'Candy Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter3.jpg',
+    'Cashbot Cog-Crusher Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_cashbotCrusher.jpg',
+    'Cashbot Rental Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_cashbotRental.jpg',
+    'Explorer Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_taskForceExplorer.jpg',
+    'Extraordinaire Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_toonfest_1.jpg',
+    'Fireworks Skirt': 'phase_4/maps/4thJulySkirt1.jpg',
+    'Golfing Grandeur Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_golfingMax.jpg',
+    'Green Winter Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_2.jpg',
+    'Holiday Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter4.jpg',
+    'Jellybean Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_trolley1.jpg',
+    "O'Skirt": 'phase_4/maps/tt_t_chr_avt_skirt_greentoon1.jpg',
+    'Pink Winter Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_1.jpg',
+    'Pirate Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_pirate.jpg',
+    "The Potionist's Skirt" : 'phase_4/maps/tt_t_chr_avt_skirt_halloweenWitch.jpg',
+    'Profishional Angler Skirt' : 'phase_4/maps/ttr_t_chr_avt_skirt_fishingMax.jpg', 
+    'Santa Baby Skirt' : 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_8.jpg',
+    "Santa's Helper Skirt" : 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_4.jpg',
+    'Sellbot Cog-Crusher Skirt' : 'phase_4/maps/tt_t_chr_avt_skirt_sellbotCrusher.jpg',
+    'Sellbot Rental Skirt' : 'phase_4/maps/tt_t_chr_avt_skirt_sellbotRental.jpg',
+    'Silly Supercharger Skirt' : 'phase_4/maps/ttr_t_chr_avt_skirt_racingMax.jpg',
+    'Skeleton Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_halloween3.jpg',
+    'Sleuth Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_taskForceSleuth.jpg',
+    'Snowflake Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter2.jpg',
+    'Snowman Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter1.jpg',
+    'Spider Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_halloween4.jpg',
+    'Squirt Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_playTime.jpg',
+    'Super Toon Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_halloween2.jpg',
+    'ToonFest 2014 Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_toonFest2014.jpg',
+    'ToonFest 2018 Blue Attendee Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_con18blue.jpg',
+    'ToonFest 2018 Blue Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_pub18blue.jpg',
+    'ToonFest 2018 Pink Attendee Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_con18pink.jpg',
+    'ToonFest 2018 Pink Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_pub18pink.jpg',
+    'Trainee Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_taskForceTrainee.jpg',
+    'Treemendous Gardener Skirt': 'phase_4/maps/ttr_t_chr_avt_skirt_gardeningMax.jpg'
+}
 
 # Backpack model, (potentially texture if reskin), (potentially what to retexture), small torso position, medium torso position, large torso position, accessory scale
 # Yes I manually positioned all of these per torso type for you. You're welcome.

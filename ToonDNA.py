@@ -1680,7 +1680,6 @@ anim_dict = {
     'Give': "Give",
     'Good Putt': "Good Putt",
     'Happy Dance': "Happy Dance",
-    'legs Down Putt': "legs Down Putt",
     'Hold Bottle': "Hold Bottle",
     'Hold Magnet': "Hold Magnet",
     'Hypnotize': "Hypnotize",
@@ -1702,6 +1701,7 @@ anim_dict = {
     'Leap Z Hang (long)': "Leap Z Hang (long)",
     'Leap Z Start': "Leap Z Start",
     'Left': "Left",
+    'legs Down Putt': "legs Down Putt",
     'Lever Neutral': "Lever Neutral",
     'Lever Reach': "Lever Reach",
     'Lever Pull': "Lever Pull",
@@ -1763,11 +1763,11 @@ anim_dict = {
     'Tug-O-War': "Tug-O-War",
     'Teleport': "Teleport",
     'Up': "Up",
+    'Victory Dance': "Victory Dance",
     'Walk': "Walk",
     'Water': "Walk",
     'Water Gun': "Water Gun",
     'Wave': "Wave",
-    'Victory Dance': "Victory Dance"
 
 }
 

@@ -73,9 +73,9 @@ class Toon:
         },
 
         {
-         'head': {self.animationType: self.returnHeadAnim(self.headtype, self.animationType)},
-         'torso': {self.animationType: self.returnTorsoAnim(self.torso_type, self.animationType)},
-         'legs':  {self.animationType: self.returnLegsAnim(self.leg_size, self.animationType)}
+         'head': self.returnHeadAnim(self.headtype),
+         'torso': self.returnTorsoAnim(self.torso_type),
+         'legs':  self.returnLegsAnim(self.leg_size)
         })
 
         self.toonActor.attach('head', 'torso', 'def_head')
@@ -90,7 +90,7 @@ class Toon:
         else:
             pass
 
-        self.toonActor.loop(self.animationType)
+        self.toonActor.loop('Conked')
 
         # Remove shoes
         if self.wearsShoes:
@@ -221,48 +221,55 @@ class Toon:
         '''Just returns the head'''
         return self.head.head_model
 
-    def returnHeadAnim(self, headType, animation_type):
+    def returnHeadAnim(self, headType):
         headSizeIndex = headType[0]
 
-        if headSizeIndex == 'l':
-            return 'phase_3/models/char/tt_a_chr_dgl_shorts_head_' + animation_type + '.bam'
-        elif headSizeIndex == 'm':
-            return 'phase_3/models/char/tt_a_chr_dgm_shorts_head_' + animation_type + '.bam'
-        elif headSizeIndex == 's':
-            return 'phase_3/models/char/tt_a_chr_dgs_shorts_head_' + animation_type + '.bam'
+        if self.torso_type[1] == 's':
+            if headSizeIndex == 'l':
+                return long_head_shorts_anim_dict
+            elif headSizeIndex == 'm':
+                return medium_head_shorts_anim_dict
+            elif headSizeIndex == 's':
+                return short_head_shorts_anim_dict
+        else:
+            return medium_head_skirt_anim_dict
 
     def returnTorso(self):
         '''Returns the torso'''
         return self.torso
 
-    def returnTorsoAnim(self, torsoType, animation_type):
+    def returnTorsoAnim(self, torsoType):
 
         if torsoType == 'ss':
-            return 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_' + animation_type + '.bam'
+            return short_torso_shorts_anim_dict
         elif torsoType == 'ms':
-            return 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_' + animation_type + '.bam'
+            return medium_torso_shorts_anim_dict
         elif torsoType == 'ls':
-            return 'phase_3/models/char/tt_a_chr_dgl_shorts_torso_' + animation_type + '.bam'
+            return long_torso_anim_shorts_dict
         elif torsoType == 'sd':
-            return 'phase_3/models/char/tt_a_chr_dgs_skirt_torso_' + animation_type + '.bam'
+            return short_torso_skirt_anim_dict
         elif torsoType == 'md':
-            return 'phase_3/models/char/tt_a_chr_dgm_skirt_torso_' + animation_type + '.bam'
+            return medium_torso_skirt_anim_dict
         elif torsoType == 'ld':
-            return 'phase_3/models/char/tt_a_chr_dgl_skirt_torso_' + animation_type + '.bam'
+            return long_torso_skirt_anim_dict
+        else:
+            raise "Strange torso type"
 
     def returnLegs(self):
         '''Returns the legs'''
         return self.legs
 
-    def returnLegsAnim(self, legsType, animation_type):
+    def returnLegsAnim(self, legsType):
         legSizeIndex = legsType
 
         if legSizeIndex == 'l':
-            return 'phase_3/models/char/tt_a_chr_dgl_shorts_legs_' + animation_type + '.bam'
+            return long_legs_anim_dict
         elif legSizeIndex == 'm':
-            return 'phase_3/models/char/tt_a_chr_dgm_shorts_legs_' + animation_type + '.bam'
+            return medium_legs_anim_dict
         elif legSizeIndex == 's':
-            return 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_' + animation_type + '.bam'
+            return short_legs_anim_dict
+        else:
+            raise "Strange Legs type"
 
  # Clothing related functions
     def setShirtTexture(self, shirt):

@@ -1890,6 +1890,7 @@ short_dict = {
     'Pink Winter Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_1.jpg',
     'Pirate Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_pirate.jpg',
     'Profishional Angler Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_fishingMax.jpg',
+    'Quizmaster Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_quizmaster.jpg',
     'Santa Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_8.jpg',
     "Santa's Helper Shorts": 'phase_4/maps/tt_t_chr_avt_shorts_winter_14_4.jpg',
     'Sellbot Cog-Crusher Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_sellbotCrusher.jpg',

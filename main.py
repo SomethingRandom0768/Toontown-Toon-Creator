@@ -22,9 +22,9 @@ class MyApp(ShowBase):
         self.win.requestProperties(windowSettings)
 
         # Music
-        self.music = loader.loadSfx('music/ttr_s_ara_cbe_cogdoStreet.ogg')
+        self.music = loader.loadSfx('phase_3/audio/bgm/create_a_toon.ogg')
         self.music.setLoop(True)
-        #self.music.play()
+        self.music.play()
 
         # Environment
         self.environment = loader.loadModel('phase_3.5/models/modules/tt_m_ara_int_toonhall.bam')

@@ -90,7 +90,7 @@ class Toon:
         else:
             pass
 
-        self.toonActor.loop('Conked')
+        self.toonActor.loop(self.animationType)
 
         # Remove shoes
         if self.wearsShoes:

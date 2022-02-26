@@ -9,8 +9,8 @@ from ToonDNA import *
 from direct.showbase.DirectObject import DirectObject
 
 options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
-gui_click_sound = 'phase_3/sfx/GUI_create_toon_fwd.ogg'
-gui_rollover_sound = 'phase_3/sfx/GUI_rollover.ogg'
+gui_click_sound = 'phase_3/audio/sfx/GUI_create_toon_fwd.ogg'
+gui_rollover_sound = 'phase_3/audio/sfx/GUI_rollover.ogg'
 toon_font = 'phase_3/fonts/ImpressBT.ttf'
 
 class OptionsMenu(DirectObject):

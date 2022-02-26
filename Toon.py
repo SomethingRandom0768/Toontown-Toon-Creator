@@ -289,13 +289,6 @@ class Toon:
         except:
             print(f"Your Shirt Texture {shirt} will result in a crash. Please check either ToonDNA.py or the main file. ")
 
-    def setShirtColor(self, shirt_color):
-        '''Colors the Toon's current shirt'''
-        self.toonActor.find(
-            '**/torso-top').setColorScale(colorsList[shirt_color])
-        self.toonActor.find(
-            '**/sleeves').setColorScale(colorsList[shirt_color])
-
     def setShortTexture(self, short):
         '''Sets the Toon's short texture. Used when generating the Toon'''
         if self.torso_type[-1] == 's':
@@ -320,10 +313,14 @@ class Toon:
         else:
             pass
 
+    def setShirtColor(self, shirt_color):
+        '''Colors the Toon's current shirt'''
+        self.toonActor.find('**/torso-top').setColorScale(colorsList[shirt_color])
+        self.toonActor.find('**/sleeves').setColorScale(colorsList[shirt_color])
 
-    def setBottomColor(self, shirt_color):
+    def setBottomColor(self, bottom_color):
         '''Colors the Toon's current bottom'''
-        self.toonActor.find('**/torso-bot').setColorScale(colorsList[shirt_color])
+        self.toonActor.find('**/torso-bot').setColorScale(colorsList[bottom_color])
 
  # Accessory related functions
     def attachBackpack(self, backpack_to_attach):

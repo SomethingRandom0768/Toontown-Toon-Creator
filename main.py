@@ -36,7 +36,7 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('ri', 'ls', False, 'ms', 'l', 'f', head_color='Periwinkle', arm_color='Periwinkle', leg_color='Periwinkle', animation_type='neutral', shirt_texture='Beta Bug Hunter Shirt', short_texture='Beta Bug Hunter Shorts', skirt_texture='Bee Skirt', backpack="The Flunk-Trunk", glasses='ToonFest 2020 Blue Attendee Glasses', is60FPS=True)
+        self.toon = Toon('ri', 'ls', False, 'ms', 'l', 'f', head_color='Periwinkle', arm_color='Periwinkle', leg_color='Periwinkle', animation_type='Neutral', shirt_texture='Beta Bug Hunter Shirt', short_texture='Beta Bug Hunter Shorts', skirt_texture='Bee Skirt', backpack="The Flunk-Trunk", glasses='ToonFest 2020 Blue Attendee Glasses', is60FPS=True)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

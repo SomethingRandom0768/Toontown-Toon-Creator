@@ -1745,7 +1745,7 @@ anim_dict = {
     'Tickle': "Tickle",
     'Toss': "Toss",
     'Tug-O-War': "Tug-O-War",
-    'Teleport': "Teleport'",
+    'Teleport': "Teleport",
     'Up': "Up",
     'Walk': "Walk",
     'Water': "Walk",

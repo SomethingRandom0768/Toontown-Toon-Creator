@@ -1907,7 +1907,7 @@ short_dict = {
     'ToonFest 2014 Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_toonFest2014.jpg',
     'ToonFest 2018 Blue Attendee Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_con18blue.jpg',
     'ToonFest 2018 Blue Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_pub18blue.jpg',
-    'ToonFest 2018 Pink Attendee Shorts': 'phase_4/maps/ttr_t_chr_avt_skirt_con18pink.jpg',
+    'ToonFest 2018 Pink Attendee Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_con18pink.jpg',
     'ToonFest 2018 Pink Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_pub18pink.jpg',
     'Toonosaur Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_dinosaur.jpg' ,
     'Trainee Trousers': 'phase_4/maps/ttr_t_chr_avt_shorts_taskForceTrainee.jpg',

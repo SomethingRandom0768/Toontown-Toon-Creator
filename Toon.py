@@ -336,63 +336,66 @@ class Toon:
             pass
 
         # Doing this because some backpacks require a model and texture while others just need the bam file.
-        try:
-            if len( backpack_dict[backpack_to_attach] ) >= 5:
-                self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
-                self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-                self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][4] )
-                if 'Sword' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,15,30)
-                elif "Bag" in backpack_to_attach:
-                    self.backpack_model.setHpr(0,0,0)
-                elif 'Tail' in backpack_to_attach or 'Fin' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,20,0)
-                elif 'Bowtie' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,-50,0)
-                elif 'Oil Pale Pack' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,0,0)
-                else:    
-                    self.backpack_model.setHpr(180,0,0)
+        if len( backpack_dict[backpack_to_attach] ) == 5:
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][4] )
 
-                if self.torso_type[0] == 's':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][1] )
-                elif self.torso_type[0] == 'm':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
-                elif self.torso_type[0] == 'l':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
-                else:
-                    print("What kind of torso are you rockin?")
+            if 'Sword' in backpack_to_attach:
+                self.backpack_model.setHpr(180,15,30)
+            elif "Bag" in backpack_to_attach:
+                self.backpack_model.setHpr(0,0,0)
+            elif 'Tail' in backpack_to_attach or 'Fin' in backpack_to_attach:
+                self.backpack_model.setHpr(180,20,0)
+            elif 'Bowtie' in backpack_to_attach:
+                self.backpack_model.setHpr(180,-50,0)
+            elif 'Oil Pale Pack' in backpack_to_attach:
+                self.backpack_model.setHpr(180,0,0)
+            else:    
+                self.backpack_model.setHpr(180,0,0)
 
-            elif len( backpack_dict[backpack_to_attach] ) >= 6: # This is when we need to retexture something like the ToonFest backpacks, or scarves.
-                texture = loader.loadTexture( backpack_dict[backpack_to_attach][1])
-                self.backpack_model.setTexture(texture, 1)
-                self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-                self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][5] )
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][1] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            else:
+                print("What kind of torso are you rockin?")
 
-                if self.torso_type[0] == 's':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
-                elif self.torso_type[0] == 'm':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
-                elif self.torso_type[0] == 'l':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
-                else:
-                    print("What kind of torso are you rockin?")
+        elif len( backpack_dict[backpack_to_attach] ) == 6: # This is when we need to retexture something like the ToonFest backpacks, or scarves.
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture( backpack_dict[backpack_to_attach][1])
+            self.backpack_model.setTexture(texture, 1)
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][5] )
+            self.backpack_model.setHpr(180,0,0)
 
-            elif len( backpack_dict[backpack_to_attach] ) == 7: # This is when we need to retexture something like the Jellybean Jar reskins, which have an RGB file.
-                self.backpack_model.setTexture(texture, 1)
-                self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-                self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+            else:
+                print("What kind of torso are you rockin?")
 
-                if self.torso_type[0] == 's':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
-                elif self.torso_type[0] == 'm':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
-                elif self.torso_type[0] == 'l':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][5] )
-                else:
-                    print("What kind of torso are you rockin?")
-        except:
-            print(f"Check your backpack name! {backpack_to_attach} doesn't work. ")
+        elif len( backpack_dict[backpack_to_attach] ) == 7: # This is when we need to retexture something like the Jellybean Jar reskins, which have an RGB file.
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture( texturePath = backpack_dict[backpack_to_attach][1], alphaPath= backpack_dict[backpack_to_attach][2])
+            self.backpack_model.setTexture(texture, 1)
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
+            self.backpack_model.setHpr(180,0,0)
+
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][5] )
+            else:
+                print("What kind of torso are you rockin?")
 
     def attachGlasses(self, glasses_to_attach):
         '''Attaches glasses to the Toon.'''

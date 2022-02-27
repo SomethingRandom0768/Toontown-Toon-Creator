@@ -24,7 +24,7 @@ class MyApp(ShowBase):
         # Music
         self.music = loader.loadSfx('phase_3/audio/bgm/create_a_toon.ogg')
         self.music.setLoop(True)
-        self.music.play()
+        #self.music.play()
 
         # Environment
         self.environment = loader.loadModel('phase_3.5/models/modules/tt_m_ara_int_toonhall.bam')
@@ -36,7 +36,7 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('ri', 'ls', False, 'ms', 'l', 'f', head_color='Periwinkle', arm_color='Periwinkle', leg_color='Periwinkle', animation_type='Neutral', shirt_texture='Beta Bug Hunter Shirt', short_texture='Beta Bug Hunter Shorts', skirt_texture='Bee Skirt', backpack="The Flunk-Trunk", glasses='ToonFest 2020 Blue Attendee Glasses', is60FPS=True)
+        self.toon = Toon('ri', 'ls', False, 'ls', 'l', 'f', head_color='Cartoonival Blue', arm_color='Cartoonival Blue', leg_color='Cartoonival Blue', animation_type='Riggy Neutral', shirt_texture='ToonFest 2017 Blue Attendee Shirt', short_texture='ToonFest 2018 Blue Attendee Shorts', skirt_texture='Bee Skirt', bottom_color='White', backpack=None, glasses=None, is60FPS=True)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

@@ -9,8 +9,8 @@ from ToonDNA import *
 from direct.showbase.DirectObject import DirectObject
 
 options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
-gui_click_sound = 'phase_3/sfx/GUI_create_toon_fwd.ogg'
-gui_rollover_sound = 'phase_3/sfx/GUI_rollover.ogg'
+gui_click_sound = 'phase_3/audio/sfx/GUI_create_toon_fwd.ogg'
+gui_rollover_sound = 'phase_3/audio/sfx/GUI_rollover.ogg'
 toon_font = 'phase_3/fonts/ImpressBT.ttf'
 
 class OptionsMenu(DirectObject):
@@ -299,9 +299,9 @@ class OptionsMenu(DirectObject):
             self.selectedToon.toonActor.setH(self.rotation_slider.slider['value'])
 
         def updateAnim(anim):
-            self.selectedToon.toonActor.delete()
             self.selectedToon.animationType = anim
-            self.selectedToon.generateActor()
+            self.selectedToon.toonActor.stop()
+            self.selectedToon.toonActor.loop(anim)
 
         def updateBackpack(backpack_type):
             self.selectedToon.backpack_type = backpack_type
@@ -355,7 +355,7 @@ class OptionsMenu(DirectObject):
         self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 1.25, 10, colorsList, updateLegsColor, 0)
         self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 1.25, 10, colorsList, updateArmsColor, 0)
         self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 1.25, 10, colorsList, updateHeadColor, 0)
-        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -4.2, 10, anim_dict, updateAnim)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -13.5, 10, anim_dict, updateAnim)
         self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 7.5, 10, species_dict, updateSpecies)
 
         self.clothing_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Clothing', -1.7)

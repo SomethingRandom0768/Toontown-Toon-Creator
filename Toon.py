@@ -19,7 +19,7 @@ toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # 
 
 class Toon:
     '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, shirt_color=None, short_texture=None, skirt_texture=None, bottom_color=None, backpack=None, glasses = None, animation_type=None, is60FPS=None, wearsShoes=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses = None, animation_type=None, is60FPS=None, wearsShoes=None):
         # DNA based stuff
         self.toonActor = None
         self.species = species
@@ -73,9 +73,9 @@ class Toon:
         },
 
         {
-         'head': {self.animationType: self.returnHeadAnim(self.headtype, self.animationType)},
-         'torso': {self.animationType: self.returnTorsoAnim(self.torso_type, self.animationType)},
-         'legs':  {self.animationType: self.returnLegsAnim(self.leg_size, self.animationType)}
+         'head': self.returnHeadAnim(self.headtype),
+         'torso': self.returnTorsoAnim(self.torso_type),
+         'legs':  self.returnLegsAnim(self.leg_size)
         })
 
         self.toonActor.attach('head', 'torso', 'def_head')
@@ -221,48 +221,55 @@ class Toon:
         '''Just returns the head'''
         return self.head.head_model
 
-    def returnHeadAnim(self, headType, animation_type):
+    def returnHeadAnim(self, headType):
         headSizeIndex = headType[0]
 
-        if headSizeIndex == 'l':
-            return 'phase_3/models/char/tt_a_chr_dgl_shorts_head_' + animation_type + '.bam'
-        elif headSizeIndex == 'm':
-            return 'phase_3/models/char/tt_a_chr_dgm_shorts_head_' + animation_type + '.bam'
-        elif headSizeIndex == 's':
-            return 'phase_3/models/char/tt_a_chr_dgs_shorts_head_' + animation_type + '.bam'
+        if self.torso_type[1] == 's':
+            if headSizeIndex == 'l':
+                return long_head_shorts_anim_dict
+            elif headSizeIndex == 'm':
+                return medium_head_shorts_anim_dict
+            elif headSizeIndex == 's':
+                return short_head_shorts_anim_dict
+        else:
+            return medium_head_skirt_anim_dict
 
     def returnTorso(self):
         '''Returns the torso'''
         return self.torso
 
-    def returnTorsoAnim(self, torsoType, animation_type):
+    def returnTorsoAnim(self, torsoType):
 
         if torsoType == 'ss':
-            return 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_' + animation_type + '.bam'
+            return short_torso_shorts_anim_dict
         elif torsoType == 'ms':
-            return 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_' + animation_type + '.bam'
+            return medium_torso_shorts_anim_dict
         elif torsoType == 'ls':
-            return 'phase_3/models/char/tt_a_chr_dgl_shorts_torso_' + animation_type + '.bam'
+            return long_torso_anim_shorts_dict
         elif torsoType == 'sd':
-            return 'phase_3/models/char/tt_a_chr_dgs_skirt_torso_' + animation_type + '.bam'
+            return short_torso_skirt_anim_dict
         elif torsoType == 'md':
-            return 'phase_3/models/char/tt_a_chr_dgm_skirt_torso_' + animation_type + '.bam'
+            return medium_torso_skirt_anim_dict
         elif torsoType == 'ld':
-            return 'phase_3/models/char/tt_a_chr_dgl_skirt_torso_' + animation_type + '.bam'
+            return long_torso_skirt_anim_dict
+        else:
+            raise "Strange torso type"
 
     def returnLegs(self):
         '''Returns the legs'''
         return self.legs
 
-    def returnLegsAnim(self, legsType, animation_type):
+    def returnLegsAnim(self, legsType):
         legSizeIndex = legsType
 
         if legSizeIndex == 'l':
-            return 'phase_3/models/char/tt_a_chr_dgl_shorts_legs_' + animation_type + '.bam'
+            return long_legs_anim_dict
         elif legSizeIndex == 'm':
-            return 'phase_3/models/char/tt_a_chr_dgm_shorts_legs_' + animation_type + '.bam'
+            return medium_legs_anim_dict
         elif legSizeIndex == 's':
-            return 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_' + animation_type + '.bam'
+            return short_legs_anim_dict
+        else:
+            raise "Strange Legs type"
 
  # Clothing related functions
     def setShirtTexture(self, shirt):
@@ -282,16 +289,9 @@ class Toon:
         except:
             print(f"Your Shirt Texture {shirt} will result in a crash. Please check either ToonDNA.py or the main file. ")
 
-    def setShirtColor(self, shirt_color):
-        '''Colors the Toon's current shirt'''
-        self.toonActor.find(
-            '**/torso-top').setColorScale(colorsList[shirt_color])
-        self.toonActor.find(
-            '**/sleeves').setColorScale(colorsList[shirt_color])
-
     def setShortTexture(self, short):
         '''Sets the Toon's short texture. Used when generating the Toon'''
-        if self.torso_type[-1] == 's':
+        if self.torso_type[-1] == 's':            
             try:
                 shortTexturePath = short_dict[short]
                 shortTexture = loader.loadTexture(shortTexturePath)
@@ -313,10 +313,17 @@ class Toon:
         else:
             pass
 
+    def setShirtColor(self, shirt_color):
+        '''Colors the Toon's current shirt'''
+        self.toonActor.find('**/torso-top').setColorScale(colorsList[shirt_color])
+        self.toonActor.find('**/sleeves').setColorScale(colorsList[shirt_color])
 
-    def setBottomColor(self, shirt_color):
+    def setBottomColor(self, bottom_color):
         '''Colors the Toon's current bottom'''
-        self.toonActor.find('**/torso-bot').setColorScale(colorsList[shirt_color])
+        if self.torso_type == 'ls':
+            self.toonActor.find('**/torso-bot').setColor(colorsList[bottom_color])
+        else:
+            self.toonActor.find('**/torso-bot').setColorScale(colorsList[bottom_color])
 
  # Accessory related functions
     def attachBackpack(self, backpack_to_attach):
@@ -329,63 +336,66 @@ class Toon:
             pass
 
         # Doing this because some backpacks require a model and texture while others just need the bam file.
-        try:
-            if len( backpack_dict[backpack_to_attach] ) >= 5:
-                self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
-                self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-                self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][4] )
-                if 'Sword' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,15,30)
-                elif "Bag" in backpack_to_attach:
-                    self.backpack_model.setHpr(0,0,0)
-                elif 'Tail' in backpack_to_attach or 'Fin' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,20,0)
-                elif 'Bowtie' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,-50,0)
-                elif 'Oil Pale Pack' in backpack_to_attach:
-                    self.backpack_model.setHpr(180,0,0)
-                else:    
-                    self.backpack_model.setHpr(180,0,0)
+        if len( backpack_dict[backpack_to_attach] ) == 5:
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][4] )
 
-                if self.torso_type[0] == 's':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][1] )
-                elif self.torso_type[0] == 'm':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
-                elif self.torso_type[0] == 'l':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
-                else:
-                    print("What kind of torso are you rockin?")
+            if 'Sword' in backpack_to_attach:
+                self.backpack_model.setHpr(180,15,30)
+            elif "Bag" in backpack_to_attach:
+                self.backpack_model.setHpr(0,0,0)
+            elif 'Tail' in backpack_to_attach or 'Fin' in backpack_to_attach:
+                self.backpack_model.setHpr(180,20,0)
+            elif 'Bowtie' in backpack_to_attach:
+                self.backpack_model.setHpr(180,-50,0)
+            elif 'Oil Pale Pack' in backpack_to_attach:
+                self.backpack_model.setHpr(180,0,0)
+            else:    
+                self.backpack_model.setHpr(180,0,0)
 
-            elif len( backpack_dict[backpack_to_attach] ) >= 6: # This is when we need to retexture something like the ToonFest backpacks, or scarves.
-                texture = loader.loadTexture( backpack_dict[backpack_to_attach][1])
-                self.backpack_model.setTexture(texture, 1)
-                self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-                self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][5] )
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][1] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            else:
+                print("What kind of torso are you rockin?")
 
-                if self.torso_type[0] == 's':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
-                elif self.torso_type[0] == 'm':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
-                elif self.torso_type[0] == 'l':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
-                else:
-                    print("What kind of torso are you rockin?")
+        elif len( backpack_dict[backpack_to_attach] ) == 6: # This is when we need to retexture something like the ToonFest backpacks, or scarves.
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture( backpack_dict[backpack_to_attach][1])
+            self.backpack_model.setTexture(texture, 1)
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][5] )
+            self.backpack_model.setHpr(180,0,0)
 
-            elif len( backpack_dict[backpack_to_attach] ) == 7: # This is when we need to retexture something like the Jellybean Jar reskins, which have an RGB file.
-                self.backpack_model.setTexture(texture, 1)
-                self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-                self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+            else:
+                print("What kind of torso are you rockin?")
 
-                if self.torso_type[0] == 's':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
-                elif self.torso_type[0] == 'm':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
-                elif self.torso_type[0] == 'l':
-                    self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][5] )
-                else:
-                    print("What kind of torso are you rockin?")
-        except:
-            print(f"Check your backpack name! {backpack_to_attach} doesn't work. ")
+        elif len( backpack_dict[backpack_to_attach] ) == 7: # This is when we need to retexture something like the Jellybean Jar reskins, which have an RGB file.
+            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture( texturePath = backpack_dict[backpack_to_attach][1], alphaPath= backpack_dict[backpack_to_attach][2])
+            self.backpack_model.setTexture(texture, 1)
+            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
+            self.backpack_model.setHpr(180,0,0)
+
+            if self.torso_type[0] == 's':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+            elif self.torso_type[0] == 'm':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+            elif self.torso_type[0] == 'l':
+                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][5] )
+            else:
+                print("What kind of torso are you rockin?")
 
     def attachGlasses(self, glasses_to_attach):
         '''Attaches glasses to the Toon.'''
@@ -396,12 +406,14 @@ class Toon:
 
         self.glasses_type = glasses_to_attach
 
-        if len(glasses_dict[glasses_to_attach]) >= 1: # Regular glasses model.
+        if len(glasses_dict[glasses_to_attach]) == 1: # Regular glasses model.
             self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
         elif len(glasses_dict[glasses_to_attach]) == 2: # Glasses model with different texture
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
             texture = loader.loadTexture(glasses_dict[glasses_to_attach][1])
             self.glasses_model.setTexture(texture, 1)     
         elif len(glasses_dict[glasses_to_attach]) == 3: # Glasses model with different texture and different rgb file
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
             texture = loader.loadTexture(glasses_dict[glasses_to_attach][1], alphaPath=glasses_dict[glasses_to_attach][2])
             self.glasses_model.setTexture(texture, 1)
 
@@ -454,7 +466,7 @@ class Toon:
                 self.glasses_model.setScale(1.275)
             elif self.species == 'ri': # Riggy
                 self.glasses_model.setHpr(0,0,0)        
-                self.glasses_model.setScale(1.275)
+                self.glasses_model.setScale(1.45)
             else:
                 self.glasses_model.setHpr(0,0,0)        
                 self.glasses_model.setScale(1.25)
@@ -565,11 +577,16 @@ class Toon:
         elif 'Groucho Glasses' == glasses_to_attach or 'Vintage Teashades' == glasses_to_attach:
             if self.species == 'd':
                 self.glasses_model.setPos(0,0.1,0.25)
+            elif self.species == 'ri':
+                self.glasses_model.setPos(0,0,-0.100)  
             else:
                 self.glasses_model.setPos(0,0.1,-0.025)   
         elif 'Heart Throbbers' == glasses_to_attach:
             if self.species == 'd':
                 self.glasses_model.setPos(0,0.1,0.25)
+            elif self.species == 'ri':
+                self.glasses_model.setScale(0.3,0.2,0.3)
+                self.glasses_model.setPos(0,0.2,-0.125)
             else:
                 self.glasses_model.setPos(0,0.1,-0.025)
         elif 'The Fancy Focal' == glasses_to_attach:

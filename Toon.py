@@ -406,12 +406,14 @@ class Toon:
 
         self.glasses_type = glasses_to_attach
 
-        if len(glasses_dict[glasses_to_attach]) >= 1: # Regular glasses model.
+        if len(glasses_dict[glasses_to_attach]) == 1: # Regular glasses model.
             self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
         elif len(glasses_dict[glasses_to_attach]) == 2: # Glasses model with different texture
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
             texture = loader.loadTexture(glasses_dict[glasses_to_attach][1])
             self.glasses_model.setTexture(texture, 1)     
         elif len(glasses_dict[glasses_to_attach]) == 3: # Glasses model with different texture and different rgb file
+            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
             texture = loader.loadTexture(glasses_dict[glasses_to_attach][1], alphaPath=glasses_dict[glasses_to_attach][2])
             self.glasses_model.setTexture(texture, 1)
 
@@ -464,7 +466,7 @@ class Toon:
                 self.glasses_model.setScale(1.275)
             elif self.species == 'ri': # Riggy
                 self.glasses_model.setHpr(0,0,0)        
-                self.glasses_model.setScale(1.275)
+                self.glasses_model.setScale(1.45)
             else:
                 self.glasses_model.setHpr(0,0,0)        
                 self.glasses_model.setScale(1.25)
@@ -575,11 +577,16 @@ class Toon:
         elif 'Groucho Glasses' == glasses_to_attach or 'Vintage Teashades' == glasses_to_attach:
             if self.species == 'd':
                 self.glasses_model.setPos(0,0.1,0.25)
+            elif self.species == 'ri':
+                self.glasses_model.setPos(0,0,-0.100)  
             else:
                 self.glasses_model.setPos(0,0.1,-0.025)   
         elif 'Heart Throbbers' == glasses_to_attach:
             if self.species == 'd':
                 self.glasses_model.setPos(0,0.1,0.25)
+            elif self.species == 'ri':
+                self.glasses_model.setScale(0.3,0.2,0.3)
+                self.glasses_model.setPos(0,0.2,-0.125)
             else:
                 self.glasses_model.setPos(0,0.1,-0.025)
         elif 'The Fancy Focal' == glasses_to_attach:

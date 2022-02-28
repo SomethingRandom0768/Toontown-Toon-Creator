@@ -19,7 +19,7 @@ toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # 
 
 class Toon:
     '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses = None, animation_type=None, is60FPS=None, wearsShoes=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses = None, shoes_type = None, shoes_texture = None, animation_type=None, is60FPS=None, wearsShoes=None):
         # DNA based stuff
         self.toonActor = None
         self.species = species
@@ -47,6 +47,9 @@ class Toon:
         # Also counts for mask since they're both the same.
         self.glasses_type = glasses
         self.glasses_model = None
+
+        self.shoe_type = shoes_type
+        self.shoe_texture = shoes_texture
 
         self.animationType = animation_type
         self.smooth_enabled = is60FPS
@@ -138,6 +141,9 @@ class Toon:
             self.attachGlasses(self.glasses_type)
         else:
             pass
+            
+        if self.shoe_type:
+            self.attachShoes(self.shoe_type)
 
         # Add shadow
         shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
@@ -654,3 +660,25 @@ class Toon:
             else:
                 self.glasses_model.setHpr(180,0,0)
                 self.glasses_model.setPos(0,0.25,0.05)
+
+    def attachShoes(self, shoe_type):
+        '''Attaches the shoe based on the type of shoe given.'''    
+        if shoe_type == 1: # Short boots
+            self.toonActor.find('**/*boots_short').show()
+        elif shoe_type == 2: # Long boots
+            self.toonActor.find('**/*boots_long').show()
+        else:
+            self.toonActor.find('**/*shoes').show()
+        
+    def attachShoeTexture(self, shoe_texture):
+        if self.shoe_type == 1:
+            texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
+            self.toonActor.find('**/*boots_short')
+        elif self.shoe_type == 2:
+            texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
+            self.toonActor.find('**/*boots_long').setTexture(texture, 1)
+        else:
+            texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
+            self.toonActor.find('**/*shoes').setTexture(texture, 1)
+
+    

@@ -1754,7 +1754,7 @@ anim_dict = {
     'Struggle': "Struggle",
     'Surprise': "Surprise",
     'Swim': "Swim",
-    'Swing': "Swing Putt",
+    'Swing': "Swing",
     'Swing Putt': "Swing Putt",
     'Take Phone': "Take Phone",
     'Think': "Think",
@@ -2124,3 +2124,45 @@ glasses_placement_dict = {
     'r': [ (0,0,0), (0.3, 0.32, 0.375) ],
     'ri': [ (0,0,0), (0.3, 0.32, 0.375) ]
 }
+
+# Shoes : texture
+
+# This one's simply for shoes, not boots.
+shoe_texture_dict = {
+    'Black Athletic Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_athleticBlack.jpg',
+    'Black Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoes.jpg',
+    'Blue Winter Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_3.jpg',
+    'Boat Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_deckShoes.jpg',
+    'Brown Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoesBrown.jpg',
+    'Cashbot Crusher Shoes': 'phase_4/maps/ttr_t_chr_avt_acc_sho_cashbotCrusher.jpg',
+    'Elf Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_4.jpg',
+    'Green Athletic Shoes': 'phase_3/maps/tt_t_chr_avt_acc_sho_athleticGreen.jpg',
+    'Green Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesGreen.jpg',
+    'Green Winter Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_2.jpg',
+    'Jester Shoes': 'phase_4/maps/ttr_t_chr_avt_acc_sho_jesterShoes.jpg',
+    'Pink Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesPink.jpg',
+    'Pink Winter Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_1.jpg',
+    'Purple Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoesPurple.jpg',
+    'Purple Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesPurple.jpg',
+    'Red Athletic Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_athleticRed.jpg',
+    'Red Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoesRed.jpg',
+    'Sellbot Cog-Crusher Shoes': 'phase_4/maps/ttr_t_chr_avt_acc_sho_sellbotCrusher.jpg',
+    'ToonFest 2015 Blue Attendee Shoes': 'phase_4/maps/omgcon_shoes_blue_noface.jpg',
+    'ToonFest 2015 Blue Shoes': 'phase_4/maps/omgcon_shoes_blue.jpg',
+    'ToonFest 2015 Pink Attendee Shoes': 'phase_4/maps/omgcon_shoes_pink.jpg',
+    'ToonFest 2015 Pink Shoes': 'phase_4/maps/omgcon_shoes_blue_noface.jpg',
+    'Violet Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesViolet.jpg',
+    'Yellow Athletic Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_athleticYellow.jpg',
+    'Yellow Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesYellow.jpg'
+
+}
+
+
+boot_short_texture_dict = {
+    
+}
+
+boot_long_texture_dict = {
+
+}
+

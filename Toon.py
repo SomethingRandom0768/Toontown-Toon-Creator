@@ -667,8 +667,10 @@ class Toon:
             self.toonActor.find('**/*boots_short').show()
         elif shoe_type == 2: # Long boots
             self.toonActor.find('**/*boots_long').show()
-        else:
+        elif shoe_type == 3:
             self.toonActor.find('**/*shoes').show()
+        else:
+            pass
         
     def attachShoeTexture(self, shoe_texture):
         if self.shoe_type == 1:

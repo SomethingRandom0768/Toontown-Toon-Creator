@@ -500,71 +500,91 @@ class OptionsChoosingMenu(OptionsModal):
     def __init__(self, modalParent, modalText, x, z, height_of_selectables, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.clickable = self.generateClickableFrame(chosen_command, x, height_of_selectables, width_of_clickable, keyOrValue, used_dictionary)
+        self.clickable = self.generateClickableFrame(x, width_of_clickable)
+        self.selectables = self.generateSelectablesFrame(chosen_command, height_of_selectables, keyOrValue, used_dictionary)
 
-    def generateClickableFrame(self, command, x, frame_height, width_of_clickable, key_or_value, used_dictionary=None):
+    def generateClickableFrame(self, x, width_of_clickable):
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
-        self.dynamic_frame = NodePath('test')
+        self.clickable_node = NodePath('clickable_frame_node')
+
         # The Top Left piece
-        self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
-        self.top_leftdf.setScale(0.05)
-        self.top_leftdf.reparentTo(self.dynamic_frame)
-        self.top_leftdf.setPos(x,0,0.5)
+        top_left_model = dynamicFrameFile.find('**/*topLeft')
+        top_left_model.setScale(0.05)
+        top_left_model.reparentTo(self.clickable_node)
+        top_left_model.setPos(x,0,0.5)
+
         # The top middle piece
         top_middle_model = dynamicFrameFile.find('**/*topMiddle')
-        top_middle_model.reparentTo(self.top_leftdf)
-        top_middle_model.setPos(1,0,0)
+        top_middle_model.reparentTo(self.clickable_node)
+        top_middle_model.setScale(0.05)
+        top_middle_model.setPos(top_left_model.getX()+0.05,0,top_left_model.getZ())
+
         # The Top Middle repetitions
         for i in range(1, width_of_clickable):
-            self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
-            self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
+            self.top_center_copy = top_middle_model.copyTo(self.clickable_node)
+            self.top_center_copy.setPos(top_middle_model.getX()+(i*0.05),0,top_middle_model.getZ())
+
         # The Top Right piece
         top_right_model = dynamicFrameFile.find('**/topRight')
-        top_right_model.reparentTo(self.top_center_copy)
-        top_right_model.setPos(1,0,0)
+        top_right_model.reparentTo(self.clickable_node)
+        top_right_model.setScale(0.05)
+        top_right_model.setPos(self.top_center_copy.getX()+0.05,0,0.5)
+
+         # The Middle Left piece
+
         center_left_model = dynamicFrameFile.find('**/*centerLeft')
-        center_left_model.reparentTo(self.top_leftdf)
-        center_left_model.setPos(0,0,-1)
+        center_left_model.reparentTo(self.clickable_node)
+        center_left_model.setScale(0.05)
+        center_left_model.setPos(top_left_model.getX(),0,top_left_model.getZ()-0.05)
+
         center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
-        center_middle_model.reparentTo(center_left_model)
-        center_middle_model.setPos(1,0,0)
-        # The Center Middle repetitions
-        for i in range(1, width_of_clickable+1):
-            self.center_middle_copy = center_middle_model.copyTo(self.top_leftdf)
-            self.center_middle_copy.setPos(i,0,-1)
+        center_middle_model.reparentTo(self.clickable_node)
+        center_middle_model.setScale(0.05)
+        center_middle_model.setPos(center_left_model.getX()+0.05,0, center_left_model.getZ())
+
+         # The Center Middle repetitions
+        for i in range(1, width_of_clickable):
+            self.center_middle_copy = center_middle_model.copyTo(self.clickable_node)
+            self.center_middle_copy.setPos(center_middle_model.getX()+(i*0.05),0, center_middle_model.getZ())
+
+        # The Center Right piece    
         center_right_model = dynamicFrameFile.find('**/*centerRight')
-        center_right_model.setScale(1)
-        center_right_model.reparentTo(self.center_middle_copy)
-        center_right_model.setPos(1,0,0)
+        center_right_model.setScale(0.05)
+        center_right_model.reparentTo(self.clickable_node)
+        center_right_model.setPos(self.center_middle_copy.getX()+0.05,0,center_middle_model.getZ())
+
         bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
-        bottom_left_model.setScale(1)
-        bottom_left_model.reparentTo(self.top_leftdf)
-        bottom_left_model.setPos(0,0,-2)
+        bottom_left_model.setScale(0.05)
+        bottom_left_model.reparentTo(self.clickable_node)
+        bottom_left_model.setPos(center_left_model.getX(),0,center_left_model.getZ()-0.05)
+
+
         bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
-        bottom_middle_model.setScale(1)
-        bottom_middle_model.reparentTo(bottom_left_model)
-        bottom_middle_model.setPos(1,0,0)
-        # The Bottom Middle repetitions
-        for i in range(1, width_of_clickable+1):
-            self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
-            self.bottom_middle_copy.setPos(i,0,-2)
+        bottom_middle_model.setScale(0.05)
+        bottom_middle_model.reparentTo(self.clickable_node)
+        bottom_middle_model.setPos(bottom_left_model.getX()+0.05,0,center_left_model.getZ()-0.05)
 
-        self.bottom_rightdf = dynamicFrameFile.find('**/*bottomRight')
-        self.bottom_rightdf.setScale(1)
-        self.bottom_rightdf.reparentTo(self.bottom_middle_copy)
-        self.bottom_rightdf.setPos(1,0,0)
+         # The Bottom Middle repetitions
+        for i in range(1, width_of_clickable):
+            self.bottom_middle_copy = bottom_middle_model.copyTo(self.clickable_node)
+            self.bottom_middle_copy.setPos( bottom_middle_model.getX()+(i*0.05) , 0, bottom_middle_model.getZ() )
 
-        self.dynamic_frame.setPos(0.5,0,-0.45)
+        bottom_right_model = dynamicFrameFile.find('**/*bottomRight')
+        bottom_right_model.setScale(0.05)
+        bottom_right_model.reparentTo(self.clickable_node)
+        bottom_right_model.setPos( self.bottom_middle_copy.getX()+0.05, 0, bottom_middle_model.getZ() )
+
+
+        self.clickable_node.setPos(0.5,0,-0.45)
+        self.clickable_node.flattenStrong()
 
         # The actual button
         self.clickable_button = DirectButton(
-            sortOrder=5,
-            geom=self.dynamic_frame,
+            geom=self.clickable_node,
             parent=self.containerFrame,
             relief=None,
-            command=self.generateSelectablesFrame,
-            extraArgs=[command, frame_height, key_or_value, used_dictionary],
+            command=self.showSelectables,
             clickSound=loader.loadSfx(gui_click_sound),
             rolloverSound=loader.loadSfx(gui_rollover_sound),
             text='None', 
@@ -574,36 +594,36 @@ class OptionsChoosingMenu(OptionsModal):
             text_scale=0.07
         )
         return self.clickable_button
-
+    
     def showAndHide(self, function, args_to_insert):
         '''This basically reparents clickable so you can see it again and hides the selectables_frame'''
-        self.clickable.reparentTo(self.containerFrame)
+        self.clickable.show()
         self.clickable['text'] = args_to_insert
-        self.selectables_geom.removeNode()
-        self.selectables_frame.removeNode()
+        self.selectables_geom.hide()
+        self.selectables_frame.hide()
         function(args_to_insert)
 
     def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, keyOrValue, selectables_dictionary=None, height=6):
+        '''Creates the selectable menu based on the provided args'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         self.selectable_dynamic_frame = NodePath('selectable_frame')
 
-        self.clickable.reparentTo(hidden)    
-        
         # The Top Left piece
-        self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
-        self.top_leftdf.setScale(0.05)
-        self.top_leftdf.reparentTo(self.selectable_dynamic_frame)
-        self.top_leftdf.setPos(0.5,0,0.5)
+        top_left_model = dynamicFrameFile.find('**/*topLeft')
+        top_left_model.setScale(0.05)
+        top_left_model.reparentTo(self.selectable_dynamic_frame)
+        top_left_model.setPos(0.5,0,0.5)
 
         # The top middle piece
         top_middle_model = dynamicFrameFile.find('**/*topMiddle')
-        top_middle_model.reparentTo(self.top_leftdf)
-        top_middle_model.setPos(self.top_leftdf.getX()+0.5,0,0)
+        top_middle_model.setScale(0.05)
+        top_middle_model.reparentTo(self.selectable_dynamic_frame)
+        top_middle_model.setPos(top_left_model.getX()+0.05,0,0.5)
 
         # The Top Middle repetitions
         for i in range(1, 20):
-            self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
-            self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
+            self.top_center_copy = top_middle_model.copyTo(self.selectable_dynamic_frame)
+            self.top_center_copy.setPos(top_middle_model.getX()+(0.05*i),0,0.5)
 
         # The Top Right piece
         top_right_model = dynamicFrameFile.find('**/topRight')
@@ -613,7 +633,7 @@ class OptionsChoosingMenu(OptionsModal):
         # Let's make a node that we can duplicate.
 
         self.middlepiece = NodePath('middle_piece')
-        self.middlepiece.reparentTo(self.top_leftdf)
+        self.middlepiece.reparentTo(top_left_model)
         self.middlepiece.setPos(0,0,0)
 
         center_left_model = dynamicFrameFile.find('**/*centerLeft')
@@ -743,6 +763,15 @@ class OptionsChoosingMenu(OptionsModal):
                     rolloverSound=loader.loadSfx(gui_rollover_sound),
                     extraArgs=[command_to_execute,item]
             )
+
+        self.selectables_geom.hide()
+        self.selectables_frame.hide()
+        return self.selectables_frame
+
+    def showSelectables(self):
+        self.selectables_geom.show()
+        self.selectables_frame.show()
+        self.clickable.hide()
 
 
 

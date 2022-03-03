@@ -3,63 +3,63 @@ from panda3d.core import *
 
 colorsList = {
     'Amber'         :VBase4(0.9647058823529412,0.7490196078431373,0.34901960784313724, 1.0),
-    'Apricot'       :VBase4(0.9803921568627451,0.5372549019607843,0.396078431372549, 1.0),                  
+    'Apricot'       :VBase4(0.9803921568627451,0.5372549019607843,0.396078431372549, 1.0),
     'Aqua'          :VBase4(0.347656, 0.820312, 0.953125, 1.0),
-    'Beige'         :VBase4(0.8,0.7529411764705882,0.611764705882353, 1.0),   
+    'Beige'         :VBase4(0.8,0.7529411764705882,0.611764705882353, 1.0),
     'Black'         :VBase4(0.3, 0.3, 0.35, 1.0),
-    'Blue'          :VBase4(0.191406, 0.5625, 0.773438, 1.0), 
+    'Blue'          :VBase4(0.191406, 0.5625, 0.773438, 1.0),
     'Bright Red'   : VBase4(0.933594, 0.265625, 0.28125, 1.0),
     'Brown'        : VBase4(0.640625, 0.355469, 0.269531, 1.0),
     'Bubblegum'    : VBase4(0.996078431372549,0.35294117647058826,0.44313725490196076, 1.0),
     'Cartoonival Blue': VBase4(0.22745098039, 0.55686274509, 0.96862745098, 1.0),
-    'Cartoonival Pink': VBase4(0.93333333333, 0.36470588235,0.81568627451, 1.0 ),  
-    'Citrine'       :VBase4(0.855469, 0.933594, 0.492188, 1.0),  
-    'Coral'        : VBase4(0.832031, 0.5, 0.296875, 1.0), 
+    'Cartoonival Pink': VBase4(0.93333333333, 0.36470588235,0.81568627451, 1.0 ),
+    'Citrine'       :VBase4(0.855469, 0.933594, 0.492188, 1.0),
+    'Coral'        : VBase4(0.832031, 0.5, 0.296875, 1.0),
     'Cream'         :VBase4(0.996094, 0.957031, 0.597656, 1.0),
     'Crimson'       :VBase4(0.6549019607843137,0.17647058823529413,0.25882352941176473, 1.0),
     'Emerald'       :VBase4(0.0392156862745098,0.8627450980392157,0.6549019607843137, 1.0),
     'Forest Green'  :VBase4(0.4117647058823529,0.6431372549019608,0.2823529411764706, 1.0),
     'Gray'          :VBase4(0.7, 0.7, 0.8, 1.0),
     'Green'         :VBase4(0.304688, 0.96875, 0.402344, 1.0),
-    'Ice Blue'      :VBase4(0.7333333333333333,0.8666666666666667,0.9490196078431372, 1.0), 
+    'Ice Blue'      :VBase4(0.7333333333333333,0.8666666666666667,0.9490196078431372, 1.0),
     'Lavender'      :VBase4(0.726562, 0.472656, 0.859375, 1.0),
-    'Lime Green'    :VBase4(0.550781, 0.824219, 0.324219, 1.0), 
-    'Light Blue'    :VBase4(0.433594, 0.90625, 0.835938, 1.0),      
+    'Lime Green'    :VBase4(0.550781, 0.824219, 0.324219, 1.0),
+    'Light Blue'    :VBase4(0.433594, 0.90625, 0.835938, 1.0),
     'Maroon'       : VBase4(0.710938, 0.234375, 0.4375, 1.0),
     'Mint Green'    :VBase4(0.6392156862745098,0.8549019607843137,0.6705882352941176, 1.0),
-    'Orange'        :VBase4(0.992188, 0.480469, 0.167969, 1.0),         
+    'Orange'        :VBase4(0.992188, 0.480469, 0.167969, 1.0),
     'Peach'        : VBase4(0.96875, 0.691406, 0.699219, 1.0),
-    'Periwinkle'    :VBase4(0.558594, 0.589844, 0.875, 1.0),   
+    'Periwinkle'    :VBase4(0.558594, 0.589844, 0.875, 1.0),
     'Pink'          :VBase4(0.898438, 0.617188, 0.90625, 1.0),
     'Purple'        :VBase4(0.546875, 0.28125, 0.75, 1.0),
     'Red'          : VBase4(0.863281, 0.40625, 0.417969, 1.0),
-    'Rose Pink'     :VBase4(0.8823529411764706, 0.43529411764705883, 0.6901960784313725, 1.0),                          
+    'Rose Pink'     :VBase4(0.8823529411764706, 0.43529411764705883, 0.6901960784313725, 1.0),
     'Royal Blue'    :VBase4(0.285156, 0.328125, 0.726562, 1.0),
     'Sea Green'     :VBase4(0.242188, 0.742188, 0.515625, 1.0),
-    'Sienna'       : VBase4(0.570312, 0.449219, 0.164062, 1.0),        
+    'Sienna'       : VBase4(0.570312, 0.449219, 0.164062, 1.0),
     'Slate Blue'    :VBase4(0.460938, 0.378906, 0.824219, 1.0),
     'Spooky Purple' :VBase4(0.35294117647, 0.23137254902, 0.51372549019, 1.0),
-    'Steel Blue'    :VBase4(0.3254901960784314,0.403921568627451,0.6, 1.0), 
+    'Steel Blue'    :VBase4(0.3254901960784314,0.403921568627451,0.6, 1.0),
     'Tan'          : VBase4(0.996094, 0.695312, 0.511719, 1.0),
     'Teal'          :VBase4(0.19607843137254902,0.7215686274509804,0.7098039215686275, 1.0),
-    'White'        : VBase4(1.0, 1.0, 1.0, 1.0),    
-    'Yellow'        :VBase4(0.996094, 0.898438, 0.320312, 1.0),              
+    'White'        : VBase4(1.0, 1.0, 1.0, 1.0),
+    'Yellow'        :VBase4(0.996094, 0.898438, 0.320312, 1.0),
 }
 
 species_dict = {
-             'Bear'         :'b',
-             'Cat'          :'ca',
-             'Crocodile'    :'cr',
-             'Deer'         :'de',
-             'Dog '         :'d',
-             'Duck'         :'du',
-             'Horse'        :'h',
-             'Monkey'       :'mo',
-             'Mouse'        :'mi',
-             'Pig'          :'p',
-             'Rabbit'       :'r',
-             'Riggy'        :'ri'
-              }
+    'Bear': 'b',
+    'Cat': 'ca',
+    'Crocodile': 'cr',
+    'Deer': 'de',
+    'Dog ': 'd',
+    'Duck': 'du',
+    'Horse': 'h',
+    'Monkey': 'mo',
+    'Mouse': 'mi',
+    'Pig': 'p',
+    'Rabbit': 'r',
+    'Riggy': 'ri'
+}
 
 # How does this work?
 # "Animation Name" - "file_of_animation"
@@ -1157,7 +1157,7 @@ medium_torso_skirt_anim_dict = {
     'Water': "phase_5.5/models/char/tt_a_chr_dgm_skirt_torso_water.bam",
     'Water Gun': "phase_5/models/char/tt_a_chr_dgm_skirt_torso_water-gun.bam",
     'Wave': "phase_3.5/models/char/tt_a_chr_dgm_skirt_torso_wave.bam",
-    'Victory Dance': "phase_3.5/models/char/tt_a_chr_dgm_skirt_torso_victory-dance.bam"    
+    'Victory Dance': "phase_3.5/models/char/tt_a_chr_dgm_skirt_torso_victory-dance.bam"
 }
 
 long_torso_skirt_anim_dict = {
@@ -1277,7 +1277,7 @@ long_torso_skirt_anim_dict = {
     'Water': "phase_5.5/models/char/tt_a_chr_dgl_skirt_torso_water.bam",
     'Water Gun': "phase_5/models/char/tt_a_chr_dgl_skirt_torso_water-gun.bam",
     'Wave': "phase_3.5/models/char/tt_a_chr_dgl_skirt_torso_wave.bam",
-    'Victory Dance': "phase_3.5/models/char/tt_a_chr_dgl_skirt_torso_victory-dance.bam"    
+    'Victory Dance': "phase_3.5/models/char/tt_a_chr_dgl_skirt_torso_victory-dance.bam"
 }
 
 # Leg animations
@@ -1520,7 +1520,7 @@ medium_legs_anim_dict = {
     'Water': "phase_5.5/models/char/tt_a_chr_dgm_shorts_legs_water.bam",
     'Water Gun': "phase_5/models/char/tt_a_chr_dgm_shorts_legs_water-gun.bam",
     'Wave': "phase_3.5/models/char/tt_a_chr_dgm_shorts_legs_wave.bam",
-    'Victory Dance': "phase_3.5/models/char/tt_a_chr_dgm_shorts_legs_victory-dance.bam"    
+    'Victory Dance': "phase_3.5/models/char/tt_a_chr_dgm_shorts_legs_victory-dance.bam"
 }
 
 long_legs_anim_dict = {
@@ -1814,7 +1814,7 @@ shirt_dict = {
     'Laff-o-lympics Bronze Medal(Deer)': ['phase_4/maps/ttr_t_chr_avt_shirt_bronzeDeer.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_bronze.jpg'],
     'Laff-o-lympics Silver Medal(Croc)': ['phase_4/maps/ttr_t_chr_avt_shirt_silverCroc.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_silver.jpg'],
     'Laff-o-lympics Silver Medal(Deer)': ['phase_4/maps/ttr_t_chr_avt_shirt_silverDeer.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_silver.jpg'],
-    'Laff-o-lympics Gold Medal(Croc)': ['phase_4/maps/ttr_t_chr_avt_shirt_goldCroc.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_gold.jpg'], 
+    'Laff-o-lympics Gold Medal(Croc)': ['phase_4/maps/ttr_t_chr_avt_shirt_goldCroc.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_gold.jpg'],
     'Laff-o-lympics Gold Medal(Deer)': ['phase_4/maps/ttr_t_chr_avt_shirt_goldDeer.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_gold.jpg'],
     'Leprechaun Shirt': ['phase_4/maps/StPats_shirt2.jpg', 'phase_4/maps/StPats_sleeve2.jpg'],
     'Loony Labs Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_loonyLabs.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_loonyLabs.jpg'],
@@ -1938,7 +1938,7 @@ skirt_dict = {
     'Pink Winter Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_1.jpg',
     'Pirate Skirt': 'phase_4/maps/tt_t_chr_avt_skirt_pirate.jpg',
     "The Potionist's Skirt" : 'phase_4/maps/tt_t_chr_avt_skirt_halloweenWitch.jpg',
-    'Profishional Angler Skirt' : 'phase_4/maps/ttr_t_chr_avt_skirt_fishingMax.jpg', 
+    'Profishional Angler Skirt' : 'phase_4/maps/ttr_t_chr_avt_skirt_fishingMax.jpg',
     'Santa Baby Skirt' : 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_8.jpg',
     "Santa's Helper Skirt" : 'phase_4/maps/tt_t_chr_avt_skirt_winter_14_4.jpg',
     'Sellbot Cog-Crusher Skirt' : 'phase_4/maps/tt_t_chr_avt_skirt_sellbotCrusher.jpg',
@@ -1978,7 +1978,7 @@ backpack_dict = {
     'Butterfly Wings': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_butterflyWings.bam', (0.25,-1.25,-0.1), (0.3,-0.75,-0.15), (0.2,-1.25,0.25), 0.3],
     'Carrot Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonPolka_2.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
     'Chocolate Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonTasty_3.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
-    'Crazy Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonPolka_5.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25], 
+    'Crazy Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonPolka_5.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],
     'Dragon Fly Wings': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_dragonFlyWings.bam', (0.25,-1.25,-0.1), (0.3,-0.75,-0.15), (0.2,-1.25,0.25), 0.3],
     'Dragon Wings': ['phase_4/models/accessories/tt_m_chr_avt_acc_pac_dragonWing.bam', (0.25,-1.25,-0.1), (0.3,-0.75,-0.15), (0.2,-1.25,0.25), 0.3],
     'Dreamland Bowtie': ['phase_4/models/accessories/ttr_m_chr_avt_acc_pac_bowtie.bam', 'phase_4/maps/ttr_t_chr_avt_acc_hat_ribbonPolka_4.jpg', (0.25,-0.5,0.475), (0.25,-0.25,0.45), (0.25,-0.34,0.65), 0.25],

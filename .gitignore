@@ -1,16 +1,19 @@
+# Directories
+__pycache__
+phase_*/*
+.idea
+.vs
+.history
+
+# File extensions
+*.mf
+*.pyc
+*.xml
+
+# Excluded files
 cringe.py
 cringe2.py
 studythislater.py
 studythislater2.py
 test.py
-__pycache__
 cltohingmenu.py
-phase_3
-phase_3.5
-phase_4
-phase_5
-phase_5.5
-phase_6
-phase_9
-phase_10
-

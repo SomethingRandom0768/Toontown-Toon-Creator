@@ -1792,7 +1792,7 @@ shirt_dict = {
     'Cog Stopper Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_mostCogsDefeated01.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_mostCogsDefeated01.jpg'],
     'Crashed Cashbot Shirt': ['phase_4/maps/ttr_t_chr_avt_shirt_cashbotIcon.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_cashbotIcon.jpg'],
     'Cupid Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_valentine1.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_cashbotIcon.jpg'],
-    'Explorer Vest' : ['phase_4/maps/ttr_t_chr_avt_shirt_taskForceExplorer.jpg'],
+    'Explorer Vest' : ['phase_4/maps/ttr_t_chr_avt_shirt_taskForceExplorer.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_taskForce.jpg'],
     'Extraordinaire Jacket': ['phase_4/maps/tt_t_chr_avt_shirt_toonfest_1m.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_toonfest_1m.jpg'],
     'Extraordinaire Vest': ['phase_4/maps/tt_t_chr_avt_shirt_toonfest_1f.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_toonfest_1f.jpg'],
     'Fireworks Shirt': ['phase_4/maps/4thJulyShirt2.jpg', 'phase_4/maps/4thJulySleeve2.jpg'],
@@ -1832,7 +1832,7 @@ shirt_dict = {
     'Santa Baby Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_winter_14_8f.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_winter_14_8.jpg'],
     'Santa Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_winter_14_8m.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_winter_14_8.jpg'],
     "Santa's Helper Shirt": ['phase_4/maps/tt_t_chr_avt_shirt_winter_14_4.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_winter_14_4.jpg'],
-    'Sellbot Cog-Crusher Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_sellbotCrusher.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_cashbotCrusher.jpg'],
+    'Sellbot Cog-Crusher Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_sellbotCrusher.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_sellbotCrusher.jpg'],
     'Sellbot Rental Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_sellbotRental.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_sellbotRental.jpg'],
     'Sellbot Stopper Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_sellbotVPIcon.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_sellbotVPIcon.jpg'],
     'Silly Hydrant Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_hydrant.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_hydrant.jpg'],
@@ -2127,7 +2127,7 @@ glasses_placement_dict = {
 
 # Shoes : texture
 
-# This one's simply for shoes, not boots.
+# Shoe texture dictionaries
 shoe_texture_dict = {
     'Black Athletic Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_athleticBlack.jpg',
     'Black Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoes.jpg',
@@ -2159,10 +2159,58 @@ shoe_texture_dict = {
 
 
 boot_short_texture_dict = {
-    
+    'Black Athletic Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_athleticBlack.jpg',
+    'Black Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoes.jpg',
+    'Blue Winter Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_3.jpg',
+    'Boat Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_deckShoes.jpg',
+    'Brown Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoesBrown.jpg',
+    'Cashbot Crusher Shoes': 'phase_4/maps/ttr_t_chr_avt_acc_sho_cashbotCrusher.jpg',
+    'Elf Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_4.jpg',
+    'Green Athletic Shoes': 'phase_3/maps/tt_t_chr_avt_acc_sho_athleticGreen.jpg',
+    'Green Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesGreen.jpg',
+    'Green Winter Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_2.jpg',
+    'Jester Shoes': 'phase_4/maps/ttr_t_chr_avt_acc_sho_jesterShoes.jpg',
+    'Pink Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesPink.jpg',
+    'Pink Winter Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_winter_14_1.jpg',
+    'Purple Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoesPurple.jpg',
+    'Purple Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesPurple.jpg',
+    'Red Athletic Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_athleticRed.jpg',
+    'Red Fancy Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_maryJaneShoesRed.jpg',
+    'Sellbot Cog-Crusher Shoes': 'phase_4/maps/ttr_t_chr_avt_acc_sho_sellbotCrusher.jpg',
+    'ToonFest 2015 Blue Attendee Shoes': 'phase_4/maps/omgcon_shoes_blue_noface.jpg',
+    'ToonFest 2015 Blue Shoes': 'phase_4/maps/omgcon_shoes_blue.jpg',
+    'ToonFest 2015 Pink Attendee Shoes': 'phase_4/maps/omgcon_shoes_pink.jpg',
+    'ToonFest 2015 Pink Shoes': 'phase_4/maps/omgcon_shoes_blue_noface.jpg',
+    'Violet Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesViolet.jpg',
+    'Yellow Athletic Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_athleticYellow.jpg',
+    'Yellow Tennis Shoes': 'phase_4/maps/tt_t_chr_avt_acc_sho_tennisShoesYellow.jpg'
+
 }
 
 boot_long_texture_dict = {
-
+    'Aqua Toon Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_docMartinBootsAquaLL.jpg'],
+    'Beige Winter Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_winterBootsBeigeLL.jpg'],
+    'Blue Rain Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_rainBootsBlueLL.jpg'],
+    'Blue Square Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_fashionBootsBlueSquaresLL.jpg'],
+    'Brown Toon Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_docMartinBootsBrownLL.jpg'],
+    'Cowboy Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_cowboyBootsLL.jpg'],
+    'Green Heart Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_fashionBootsGreenHeartsLL.jpg'],
+    'Green Toon Boots': ['phase_3/maps/tt_t_chr_avt_acc_sho_docMartinBootsGreenLL.jpg'],
+    'Grey Dot Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_fashionBootsGreyDotsLL.jpg'],
+    'Motorcycle Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_motorcycleBootsLL.jpg'],
+    'Orange Star Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_fashionBootsOrangeStarsLL.jpg'],
+    'Pink Rain Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_rainBootsPinkLL.jpg'],
+    'Pink Star Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_fashionBootsPinkStarsLL.jpg'],
+    'Pink Toon Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_docMartinBootsPinkLL.jpg'],
+    'Pink Winter Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_winterBootsPinkLL.jpg'],
+    'Pirate Booties': ['phase_4/maps/tt_t_chr_avt_acc_sho_pirateLL.jpg'],
+    'Purple Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_fashionBootsPurpleLL.jpg'],
+    'Red Dots Rain Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_rainBootsRedDotsLL.jpg', 'phase_4/maps/tt_t_chr_avt_acc_sho_rainBootsRedDotsLL_a.rgb'],
+    'Red Rain Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_rainBootsRedDotsLL.jpg'],
+    'Red Super Toon Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_superToonRedBootsLL.jpg'],
+    "Santa's Boots": ['phase_4/maps/tt_t_chr_avt_acc_sho_santaBootsLL.jpg'],
+    'Toonosaur Feet': ['phase_4/maps/tt_t_chr_avt_acc_sho_dinosaurLL.jpg'], 
+    'Yellow Rain Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_rainBootsYellowLL.jpg'],
+    'Yellow Toon Boots': ['phase_4/maps/tt_t_chr_avt_acc_sho_docMartinBootsYellowLL.jpg'],
 }
 

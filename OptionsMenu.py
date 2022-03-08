@@ -280,14 +280,13 @@ class OptionsMenu(DirectObject):
 
         def shoesToggle():
             if self.selectedToon.wearsShoes:
-                self.selectedToon.toonActor.find('**/*shoes').hide()
                 self.selectedToon.toonActor.find('**/*boots_short').hide()
-                self.selectedToon.toonActor.find('**/boots_long*').hide() 
+                self.selectedToon.toonActor.find('**/*boots_long').hide()
+                self.selectedToon.toonActor.find('**/*shoes').hide()
+                self.selectedToon.toonActor.find('**/*feet').show()
                 self.selectedToon.wearsShoes = False
             else:
-                self.selectedToon.toonActor.find('**/*shoes').show()
-                self.selectedToon.toonActor.find('**/*boots_short').show()
-                self.selectedToon.toonActor.find('**/boots_long*').show()                  
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)           
                 self.selectedToon.wearsShoes = True
                 
         def updateSpecies(species):
@@ -330,7 +329,28 @@ class OptionsMenu(DirectObject):
         def updateBottomColor(bottom_color):
             self.selectedToon.bottom_color = bottom_color
             self.selectedToon.setBottomColor(bottom_color)
-        
+
+        def updateShoeTexture(shoe_texture):
+            self.selectedToon.shoe_texture = shoe_texture
+            self.selectedToon.applyShoeTexture(shoe_texture)
+
+        def updateShoes():
+            """Updates the Toon's shoe type based on the thumb's position"""
+            sliderValue = self.shoes_switching_slider.slider['value']
+            tested_value = int(sliderValue)
+            self.selectedToon.hideShoePieces()
+            if tested_value >= 0 and tested_value <= 25:
+                self.selectedToon.shoe_type = 1
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+            elif tested_value > 25 and tested_value <= 50:
+                self.selectedToon.shoe_type = 2
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+            elif tested_value > 50 and tested_value <= 75:
+                self.selectedToon.shoe_type = 3
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+            else:
+                pass
+
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -348,6 +368,9 @@ class OptionsMenu(DirectObject):
 
         
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.9)
+        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 5, 19, boot_short_texture_dict, updateShoeTexture, 0)
+        self.shoes_switching_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Shoe Type:', -4.1, updateShoes)
+        self.boot_long_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Long Boot:', 0.2, -3.5, 5.35, 15, boot_long_texture_dict, updateShoeTexture, 0)
         self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, -3.5, 22, glasses_dict, updateGlasses, 0)
         self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, -3.9, 23, backpack_dict, updateBackpack, 0)
 
@@ -506,16 +529,24 @@ class OptionsChoosingMenu(OptionsModal):
     def generateClickableFrame(self, x, width_of_clickable):
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+        top_left_model = dynamicFrameFile.find('**/*topLeft')
+        top_middle_model = dynamicFrameFile.find('**/*topMiddle')
+        top_right_model = dynamicFrameFile.find('**/topRight')
+        center_left_model = dynamicFrameFile.find('**/*centerLeft')
+        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
+        center_right_model = dynamicFrameFile.find('**/*centerRight')
+        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
+        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
+        bottom_right_model = dynamicFrameFile.find('**/*bottomRight')
+
         self.clickable_node = NodePath('clickable_frame_node')
 
         # The Top Left piece
-        top_left_model = dynamicFrameFile.find('**/*topLeft')
         top_left_model.setScale(0.05)
         top_left_model.reparentTo(self.clickable_node)
         top_left_model.setPos(x,0,0.5)
 
         # The top middle piece
-        top_middle_model = dynamicFrameFile.find('**/*topMiddle')
         top_middle_model.reparentTo(self.clickable_node)
         top_middle_model.setScale(0.05)
         top_middle_model.setPos(top_left_model.getX()+0.05,0,top_left_model.getZ())
@@ -526,19 +557,16 @@ class OptionsChoosingMenu(OptionsModal):
             self.top_center_copy.setPos(top_middle_model.getX()+(i*0.05),0,top_middle_model.getZ())
 
         # The Top Right piece
-        top_right_model = dynamicFrameFile.find('**/topRight')
         top_right_model.reparentTo(self.clickable_node)
         top_right_model.setScale(0.05)
         top_right_model.setPos(self.top_center_copy.getX()+0.05,0,0.5)
 
          # The Middle Left piece
 
-        center_left_model = dynamicFrameFile.find('**/*centerLeft')
         center_left_model.reparentTo(self.clickable_node)
         center_left_model.setScale(0.05)
         center_left_model.setPos(top_left_model.getX(),0,top_left_model.getZ()-0.05)
 
-        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
         center_middle_model.reparentTo(self.clickable_node)
         center_middle_model.setScale(0.05)
         center_middle_model.setPos(center_left_model.getX()+0.05,0, center_left_model.getZ())
@@ -549,18 +577,15 @@ class OptionsChoosingMenu(OptionsModal):
             self.center_middle_copy.setPos(center_middle_model.getX()+(i*0.05),0, center_middle_model.getZ())
 
         # The Center Right piece    
-        center_right_model = dynamicFrameFile.find('**/*centerRight')
         center_right_model.setScale(0.05)
         center_right_model.reparentTo(self.clickable_node)
         center_right_model.setPos(self.center_middle_copy.getX()+0.05,0,center_middle_model.getZ())
 
-        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
         bottom_left_model.setScale(0.05)
         bottom_left_model.reparentTo(self.clickable_node)
         bottom_left_model.setPos(center_left_model.getX(),0,center_left_model.getZ()-0.05)
 
 
-        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
         bottom_middle_model.setScale(0.05)
         bottom_middle_model.reparentTo(self.clickable_node)
         bottom_middle_model.setPos(bottom_left_model.getX()+0.05,0,center_left_model.getZ()-0.05)
@@ -570,7 +595,6 @@ class OptionsChoosingMenu(OptionsModal):
             self.bottom_middle_copy = bottom_middle_model.copyTo(self.clickable_node)
             self.bottom_middle_copy.setPos( bottom_middle_model.getX()+(i*0.05) , 0, bottom_middle_model.getZ() )
 
-        bottom_right_model = dynamicFrameFile.find('**/*bottomRight')
         bottom_right_model.setScale(0.05)
         bottom_right_model.reparentTo(self.clickable_node)
         bottom_right_model.setPos( self.bottom_middle_copy.getX()+0.05, 0, bottom_middle_model.getZ() )
@@ -603,30 +627,37 @@ class OptionsChoosingMenu(OptionsModal):
         self.selectables_frame.hide()
         function(args_to_insert)
 
-    def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, keyOrValue, selectables_dictionary=None, height=6):
+    def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, keyOrValue, selectables_dictionary=None, height = 6):
         '''Creates the selectable menu based on the provided args'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+        top_left_model = dynamicFrameFile.find('**/*topLeft')
+        top_middle_model = dynamicFrameFile.find('**/*topMiddle')
+        top_right_model = dynamicFrameFile.find('**/topRight')
+        center_left_model = dynamicFrameFile.find('**/*centerLeft')
+        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
+        center_right_model = dynamicFrameFile.find('**/*centerRight')
+        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
+        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
+        bottom_right_model = dynamicFrameFile.find('**/*bottomRight')
+
         self.selectable_dynamic_frame = NodePath('selectable_frame')
 
         # The Top Left piece
-        top_left_model = dynamicFrameFile.find('**/*topLeft')
         top_left_model.setScale(0.05)
         top_left_model.reparentTo(self.selectable_dynamic_frame)
         top_left_model.setPos(0.5,0,0.5)
 
         # The top middle piece
-        top_middle_model = dynamicFrameFile.find('**/*topMiddle')
         top_middle_model.setScale(0.05)
         top_middle_model.reparentTo(self.selectable_dynamic_frame)
         top_middle_model.setPos(top_left_model.getX()+0.05,0,0.5)
 
         # The Top Middle repetitions
-        for i in range(1, 20):
+        for i in range(1, 21):
             self.top_center_copy = top_middle_model.copyTo(self.selectable_dynamic_frame)
             self.top_center_copy.setPos(top_middle_model.getX()+(0.05*i),0,0.5)
 
         # The Top Right piece
-        top_right_model = dynamicFrameFile.find('**/topRight')
         top_right_model.reparentTo(self.top_center_copy)
         top_right_model.setPos(1,0,0)
 
@@ -636,21 +667,18 @@ class OptionsChoosingMenu(OptionsModal):
         self.middlepiece.reparentTo(top_left_model)
         self.middlepiece.setPos(0,0,0)
 
-        center_left_model = dynamicFrameFile.find('**/*centerLeft')
         center_left_model.reparentTo(self.middlepiece)
         center_left_model.setPos(0,0,-1)
 
-        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
         center_middle_model.reparentTo(self.middlepiece)
         center_middle_model.setPos(1,0,-1)
 
          # The Center Middle repetitions
-        for i in range(1, 21):
+        for i in range(1, 22):
             self.center_middle_copy = center_middle_model.copyTo(self.middlepiece)
             self.center_middle_copy.setPos(i,0,-1)
             
 
-        center_right_model = dynamicFrameFile.find('**/*centerRight')
         center_right_model.setScale(1)
         center_right_model.reparentTo(self.center_middle_copy)
         center_right_model.setPos(1,0,0)
@@ -662,26 +690,23 @@ class OptionsChoosingMenu(OptionsModal):
             self.middle_piece_copy.setPos(0.5, 0, 0.5 - (0.05 * i))
             self.middle_piece_copy.setScale(0.05)
 
-        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
         bottom_left_model.setScale(1)
         bottom_left_model.reparentTo(self.middle_piece_copy)
         bottom_left_model.setPos(0,0,-2)
 
-        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
         bottom_middle_model.setScale(1)
         bottom_middle_model.reparentTo(bottom_left_model)
         bottom_middle_model.setPos(1,0,0)
 
         # The Bottom Middle repetitions
-        for i in range(1, 21):
+        for i in range(1, 22):
             self.bottom_middle_copy = bottom_middle_model.copyTo(bottom_left_model)
             self.bottom_middle_copy.setPos(i, 0, 0)
 
 
-        self.bottom_right = dynamicFrameFile.find('**/*bottomRight')
-        self.bottom_right.setScale(1)
-        self.bottom_right.reparentTo(self.bottom_middle_copy)
-        self.bottom_right.setPos(1,0,0)
+        bottom_right_model.setScale(1)
+        bottom_right_model.reparentTo(self.bottom_middle_copy)
+        bottom_right_model.setPos(1,0,0)
 
         self.slider_geom = self.options_geom.find('**/*slider1')
         self.trough_geom = self.options_geom.find('**/*lineSkinny')
@@ -695,12 +720,12 @@ class OptionsChoosingMenu(OptionsModal):
 
         self.selectables_frame = DirectGui.DirectScrolledFrame(
             parent=self.selectables_geom,
-            frameSize=(-0.5,1.6,-0.6,0.1),
+            frameSize=(-0.5, 1.6,-0.6,0.1),
             canvasSize=(-1.25,0,selectable_frame_height,10),
             pos=(0.75,0,0.45),
             scale=0.5,
             sortOrder=10,
-            relief=None,
+            #relief=None,
 
         # Horizontal bar stuff
             horizontalScroll_relief=None,
@@ -711,19 +736,20 @@ class OptionsChoosingMenu(OptionsModal):
         # Vertical bar
             verticalScroll_thumb_geom=self.slider_geom,
             verticalScroll_thumb_geom_scale=0.1,
-            verticalScroll_relief=None,
-            verticalScroll_thumb_relief=None,
-            verticalScroll_range=(0, 0.5),
             verticalScroll_thumb_clickSound=loader.loadSfx(gui_click_sound),
             verticalScroll_thumb_rolloverSound=loader.loadSfx(gui_rollover_sound),
+            verticalScroll_thumb_relief=None,
+            verticalScroll_relief=None,
+            verticalScroll_range=(0, 0.5),
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
             verticalScroll_geom_hpr=(0,0,90),
-            verticalScroll_geom_pos=(self.bottom_right.getX()+0.55,0,-0.25),
+            verticalScroll_geom_pos=(bottom_right_model.getX()+0.55,0,-0.25),
             verticalScroll_geom=self.trough_geom,
             verticalScroll_geom_scale=0.175,
             scrollBarWidth=0.1
         )
+
 
         selectable_gui_font = loader.loadFont(toon_font)
 

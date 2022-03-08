@@ -678,26 +678,39 @@ class Toon:
             self.toonActor.find('**/*boots_long').hide()
             self.toonActor.find('**/*feet').hide()
         else:
-            pass
+            self.hideShoePieces()
     
         self.applyShoeTexture(self.shoe_texture)
-        
+
+    def hideShoePieces(self):
+        self.toonActor.find('**/*boots_short').hide()
+        self.toonActor.find('**/*boots_long').hide()
+        self.toonActor.find('**/*shoes').hide()
+        self.toonActor.find('**/*feet').show()
+
     def applyShoeTexture(self, shoe_texture):
         if self.shoe_type == 1: # Short boots
-            texture = loader.loadTexture(boot_short_texture_dict[shoe_texture])
-            self.toonActor.find('**/*boots_short').setTexture(texture, 1)
+            try:
+                texture = loader.loadTexture(boot_short_texture_dict[shoe_texture])
+                self.toonActor.find('**/*boots_short').setTexture(texture, 1)
+            except: 
+                pass
         elif self.shoe_type == 2: # Long boots
-            
-            if len(boot_long_texture_dict[shoe_texture]) == 1:
-                texture = loader.loadTexture(boot_long_texture_dict[shoe_texture][0])
-                self.toonActor.find('**/*boots_long').setTexture(texture, 1)
-            elif len(boot_long_texture_dict[shoe_texture]) == 2:
-                texture = loader.loadTexture(boot_long_texture_dict[shoe_texture][0], boot_long_texture_dict[shoe_texture][1])
-                self.toonActor.find('**/*boots_long').setTexture(texture, 1)
-
+            try:
+                if len(boot_long_texture_dict[shoe_texture]) == 1:
+                    texture = loader.loadTexture(boot_long_texture_dict[shoe_texture][0])
+                    self.toonActor.find('**/*boots_long').setTexture(texture, 1)
+                elif len(boot_long_texture_dict[shoe_texture]) == 2:
+                    texture = loader.loadTexture(boot_long_texture_dict[shoe_texture][0], boot_long_texture_dict[shoe_texture][1])
+                    self.toonActor.find('**/*boots_long').setTexture(texture, 1)
+            except:
+                pass
         elif self.shoe_type == 3: # Shoes
-            texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
-            self.toonActor.find('**/*shoes').setTexture(texture, 1)
+            try:
+                texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
+                self.toonActor.find('**/*shoes').setTexture(texture, 1)
+            except:
+                pass
         else:
             pass
 

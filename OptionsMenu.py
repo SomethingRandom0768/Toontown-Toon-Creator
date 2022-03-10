@@ -80,11 +80,15 @@ class OptionsMenu(DirectObject):
 
         self.firstTabGeom = self.icon.find('**/*eyes')
 
+        def funnyFunction():
+            print("You clicked on a button that has no function yet..or does it? Only time will tell......just kidding, I'm tired.")
+
         self.first_Tab = DirectGui.DirectButton(
             geom=self.firstTabGeom,
             geom_scale=0.045,
             geom_pos=(-0.6,0,0.680),
             parent = self.first_page,
+            command=funnyFunction,
             frameColor=(0,0,0,0))
         
         self.optionsScroll = DirectGui.DirectScrolledFrame(
@@ -332,13 +336,33 @@ class OptionsMenu(DirectObject):
 
         def updateShoeTexture(shoe_texture):
             self.selectedToon.shoe_texture = shoe_texture
-            self.selectedToon.applyShoeTexture(shoe_texture)
+            if self.selectedToon.shoe_type == 1: # Shoes
+                self.selectedToon.applyShoeTexture(shoe_texture)
+                print(f"Shoe has been changed to {shoe_texture}")
+            else:
+                pass
+        
+        def updateShortBootTexture(shoe_texture):
+            try:
+                self.selectedToon.short_boot_texture = shoe_texture
+                self.selectedToon.applyShortBootTexture(shoe_texture)
+                print(f"Short Boots has been changed to {shoe_texture}")
+            except:
+                pass
+
+        def updateLongBootTexture(shoe_texture):
+            try:
+                self.selectedToon.long_boot_texture = shoe_texture
+                self.selectedToon.applyLongBootTexture(shoe_texture)
+                print(f"Long Boots has been changed to {shoe_texture}")
+            except:
+                pass
 
         def updateShoes():
             """Updates the Toon's shoe type based on the thumb's position"""
             sliderValue = self.shoes_switching_slider.slider['value']
             tested_value = int(sliderValue)
-            self.selectedToon.hideShoePieces()
+
             if tested_value >= 0 and tested_value <= 25:
                 self.selectedToon.shoe_type = 1
                 self.selectedToon.attachShoes(self.selectedToon.shoe_type)
@@ -349,7 +373,8 @@ class OptionsMenu(DirectObject):
                 self.selectedToon.shoe_type = 3
                 self.selectedToon.attachShoes(self.selectedToon.shoe_type)
             else:
-                pass
+                self.selectedToon.shoe_type = 4
+                self.selectedToon.hideShoePieces()
 
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
@@ -368,12 +393,12 @@ class OptionsMenu(DirectObject):
 
         
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.9)
-        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 22, boot_short_texture_dict, updateShoeTexture, 0)
         self.shoes_switching_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Shoe Type:', -4.1, updateShoes)
-        self.boot_long_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Long Boot:', 0.2, -3.5, 15, boot_long_texture_dict, updateShoeTexture, 0)
+        self.shoes_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shoes:', 0, -3.9, 22, shoe_texture_dict, updateShoeTexture, 0)
+        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 22, boot_short_texture_dict, updateShortBootTexture, 0)
+        self.boot_long_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Long Boot:', 0, -3.5, 15, boot_long_texture_dict, updateLongBootTexture, 0)
         self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, 22, glasses_dict, updateGlasses, 0)
         self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, 23, backpack_dict, updateBackpack, 0)
-
         self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', 0, -1.4, 10, colorsList, updateGloveColor, 0)
         self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 10, colorsList, updateLegsColor, 0)
         self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 10, colorsList, updateArmsColor, 0)
@@ -750,7 +775,9 @@ class OptionsChoosingMenu(OptionsModal):
             relief=None,
         )
  
-        print(f"{self.modalTextNode['text']} : {len(selectables_dictionary)} items")
+        # If you want to debug the amount of items ya got, uncomment the line under.
+
+        #print(f"{self.modalTextNode['text']} : {len(selectables_dictionary)} items")
 
         selectable_height = (len(selectables_dictionary)) * -0.1005
 

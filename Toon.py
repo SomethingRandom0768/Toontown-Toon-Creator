@@ -19,7 +19,7 @@ toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # 
 
 class Toon:
     '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses = None, shoes_type = None, shoes_texture = None, animation_type=None, is60FPS=None, wearsShoes=None):
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses = None, shoes_type = None, long_boot_texture = None, short_boot_texture = None, shoes_texture = None, animation_type=None, is60FPS=None, wearsShoes=None):
         # DNA based stuff
         self.toonActor = None
         self.species = species
@@ -49,6 +49,8 @@ class Toon:
         self.glasses_model = None
 
         self.shoe_type = shoes_type
+        self.short_boot_texture = short_boot_texture
+        self.long_boot_texture = long_boot_texture
         self.shoe_texture = shoes_texture
 
         self.animationType = animation_type
@@ -141,6 +143,21 @@ class Toon:
 
         if self.wearsShoes:
             self.attachShoes(self.shoe_type)
+        else:
+            pass
+            
+        if self.shoe_texture:
+            self.applyShoeTexture(self.shoe_texture)
+        else:
+            pass
+        
+        if self.short_boot_texture:
+            self.applyShortBootTexture(self.short_boot_texture)
+        else:
+            pass
+
+        if self.long_boot_texture:
+            self.applyLongBootTexture(self.long_boot_texture)
         else:
             pass
 
@@ -661,26 +678,25 @@ class Toon:
                 self.glasses_model.setPos(0,0.25,0.05)
 
     def attachShoes(self, shoe_type):
-        '''Attaches the shoe based on the type of shoe given.'''    
-        if shoe_type == 1: # Short boots
-            self.toonActor.find('**/*shoes').hide()
-            self.toonActor.find('**/*boots_short').show()
-            self.toonActor.find('**/*boots_long').hide()
-            self.toonActor.find('**/*feet').hide()
-        elif shoe_type == 2: # Long boots
-            self.toonActor.find('**/*shoes').hide()
-            self.toonActor.find('**/*boots_short').hide()
-            self.toonActor.find('**/*boots_long').show()
-            self.toonActor.find('**/*feet').hide()
-        elif shoe_type == 3: # Shoes
+        '''Attaches the shoe based on the type of shoe given.'''   
+
+        if shoe_type == 1: # Shoes
             self.toonActor.find('**/*shoes').show()
             self.toonActor.find('**/*boots_short').hide()
             self.toonActor.find('**/*boots_long').hide()
             self.toonActor.find('**/*feet').hide()
+        elif shoe_type == 2: # Short boots
+            self.toonActor.find('**/*shoes').hide()
+            self.toonActor.find('**/*boots_short').show()
+            self.toonActor.find('**/*boots_long').hide()
+            self.toonActor.find('**/*feet').hide()
+        elif shoe_type == 3: # Long boots
+            self.toonActor.find('**/*shoes').hide()
+            self.toonActor.find('**/*boots_short').hide()
+            self.toonActor.find('**/*boots_long').show()
+            self.toonActor.find('**/*feet').hide()
         else:
             self.hideShoePieces()
-    
-        self.applyShoeTexture(self.shoe_texture)
 
     def hideShoePieces(self):
         self.toonActor.find('**/*boots_short').hide()
@@ -688,30 +704,31 @@ class Toon:
         self.toonActor.find('**/*shoes').hide()
         self.toonActor.find('**/*feet').show()
 
+    def applyLongBootTexture(self, long_boot_texture):
+        '''Applies the long boot texture to the long boot node'''
+        try:
+            if len(boot_long_texture_dict[long_boot_texture]) == 1:
+                texture = loader.loadTexture(boot_long_texture_dict[long_boot_texture][0])
+                self.toonActor.find('**/*boots_long').setTexture(texture, 1)
+            elif len(boot_long_texture_dict[long_boot_texture]) == 2:
+                texture = loader.loadTexture(boot_long_texture_dict[long_boot_texture][0], boot_long_texture_dict[long_boot_texture][1])
+                self.toonActor.find('**/*boots_long').setTexture(texture, 1)
+        except:
+            pass
+
+    def applyShortBootTexture(self, short_boot_texture):
+        try:
+            texture = loader.loadTexture(shoe_texture_dict[short_boot_texture])
+            self.toonActor.find('**/*boots_short').setTexture(texture, 1)
+        except:
+            pass
+
     def applyShoeTexture(self, shoe_texture):
-        if self.shoe_type == 1: # Short boots
-            try:
-                texture = loader.loadTexture(boot_short_texture_dict[shoe_texture])
-                self.toonActor.find('**/*boots_short').setTexture(texture, 1)
-            except: 
-                pass
-        elif self.shoe_type == 2: # Long boots
-            try:
-                if len(boot_long_texture_dict[shoe_texture]) == 1:
-                    texture = loader.loadTexture(boot_long_texture_dict[shoe_texture][0])
-                    self.toonActor.find('**/*boots_long').setTexture(texture, 1)
-                elif len(boot_long_texture_dict[shoe_texture]) == 2:
-                    texture = loader.loadTexture(boot_long_texture_dict[shoe_texture][0], boot_long_texture_dict[shoe_texture][1])
-                    self.toonActor.find('**/*boots_long').setTexture(texture, 1)
-            except:
-                pass
-        elif self.shoe_type == 3: # Shoes
-            try:
-                texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
-                self.toonActor.find('**/*shoes').setTexture(texture, 1)
-            except:
-                pass
-        else:
+        '''Applies the shoe texture to the shoe nodes'''
+        try:
+            texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
+            self.toonActor.find('**/*shoes').setTexture(texture, 1)
+        except:
             pass
 
 

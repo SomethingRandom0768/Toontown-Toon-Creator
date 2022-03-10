@@ -368,25 +368,25 @@ class OptionsMenu(DirectObject):
 
         
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.9)
-        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 5, 22, boot_short_texture_dict, updateShoeTexture, 0)
+        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 22, boot_short_texture_dict, updateShoeTexture, 0)
         self.shoes_switching_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Shoe Type:', -4.1, updateShoes)
-        self.boot_long_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Long Boot:', 0.2, -3.5, 5.35, 15, boot_long_texture_dict, updateShoeTexture, 0)
-        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, -3.5, 22, glasses_dict, updateGlasses, 0)
-        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, -3.9, 23, backpack_dict, updateBackpack, 0)
+        self.boot_long_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Long Boot:', 0.2, -3.5, 15, boot_long_texture_dict, updateShoeTexture, 0)
+        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, 22, glasses_dict, updateGlasses, 0)
+        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, 23, backpack_dict, updateBackpack, 0)
 
-        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', 0, -1.4, 1.25, 10, colorsList, updateGloveColor, 0)
-        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 1.25, 10, colorsList, updateLegsColor, 0)
-        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 1.25, 10, colorsList, updateArmsColor, 0)
-        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 1.25, 10, colorsList, updateHeadColor, 0)
-        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -13.5, 20, anim_dict, updateAnim)
-        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 1.25, 10, species_dict, updateSpecies)
+        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', 0, -1.4, 10, colorsList, updateGloveColor, 0)
+        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 10, colorsList, updateLegsColor, 0)
+        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 10, colorsList, updateArmsColor, 0)
+        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 10, colorsList, updateHeadColor, 0)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, 20, anim_dict, updateAnim)
+        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 10, species_dict, updateSpecies)
 
         self.clothing_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Clothing', -1.7)
-        self.bottom_coloring_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Bottom Color:', 0, -2.7, 1.25, 10, colorsList, updateBottomColor, 0)
-        self.skirts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Skirt:', 0, -2.5, 1.25, 20, skirt_dict, updateSkirtTexture, 0)
-        self.shorts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shorts:', 0, -2.3, 1.25, 20, short_dict, updateShortTexture, 0)
-        self.shirt_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt Color:', -0.1, -2.1, 1.25, 10, colorsList, updateShirtColor, 0)
-        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, -8, 25, shirt_dict, updateShirtTexture, 0)
+        self.bottom_coloring_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Bottom Color:', 0, -2.7, 10, colorsList, updateBottomColor, 0)
+        self.skirts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Skirt:', 0, -2.5, 20, skirt_dict, updateSkirtTexture, 0)
+        self.shorts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shorts:', 0, -2.3,  20, short_dict, updateShortTexture, 0)
+        self.shirt_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt Color:', -0.1, -2.1, 10, colorsList, updateShirtColor, 0)
+        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, 25, shirt_dict, updateShirtTexture, 0)
 
     def hideOrShowOptions(self):
         if self.showOptions:
@@ -520,11 +520,11 @@ class OptionsChoosingMenu(OptionsModal):
        chosen_command - What function does this menu run once an object in the selection menu is chosen?
        keyOrValue - 0 returns the key, 1 returns the value in the used_dictionary 
     '''
-    def __init__(self, modalParent, modalText, x, z, height_of_selectables, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
+    def __init__(self, modalParent, modalText, x, z, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
         self.clickable = self.generateClickableFrame(x, width_of_clickable)
-        self.selectables = self.generateSelectablesFrame(x, chosen_command, height_of_selectables, keyOrValue, used_dictionary, width_of_clickable)
+        self.selectables = self.generateSelectablesFrame(x, chosen_command, keyOrValue, used_dictionary, width_of_clickable)
 
     def generateClickableFrame(self, 
     x, 
@@ -639,8 +639,7 @@ class OptionsChoosingMenu(OptionsModal):
 
     def generateSelectablesFrame(self,
     x_position,
-    command_to_execute, 
-    selectable_frame_height, 
+    command_to_execute,  
     keyOrValue, 
     selectables_dictionary=None,
     width = 6, 
@@ -750,20 +749,26 @@ class OptionsChoosingMenu(OptionsModal):
             pos=((x_position+0.5),0,0.05),
             relief=None,
         )
+ 
+        print(f"{self.modalTextNode['text']} : {len(selectables_dictionary)} items")
+
+        selectable_height = (len(selectables_dictionary)) * -0.1005
 
         self.selectableScrollFrame = DirectGui.DirectScrolledFrame(
             parent=self.selectablesFrame,
-            frameSize=(0,width*0.052,-0.35,0),
-            canvasSize=(0,1.5,selectable_frame_height,10),
+            frameSize=(0,width*0.052,-0.4,0),
+            canvasSize=(0,1.5,selectable_height,0),
 
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
+            verticalScroll_range=(0,0.5),
+            verticalScroll_value=0,
+            verticalScroll_manageButtons=True,
+            verticalScroll_resizeThumb=True,
             verticalScroll_relief=None,
-            verticalScroll_thumb_frameSize=(0,0,0,0),
             verticalScroll_thumb_relief=None,
             verticalScroll_thumb_geom=self.slider_geom,
             verticalScroll_thumb_geom_scale=0.05,
-            verticalScroll_thumb_geom_pos=(0,0,0),
 
             verticalScroll_geom=self.trough_geom,
             verticalScroll_geom_scale=0.085,
@@ -774,7 +779,6 @@ class OptionsChoosingMenu(OptionsModal):
             horizontalScroll_thumb_relief=None,
             horizontalScroll_incButton_relief=None,
             horizontalScroll_decButton_relief=None,
-            verticalScroll_range=(0,0.1),
             scrollBarWidth=0.05,
             relief=None,
         )
@@ -792,7 +796,7 @@ class OptionsChoosingMenu(OptionsModal):
                     text_align=TextNode.ALeft,
                     text_scale=0.3,
                     scale=0.2, 
-                    pos=(0,0,10 - (i*0.1 )), 
+                    pos=(0,0,0 - (i*0.1 )), 
                     relief=None,
                     command=self.showAndHide,
                     clickSound=loader.loadSfx(gui_click_sound),
@@ -810,7 +814,7 @@ class OptionsChoosingMenu(OptionsModal):
                     text_align=TextNode.ALeft,
                     text_scale=0.3, 
                     scale=0.2, 
-                    pos=(0,0,10 - (i*0.1) ), 
+                    pos=(0,0,0 - (i*0.1) ), 
                     relief=None,
                     command=self.showAndHide,
                     clickSound=loader.loadSfx(gui_click_sound),

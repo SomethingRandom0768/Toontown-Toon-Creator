@@ -401,7 +401,7 @@ class ToonHead:
             headModel.find('**/muzzle-short-smile').hide()
             headModel.find('**/muzzle-short-angry').hide()
             headModel.find('**/muzzle-short-laugh').hide()
-
+            headModel.find('**/nose-long').hide()
             # All the stuff we show
 
             headModel.find('**/antlers-long').show()
@@ -411,6 +411,7 @@ class ToonHead:
             headModel.find('**/joint_pupilL_short').show()
             headModel.find('**/joint_pupilR_short').show()
             headModel.find('**/muzzle-short-neutral').show()
+            headModel.find('**/nose-short').show()
         elif toonType == 'dell': # Big Antlers, Big Muzzle
             # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
@@ -424,6 +425,7 @@ class ToonHead:
             headModel.find('**/muzzle-long-smile').hide()
             headModel.find('**/muzzle-long-angry').hide()
             headModel.find('**/muzzle-long-laugh').hide()
+            headModel.find('**/nose-short').hide()
 
             # All the stuff we show
 
@@ -434,6 +436,7 @@ class ToonHead:
             headModel.find('**/joint_pupilL_short').show()
             headModel.find('**/joint_pupilR_short').show()
             headModel.find('**/muzzle-long-neutral').show()     
+            headModel.find('**/nose-long').show()
         elif toonType == 'desl': # Small Antlers, Big Muzzle
             # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-short*')
@@ -447,6 +450,7 @@ class ToonHead:
             headModel.find('**/muzzle-long-smile').hide()
             headModel.find('**/muzzle-long-angry').hide()
             headModel.find('**/muzzle-long-laugh').hide()
+            headModel.find('**/nose-short').hide()
 
             # All the stuff we show
 
@@ -456,7 +460,8 @@ class ToonHead:
             headModel.find('**/eyes-short').show()
             headModel.find('**/joint_pupilL_short').show()
             headModel.find('**/joint_pupilR_short').show()
-            headModel.find('**/muzzle-long-neutral').show()              
+            headModel.find('**/muzzle-long-neutral').show()   
+            headModel.find('**/nose-long').show()           
         elif toonType == 'dess': # Small Antlers, Small Muzzle
             # All the stuff we hide
             muzzleToRemove = headModel.findAllMatches('**/muzzle-long*')
@@ -470,6 +475,7 @@ class ToonHead:
             headModel.find('**/muzzle-short-smile').hide()
             headModel.find('**/muzzle-short-angry').hide()
             headModel.find('**/muzzle-short-laugh').hide()
+            headModel.find('**/nose-long').hide()
 
             # All the stuff we show
 
@@ -480,6 +486,7 @@ class ToonHead:
             headModel.find('**/joint_pupilL_short').show()
             headModel.find('**/joint_pupilR_short').show()
             headModel.find('**/muzzle-short-neutral').show()     
+            headModel.find('**/nose-short').show()
         
         # Ducks 
         elif toonType == 'duls': # Big Head, Small Muzzle

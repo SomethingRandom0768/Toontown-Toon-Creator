@@ -212,7 +212,6 @@ class Toon:
             self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*ears-long').setColor(colorsList[self.head_color])
             self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
-        self.toonActor.find('**/neck').setColor(colorsList[self.head_color])
 
     def updateTorso(self, torso_type):
         '''Updates the torso type'''
@@ -222,6 +221,7 @@ class Toon:
     def updateArmsColor(self, color_to_set):
         self.arm_color = color_to_set
         self.toonActor.find('**/arms').setColor(colorsList[self.arm_color])
+        self.toonActor.find('**/neck').setColor(colorsList[self.arm_color])
 
     def updateLegs(self, legs_type):
         '''Updates the leg type'''

@@ -2,8 +2,6 @@ from direct.actor.Actor import Actor
 from panda3d.core import NodePath
 
 class ToonHead:
-#TODO NEED TO REWRITE IT TO WHERE THE SPECIES WILL AFFECT THE MODEL OF THE HEAD SHOWN. 
-#THE SLICE OF THE STRING THAT REPRESENTS THE MUZZLE AND THE HEAD SIZE WILL BE USED TO HIDE AND SHOW BITS AND PIECES.
     def __init__(self, species, headType, hasEyelashes, gender='m'):
         '''Species - what species the toon is
            Type - What type of head are we going for (what head type and muzzle type?)

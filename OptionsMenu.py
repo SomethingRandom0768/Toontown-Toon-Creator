@@ -1,6 +1,6 @@
+from direct.gui.DirectGuiGlobals import FLAT, HORIZONTAL, SUNKEN, VERTICAL, RAISED, GROOVE
 from direct.gui import DirectGui
 from direct.gui.DirectGui import *
-from direct.gui.DirectGuiGlobals import FLAT, HORIZONTAL, SUNKEN, VERTICAL
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import NodePath, TextNode
 from direct.interval.LerpInterval import *
@@ -796,10 +796,11 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_thumb_relief=None,
             verticalScroll_thumb_geom=self.slider_geom,
             verticalScroll_thumb_geom_scale=0.05,
+            verticalScroll_thumb_geom_pos=(0,0,0),
 
             verticalScroll_geom=self.trough_geom,
             verticalScroll_geom_scale=0.085,
-            verticalScroll_geom_pos=(width*0.05,0,-0.175),
+            verticalScroll_geom_pos=(width*0.049,0,-0.175),
             verticalScroll_geom_hpr=(0,0,90),
 
             horizontalScroll_relief=None,
@@ -824,6 +825,7 @@ class OptionsChoosingMenu(OptionsModal):
                     text_scale=0.3,
                     scale=0.2, 
                     pos=(0,0,0 - (i*0.1 )), 
+                    pad=(5,0),
                     relief=None,
                     command=self.showAndHide,
                     clickSound=loader.loadSfx(gui_click_sound),
@@ -842,6 +844,7 @@ class OptionsChoosingMenu(OptionsModal):
                     text_scale=0.3, 
                     scale=0.2, 
                     pos=(0,0,0 - (i*0.1) ), 
+                    pad=(5,0),
                     relief=None,
                     command=self.showAndHide,
                     clickSound=loader.loadSfx(gui_click_sound),

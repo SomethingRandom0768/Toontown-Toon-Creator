@@ -81,7 +81,7 @@ class OptionsMenu(DirectObject):
         self.firstTabGeom = self.icon.find('**/*eyes')
 
         def funnyFunction():
-            print("You clicked on a button that has no function yet..or does it? Only time will tell......just kidding, I'm tired.")
+            print("You clicked on a button that has no function yet..or does it? Only time will tell......just kidding, I'm tired.\nIf you found this, I'd like a cookie, preferably chocolate chip.")
 
         self.first_Tab = DirectGui.DirectButton(
             geom=self.firstTabGeom,
@@ -395,7 +395,7 @@ class OptionsMenu(DirectObject):
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.9)
         self.shoes_switching_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Shoe Type:', -4.1, updateShoes)
         self.shoes_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shoes:', 0, -3.9, 22, shoe_texture_dict, updateShoeTexture, 0)
-        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 22, boot_short_texture_dict, updateShortBootTexture, 0)
+        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 22, shoe_texture_dict, updateShortBootTexture, 0)
         self.boot_long_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Long Boot:', 0, -3.5, 15, boot_long_texture_dict, updateLongBootTexture, 0)
         self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, 22, glasses_dict, updateGlasses, 0)
         self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, 23, backpack_dict, updateBackpack, 0)

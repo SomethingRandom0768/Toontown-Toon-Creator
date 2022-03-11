@@ -22,11 +22,6 @@ class MyApp(ShowBase):
         windowSettings.setIconFilename('phase_3/etc/icon.ico')
         self.win.requestProperties(windowSettings)
 
-        # Music
-        self.music = loader.loadSfx('phase_3/audio/bgm/create_a_toon.ogg')
-        self.music.setLoop(True)
-        #self.music.play()
-
         # Environment
         self.environment = loader.loadModel('phase_3.5/models/modules/tt_m_ara_int_toonhall.bam')
         self.environment.reparentTo(render)
@@ -37,7 +32,7 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('de', 'ls', False, 'ls', 'l', 'f', head_color='Cartoonival Blue', arm_color='Cartoonival Blue', leg_color='Cartoonival Blue', animation_type='Neutral', shirt_texture='ToonFest 2017 Blue Attendee Shirt', short_texture='ToonFest 2018 Blue Attendee Shorts', skirt_texture='Bee Skirt', bottom_color='White', shoes_type=2, shoes_texture=None, long_boot_texture=None, short_boot_texture=None, backpack=None, glasses=None, is60FPS=True, wearsShoes=True)
+        self.toon = Toon('de', 'ls', False, 'ls', 'l', 'm', head_color='Cartoonival Blue', arm_color='Cartoonival Blue', leg_color='Cartoonival Blue', animation_type='Neutral', shirt_texture='ToonFest 2017 Blue Attendee Shirt', short_texture='ToonFest 2018 Blue Attendee Shorts', skirt_texture='Bee Skirt', bottom_color='White', shoes_type=2, shoes_texture=None, long_boot_texture=None, short_boot_texture=None, backpack='Trash Lid (SPOILERS!)', glasses=None, is60FPS=True, wearsShoes=True)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

@@ -365,7 +365,7 @@ class Toon:
 
             if 'Sword' in backpack_to_attach:
                 self.backpack_model.setHpr(180,15,30)
-            elif "Bag" in backpack_to_attach:
+            elif "Bag" or 'Trash Lid' in backpack_to_attach:
                 self.backpack_model.setHpr(0,0,0)
             elif 'Tail' in backpack_to_attach or 'Fin' in backpack_to_attach:
                 self.backpack_model.setHpr(180,20,0)

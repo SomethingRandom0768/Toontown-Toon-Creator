@@ -80,11 +80,15 @@ class OptionsMenu(DirectObject):
 
         self.firstTabGeom = self.icon.find('**/*eyes')
 
+        def funnyFunction():
+            print("You clicked on a button that has no function yet..or does it? Only time will tell......just kidding, I'm tired.\nIf you found this, I'd like a cookie, preferably chocolate chip.")
+
         self.first_Tab = DirectGui.DirectButton(
             geom=self.firstTabGeom,
             geom_scale=0.045,
             geom_pos=(-0.6,0,0.680),
             parent = self.first_page,
+            command=funnyFunction,
             frameColor=(0,0,0,0))
         
         self.optionsScroll = DirectGui.DirectScrolledFrame(
@@ -280,14 +284,13 @@ class OptionsMenu(DirectObject):
 
         def shoesToggle():
             if self.selectedToon.wearsShoes:
-                self.selectedToon.toonActor.find('**/*shoes').hide()
                 self.selectedToon.toonActor.find('**/*boots_short').hide()
-                self.selectedToon.toonActor.find('**/boots_long*').hide() 
+                self.selectedToon.toonActor.find('**/*boots_long').hide()
+                self.selectedToon.toonActor.find('**/*shoes').hide()
+                self.selectedToon.toonActor.find('**/*feet').show()
                 self.selectedToon.wearsShoes = False
             else:
-                self.selectedToon.toonActor.find('**/*shoes').show()
-                self.selectedToon.toonActor.find('**/*boots_short').show()
-                self.selectedToon.toonActor.find('**/boots_long*').show()                  
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)           
                 self.selectedToon.wearsShoes = True
                 
         def updateSpecies(species):
@@ -330,7 +333,49 @@ class OptionsMenu(DirectObject):
         def updateBottomColor(bottom_color):
             self.selectedToon.bottom_color = bottom_color
             self.selectedToon.setBottomColor(bottom_color)
+
+        def updateShoeTexture(shoe_texture):
+            self.selectedToon.shoe_texture = shoe_texture
+            if self.selectedToon.shoe_type == 1: # Shoes
+                self.selectedToon.applyShoeTexture(shoe_texture)
+                print(f"Shoe has been changed to {shoe_texture}")
+            else:
+                pass
         
+        def updateShortBootTexture(shoe_texture):
+            try:
+                self.selectedToon.short_boot_texture = shoe_texture
+                self.selectedToon.applyShortBootTexture(shoe_texture)
+                print(f"Short Boots has been changed to {shoe_texture}")
+            except:
+                pass
+
+        def updateLongBootTexture(shoe_texture):
+            try:
+                self.selectedToon.long_boot_texture = shoe_texture
+                self.selectedToon.applyLongBootTexture(shoe_texture)
+                print(f"Long Boots has been changed to {shoe_texture}")
+            except:
+                pass
+
+        def updateShoes():
+            """Updates the Toon's shoe type based on the thumb's position"""
+            sliderValue = self.shoes_switching_slider.slider['value']
+            tested_value = int(sliderValue)
+
+            if tested_value >= 0 and tested_value <= 25:
+                self.selectedToon.shoe_type = 1
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+            elif tested_value > 25 and tested_value <= 50:
+                self.selectedToon.shoe_type = 2
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+            elif tested_value > 50 and tested_value <= 75:
+                self.selectedToon.shoe_type = 3
+                self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+            else:
+                self.selectedToon.shoe_type = 4
+                self.selectedToon.hideShoePieces()
+
         self.rotation_slider = OptionsSlider(aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
         self.rotation_slider.slider.setX(1.15)
@@ -348,22 +393,25 @@ class OptionsMenu(DirectObject):
 
         
         self.accessory_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Accessories', -2.9)
-        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, -3.5, 22, glasses_dict, updateGlasses, 0)
-        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, -3.9, 23, backpack_dict, updateBackpack, 0)
-
-        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', 0, -1.4, 1.25, 10, colorsList, updateGloveColor, 0)
-        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 1.25, 10, colorsList, updateLegsColor, 0)
-        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 1.25, 10, colorsList, updateArmsColor, 0)
-        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 1.25, 10, colorsList, updateHeadColor, 0)
-        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, -13.5, 10, anim_dict, updateAnim)
-        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 7.5, 10, species_dict, updateSpecies)
+        self.shoes_switching_slider = OptionsSlider(self.optionsScroll.getCanvas(), 'Shoe Type:', -4.1, updateShoes)
+        self.shoes_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shoes:', 0, -3.9, 22, shoe_texture_dict, updateShoeTexture, 0)
+        self.boot_short_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Short Boot:', 0, -3.7, 22, shoe_texture_dict, updateShortBootTexture, 0)
+        self.boot_long_texture_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Long Boot:', 0, -3.5, 15, boot_long_texture_dict, updateLongBootTexture, 0)
+        self.glasses_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Glasses:', -0.1, -3.3, 22, glasses_dict, updateGlasses, 0)
+        self.backpack_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Backpack:', -0.1, -3.1, 23, backpack_dict, updateBackpack, 0)
+        self.glove_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Gloves Color:', 0, -1.4, 10, colorsList, updateGloveColor, 0)
+        self.leg_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Leg Color:', 0, -1.2, 10, colorsList, updateLegsColor, 0)
+        self.arm_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Arms Color:', 0, -1, 10, colorsList, updateArmsColor, 0)
+        self.head_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Head Color:', 0, -0.8, 10, colorsList, updateHeadColor, 0)
+        self.anim_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Animation:', 0, -0.6, 20, anim_dict, updateAnim)
+        self.species_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Species:', 0, -0.4, 10, species_dict, updateSpecies)
 
         self.clothing_label = OptionsLabel(self.optionsScroll.getCanvas(), 'Clothing', -1.7)
-        self.bottom_coloring_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Bottom Color:', 0, -2.7, 1.25, 10, colorsList, updateBottomColor, 0)
-        self.skirts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Skirt:', 0, -2.5, 1.25, 20, skirt_dict, updateSkirtTexture, 0)
-        self.shorts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shorts:', 0, -2.3, 1.25, 20, short_dict, updateShortTexture, 0)
-        self.shirt_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt Color:', -0.1, -2.1, 1.25, 10, colorsList, updateShirtColor, 0)
-        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, -8, 25, shirt_dict, updateShirtTexture, 0)
+        self.bottom_coloring_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Bottom Color:', 0, -2.7, 10, colorsList, updateBottomColor, 0)
+        self.skirts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Skirt:', 0, -2.5, 20, skirt_dict, updateSkirtTexture, 0)
+        self.shorts_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shorts:', 0, -2.3,  20, short_dict, updateShortTexture, 0)
+        self.shirt_color_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt Color:', -0.1, -2.1, 10, colorsList, updateShirtColor, 0)
+        self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(), 'Shirt:', -0.2, -1.9, 25, shirt_dict, updateShirtTexture, 0)
 
     def hideOrShowOptions(self):
         if self.showOptions:
@@ -407,7 +455,7 @@ class OptionsModal(DirectGui.DirectFrame):
             pos=(-0.95, 0, z),
             frameColor=(0,0,0,0),
             frameSize=(-0.01,0.9,-0.01,0.06),
-            scale=0.9
+            scale=0.9,
         )
 
         self.modalTextNode = OnscreenText(
@@ -497,212 +545,269 @@ class OptionsChoosingMenu(OptionsModal):
        chosen_command - What function does this menu run once an object in the selection menu is chosen?
        keyOrValue - 0 returns the key, 1 returns the value in the used_dictionary 
     '''
-    def __init__(self, modalParent, modalText, x, z, height_of_selectables, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
+    def __init__(self, modalParent, modalText, x, z, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.clickable = self.generateClickableFrame(chosen_command, x, height_of_selectables, width_of_clickable, keyOrValue, used_dictionary)
+        self.clickable = self.generateClickableFrame(x, width_of_clickable)
+        self.selectables = self.generateSelectablesFrame(x, chosen_command, keyOrValue, used_dictionary, width_of_clickable)
 
-    def generateClickableFrame(self, command, x, frame_height, width_of_clickable, key_or_value, used_dictionary=None):
+    def generateClickableFrame(self, 
+    x, 
+    width_of_clickable):
+
         '''Creates the small frame that the player will click on'''
         dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
-        self.dynamic_frame = NodePath('test')
-        # The Top Left piece
-        self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
-        self.top_leftdf.setScale(0.05)
-        self.top_leftdf.reparentTo(self.dynamic_frame)
-        self.top_leftdf.setPos(x,0,0.5)
-        # The top middle piece
+        top_left_model = dynamicFrameFile.find('**/*topLeft')
         top_middle_model = dynamicFrameFile.find('**/*topMiddle')
-        top_middle_model.reparentTo(self.top_leftdf)
-        top_middle_model.setPos(1,0,0)
+        top_right_model = dynamicFrameFile.find('**/topRight')
+        center_left_model = dynamicFrameFile.find('**/*centerLeft')
+        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
+        center_right_model = dynamicFrameFile.find('**/*centerRight')
+        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
+        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
+        bottom_right_model = dynamicFrameFile.find('**/*bottomRight')
+
+        self.clickable_node = NodePath('clickable_frame_node')
+
+        # The Top Left piece
+        top_left_model.setScale(0.05)
+        top_left_model.reparentTo(self.clickable_node)
+        top_left_model.setPos(0,0,0.5)
+
+        # The top middle piece
+        top_middle_model.reparentTo(self.clickable_node)
+        top_middle_model.setScale(0.05)
+        top_middle_model.setPos(top_left_model.getX()+0.05,0,top_left_model.getZ())
+
         # The Top Middle repetitions
         for i in range(1, width_of_clickable):
-            self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
-            self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
-        # The Top Right piece
-        top_right_model = dynamicFrameFile.find('**/topRight')
-        top_right_model.reparentTo(self.top_center_copy)
-        top_right_model.setPos(1,0,0)
-        center_left_model = dynamicFrameFile.find('**/*centerLeft')
-        center_left_model.reparentTo(self.top_leftdf)
-        center_left_model.setPos(0,0,-1)
-        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
-        center_middle_model.reparentTo(center_left_model)
-        center_middle_model.setPos(1,0,0)
-        # The Center Middle repetitions
-        for i in range(1, width_of_clickable+1):
-            self.center_middle_copy = center_middle_model.copyTo(self.top_leftdf)
-            self.center_middle_copy.setPos(i,0,-1)
-        center_right_model = dynamicFrameFile.find('**/*centerRight')
-        center_right_model.setScale(1)
-        center_right_model.reparentTo(self.center_middle_copy)
-        center_right_model.setPos(1,0,0)
-        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
-        bottom_left_model.setScale(1)
-        bottom_left_model.reparentTo(self.top_leftdf)
-        bottom_left_model.setPos(0,0,-2)
-        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
-        bottom_middle_model.setScale(1)
-        bottom_middle_model.reparentTo(bottom_left_model)
-        bottom_middle_model.setPos(1,0,0)
-        # The Bottom Middle repetitions
-        for i in range(1, width_of_clickable+1):
-            self.bottom_middle_copy = bottom_middle_model.copyTo(self.top_leftdf)
-            self.bottom_middle_copy.setPos(i,0,-2)
-
-        self.bottom_rightdf = dynamicFrameFile.find('**/*bottomRight')
-        self.bottom_rightdf.setScale(1)
-        self.bottom_rightdf.reparentTo(self.bottom_middle_copy)
-        self.bottom_rightdf.setPos(1,0,0)
-
-        self.dynamic_frame.setPos(0.5,0,-0.45)
-
-        # The actual button
-        self.clickable_button = DirectButton(
-            sortOrder=5,
-            geom=self.dynamic_frame,
-            parent=self.containerFrame,
-            relief=None,
-            command=self.generateSelectablesFrame,
-            extraArgs=[command, frame_height, key_or_value, used_dictionary],
-            clickSound=loader.loadSfx(gui_click_sound),
-            rolloverSound=loader.loadSfx(gui_rollover_sound),
-            text='None', 
-            text_font=loader.loadFont(toon_font), 
-            text_pos =(x+0.5,-0.025), 
-            text_align=TextNode.ALeft,
-            text_scale=0.07
-        )
-        return self.clickable_button
-
-    def showAndHide(self, function, args_to_insert):
-        '''This basically reparents clickable so you can see it again and hides the selectables_frame'''
-        self.clickable.reparentTo(self.containerFrame)
-        self.clickable['text'] = args_to_insert
-        self.selectables_geom.removeNode()
-        self.selectables_frame.removeNode()
-        function(args_to_insert)
-
-    def generateSelectablesFrame(self, command_to_execute, selectable_frame_height, keyOrValue, selectables_dictionary=None, height=6):
-        dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
-        self.selectable_dynamic_frame = NodePath('selectable_frame')
-
-        self.clickable.reparentTo(hidden)    
-        
-        # The Top Left piece
-        self.top_leftdf = dynamicFrameFile.find('**/*topLeft')
-        self.top_leftdf.setScale(0.05)
-        self.top_leftdf.reparentTo(self.selectable_dynamic_frame)
-        self.top_leftdf.setPos(0.5,0,0.5)
-
-        # The top middle piece
-        top_middle_model = dynamicFrameFile.find('**/*topMiddle')
-        top_middle_model.reparentTo(self.top_leftdf)
-        top_middle_model.setPos(self.top_leftdf.getX()+0.5,0,0)
-
-        # The Top Middle repetitions
-        for i in range(1, 20):
-            self.top_center_copy = top_middle_model.copyTo(self.top_leftdf)
-            self.top_center_copy.setPos(top_middle_model.getX()+i,0,0)
+            self.top_center_copy = top_middle_model.copyTo(self.clickable_node)
+            self.top_center_copy.setPos(top_middle_model.getX()+(i*0.05),0,top_middle_model.getZ())
 
         # The Top Right piece
-        top_right_model = dynamicFrameFile.find('**/topRight')
-        top_right_model.reparentTo(self.top_center_copy)
-        top_right_model.setPos(1,0,0)
+        top_right_model.reparentTo(self.clickable_node)
+        top_right_model.setScale(0.05)
+        top_right_model.setPos(self.top_center_copy.getX()+0.05,0,0.5)
 
-        # Let's make a node that we can duplicate.
+         # The Middle Left piece
 
-        self.middlepiece = NodePath('middle_piece')
-        self.middlepiece.reparentTo(self.top_leftdf)
-        self.middlepiece.setPos(0,0,0)
+        center_left_model.reparentTo(self.clickable_node)
+        center_left_model.setScale(0.05)
+        center_left_model.setPos(top_left_model.getX(),0,top_left_model.getZ()-0.05)
 
-        center_left_model = dynamicFrameFile.find('**/*centerLeft')
-        center_left_model.reparentTo(self.middlepiece)
-        center_left_model.setPos(0,0,-1)
-
-        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
-        center_middle_model.reparentTo(self.middlepiece)
-        center_middle_model.setPos(1,0,-1)
+        center_middle_model.reparentTo(self.clickable_node)
+        center_middle_model.setScale(0.05)
+        center_middle_model.setPos(center_left_model.getX()+0.05,0, center_left_model.getZ())
 
          # The Center Middle repetitions
-        for i in range(1, 21):
-            self.center_middle_copy = center_middle_model.copyTo(self.middlepiece)
-            self.center_middle_copy.setPos(i,0,-1)
+        for i in range(1, width_of_clickable):
+            self.center_middle_copy = center_middle_model.copyTo(self.clickable_node)
+            self.center_middle_copy.setPos(center_middle_model.getX()+(i*0.05),0, center_middle_model.getZ())
+
+        # The Center Right piece    
+        center_right_model.setScale(0.05)
+        center_right_model.reparentTo(self.clickable_node)
+        center_right_model.setPos(self.center_middle_copy.getX()+0.05,0,center_middle_model.getZ())
+
+        bottom_left_model.setScale(0.05)
+        bottom_left_model.reparentTo(self.clickable_node)
+        bottom_left_model.setPos(center_left_model.getX(),0,center_left_model.getZ()-0.05)
+
+
+        bottom_middle_model.setScale(0.05)
+        bottom_middle_model.reparentTo(self.clickable_node)
+        bottom_middle_model.setPos(bottom_left_model.getX()+0.05,0,center_left_model.getZ()-0.05)
+
+         # The Bottom Middle repetitions
+        for i in range(1, width_of_clickable):
+            self.bottom_middle_copy = bottom_middle_model.copyTo(self.clickable_node)
+            self.bottom_middle_copy.setPos( bottom_middle_model.getX()+(i*0.05) , 0, bottom_middle_model.getZ() )
+
+        bottom_right_model.setScale(0.05)
+        bottom_right_model.reparentTo(self.clickable_node)
+        bottom_right_model.setPos( self.bottom_middle_copy.getX()+0.05, 0, bottom_middle_model.getZ() )
+
+
+        self.clickable_node.setPos(0.5,0,-0.45)
+        self.clickable_node.flattenStrong()
+
+        # The actual button
+        self.clickable_button = DirectFrame(
+            geom=self.clickable_node,
+            parent=self.containerFrame,
+            pos=(x,0,0),
+            relief=None
+        )
+
+        self.clickable_text = DirectButton(
+            parent=self.clickable_button,
+            text='None',
+            text_scale=0.075,
+            text_font=loader.loadFont(toon_font), 
+            text_align=TextNode.ALeft,
+            pos=(0.5,0,-0.025),
+            relief=None,
+            frameSize=(0,width_of_clickable*0.055,-0.05, 0.1),
+            command=self.showSelectables,
+            clickSound=loader.loadSfx(gui_click_sound),
+            rolloverSound=loader.loadSfx(gui_rollover_sound),
+        )
+
+        return self.clickable_button
+    
+    def showAndHide(self, function, args_to_insert):
+        '''This basically reparents clickable so you can see it again and hides the selectables_frame'''
+        self.clickable.show()
+        self.clickable_text['text'] = args_to_insert
+        self.selectablesFrame.hide()
+        function(args_to_insert)
+
+    def generateSelectablesFrame(self,
+    x_position,
+    command_to_execute,  
+    keyOrValue, 
+    selectables_dictionary=None,
+    width = 6, 
+    height = 6):
+        '''Creates the selectable menu based on the provided args'''
+        dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+        top_left_model = dynamicFrameFile.find('**/*topLeft')
+        top_middle_model = dynamicFrameFile.find('**/*topMiddle')
+        top_right_model = dynamicFrameFile.find('**/topRight')
+        center_left_model = dynamicFrameFile.find('**/*centerLeft')
+        center_middle_model = dynamicFrameFile.find('**/*centerMiddle')
+        center_right_model = dynamicFrameFile.find('**/*centerRight')
+        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
+        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
+        bottom_right_model = dynamicFrameFile.find('**/*bottomRight')
+
+        self.selectable_dynamic_frame = NodePath('selectable_frame')
+
+        top_piece = NodePath('top_half')
+
+        # The Top Left piece
+        top_left_model.setScale(0.05)
+        top_left_model.reparentTo(top_piece)
+        top_left_model.setPos(0,0,0)
+
+        # The top middle piece
+        top_middle_model.setScale(0.05)
+        top_middle_model.reparentTo(top_piece)
+        top_middle_model.setPos(top_left_model.getX()+0.05,0,top_left_model.getZ())
+
+        # The Top Middle repetitions
+        for i in range(1, width):
+            self.top_center_copy = top_middle_model.copyTo(top_piece)
+            self.top_center_copy.setPos(top_middle_model.getX()+(0.05*i),0,0)
+
+        # The Top Right piece
+        top_right_model.setScale(0.05)
+        top_right_model.reparentTo(top_piece)
+        top_right_model.setPos(top_middle_model.getX()+(0.05*width),0,0)
+
+        top_piece.flattenStrong()
+        top_piece.reparentTo(self.selectable_dynamic_frame)
+        top_piece.setPos(0,0,0)
+        # Let's make a node that we can duplicate.
+
+        middle_piece = NodePath('middle_half')
+        middle_piece.reparentTo(self.selectable_dynamic_frame)
+        middle_piece.setPos(0,0,-0.05)
+
+        center_left_model.setScale(0.05)
+        center_left_model.reparentTo(middle_piece)
+        center_left_model.setPos(0,0,0)
+
+        center_middle_model.setScale(0.05)
+        center_middle_model.reparentTo(middle_piece)
+        center_middle_model.setPos(0.05,0,0)
+
+         # The Center Middle repetitions
+        for i in range(1, width+1):
+            self.center_middle_copy = center_middle_model.copyTo(middle_piece)
+            self.center_middle_copy.setPos(0.05*i,0,0)
             
 
-        center_right_model = dynamicFrameFile.find('**/*centerRight')
-        center_right_model.setScale(1)
-        center_right_model.reparentTo(self.center_middle_copy)
-        center_right_model.setPos(1,0,0)
+        center_right_model.setScale(0.05)
+        center_right_model.reparentTo(middle_piece)
+        center_right_model.setPos((width+1)*0.05,0,0)
 
         # Now let's duplicate the amount of times the thing is made.
 
+        middle_piece.flattenStrong()
+
         for i in range(1, height):
-            self.middle_piece_copy = self.middlepiece.copyTo(self.selectable_dynamic_frame)
-            self.middle_piece_copy.setPos(0.5, 0, 0.5 - (0.05 * i))
-            self.middle_piece_copy.setScale(0.05)
+            self.middle_piece_copy = middle_piece.copyTo(self.selectable_dynamic_frame)
+            self.middle_piece_copy.setPos(0,0,(i * -0.05))
 
-        bottom_left_model= dynamicFrameFile.find('**/*bottomLeft')
-        bottom_left_model.setScale(1)
-        bottom_left_model.reparentTo(self.middle_piece_copy)
-        bottom_left_model.setPos(0,0,-2)
 
-        bottom_middle_model = dynamicFrameFile.find('**/*bottomMiddle')
-        bottom_middle_model.setScale(1)
-        bottom_middle_model.reparentTo(bottom_left_model)
-        bottom_middle_model.setPos(1,0,0)
+        bottom_piece = NodePath('bottom_half')
+        bottom_piece.reparentTo(self.selectable_dynamic_frame)
+        bottom_piece.setPos(0, 0, height * -0.05)
+
+        bottom_left_model.setScale(0.05)
+        bottom_left_model.reparentTo(bottom_piece)
+        bottom_left_model.setPos(0,0,-0.05)
+
+        bottom_middle_model.setScale(0.05)
+        bottom_middle_model.reparentTo(bottom_piece)
+        bottom_middle_model.setPos(0.05,0,-0.05)
 
         # The Bottom Middle repetitions
-        for i in range(1, 21):
-            self.bottom_middle_copy = bottom_middle_model.copyTo(bottom_left_model)
-            self.bottom_middle_copy.setPos(i, 0, 0)
+        for i in range(1, width+1):
+            self.bottom_middle_copy = bottom_middle_model.copyTo(bottom_piece)
+            self.bottom_middle_copy.setPos((0.05*i), 0, -0.05)
 
+        #self.selectable_dynamic_frame.ls()
+        bottom_right_model.setScale(0.05)
+        bottom_right_model.reparentTo(bottom_piece)
+        bottom_right_model.setPos((width+1)*0.05,0,-0.05)
 
-        self.bottom_right = dynamicFrameFile.find('**/*bottomRight')
-        self.bottom_right.setScale(1)
-        self.bottom_right.reparentTo(self.bottom_middle_copy)
-        self.bottom_right.setPos(1,0,0)
+        bottom_piece.flattenStrong()
 
         self.slider_geom = self.options_geom.find('**/*slider1')
         self.trough_geom = self.options_geom.find('**/*lineSkinny')
 
-        self.selectables_geom = DirectGui.DirectFrame(
+        self.selectablesFrame = DirectGui.DirectFrame(
             geom=self.selectable_dynamic_frame,
             parent=self.containerFrame,
-            pos=(0.05,0,-0.45),
-            relief=None
-        )
-
-        self.selectables_frame = DirectGui.DirectScrolledFrame(
-            parent=self.selectables_geom,
-            frameSize=(-0.5,1.6,-0.6,0.1),
-            canvasSize=(-1.25,0,selectable_frame_height,10),
-            pos=(0.75,0,0.45),
-            scale=0.5,
-            sortOrder=10,
+            pos=((x_position+0.5),0,0.05),
             relief=None,
+        )
+ 
+        # If you want to debug the amount of items ya got, uncomment the line under.
 
-        # Horizontal bar stuff
-            horizontalScroll_relief=None,
-            horizontalScroll_incButton_relief=None,
-            horizontalScroll_decButton_relief=None,
-            horizontalScroll_frameSize=(0,0,0,0), # Getting rid of the horizontal scroll
+        #print(f"{self.modalTextNode['text']} : {len(selectables_dictionary)} items")
 
-        # Vertical bar
-            verticalScroll_thumb_geom=self.slider_geom,
-            verticalScroll_thumb_geom_scale=0.1,
-            verticalScroll_relief=None,
-            verticalScroll_thumb_relief=None,
-            verticalScroll_range=(0, 0.5),
-            verticalScroll_thumb_clickSound=loader.loadSfx(gui_click_sound),
-            verticalScroll_thumb_rolloverSound=loader.loadSfx(gui_rollover_sound),
+        selectable_height = (len(selectables_dictionary)) * -0.1005
+
+        self.selectableScrollFrame = DirectGui.DirectScrolledFrame(
+            parent=self.selectablesFrame,
+            frameSize=(0,width*0.052,-0.4,0),
+            canvasSize=(0,1.5,selectable_height,0),
+
             verticalScroll_incButton_relief=None,
             verticalScroll_decButton_relief=None,
-            verticalScroll_geom_hpr=(0,0,90),
-            verticalScroll_geom_pos=(self.bottom_right.getX()+0.55,0,-0.25),
+            verticalScroll_range=(0,0.5),
+            verticalScroll_value=0,
+            verticalScroll_manageButtons=True,
+            verticalScroll_resizeThumb=True,
+            verticalScroll_relief=None,
+            verticalScroll_thumb_relief=None,
+            verticalScroll_thumb_geom=self.slider_geom,
+            verticalScroll_thumb_geom_scale=0.05,
+
             verticalScroll_geom=self.trough_geom,
-            verticalScroll_geom_scale=0.175,
-            scrollBarWidth=0.1
+            verticalScroll_geom_scale=0.085,
+            verticalScroll_geom_pos=(width*0.05,0,-0.175),
+            verticalScroll_geom_hpr=(0,0,90),
+
+            horizontalScroll_relief=None,
+            horizontalScroll_thumb_relief=None,
+            horizontalScroll_incButton_relief=None,
+            horizontalScroll_decButton_relief=None,
+            scrollBarWidth=0.05,
+            relief=None,
         )
 
         selectable_gui_font = loader.loadFont(toon_font)
@@ -712,13 +817,13 @@ class OptionsChoosingMenu(OptionsModal):
             for item in selectables_dictionary.keys():
                 i+=1
                 button = DirectButton(
-                    parent = self.selectables_frame.getCanvas(),
+                    parent = self.selectableScrollFrame.getCanvas(),
                     text=item,
                     text_font=selectable_gui_font,
                     text_align=TextNode.ALeft,
-                    text_scale=0.57, 
+                    text_scale=0.3,
                     scale=0.2, 
-                    pos=(-1.2,0,10 - (i*0.2) ), 
+                    pos=(0,0,0 - (i*0.1 )), 
                     relief=None,
                     command=self.showAndHide,
                     clickSound=loader.loadSfx(gui_click_sound),
@@ -730,19 +835,25 @@ class OptionsChoosingMenu(OptionsModal):
             for item in selectables_dictionary.keys():
                 i+=1
                 button = DirectButton(
-                    parent = self.selectables_frame.getCanvas(),
+                    parent = self.selectableScrollFrame.getCanvas(),
                     text=item,
                     text_font=selectable_gui_font,
                     text_align=TextNode.ALeft,
-                    text_scale=0.57, 
+                    text_scale=0.3, 
                     scale=0.2, 
-                    pos=(-1.2,0,10 - (i*0.2) ), 
+                    pos=(0,0,0 - (i*0.1) ), 
                     relief=None,
                     command=self.showAndHide,
                     clickSound=loader.loadSfx(gui_click_sound),
                     rolloverSound=loader.loadSfx(gui_rollover_sound),
                     extraArgs=[command_to_execute,item]
             )
+
+        self.selectablesFrame.hide()
+
+    def showSelectables(self):
+        self.selectablesFrame.show()
+        self.clickable.hide()
 
 
 

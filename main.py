@@ -4,7 +4,7 @@ from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'interpolate-frames true')
 loadPrcFileData('', 'fullscreen false')
 loadPrcFileData('', 'window-title Toon Creator')
-loadPrcFileData('', 'notify-level fatal')
+loadPrcFileData('',  'notify-level fatal')
 
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import WindowProperties
@@ -14,6 +14,7 @@ from Toon import Toon
 class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
+        base.setFrameRateMeter(True)
 
         # Window settings
         windowSettings = WindowProperties()
@@ -36,7 +37,7 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('ri', 'ls', False, 'ls', 'l', 'f', head_color='Cartoonival Blue', arm_color='Cartoonival Blue', leg_color='Cartoonival Blue', animation_type='Riggy Neutral', shirt_texture='ToonFest 2017 Blue Attendee Shirt', short_texture='ToonFest 2018 Blue Attendee Shorts', skirt_texture='Bee Skirt', bottom_color='White', backpack=None, glasses=None, is60FPS=True)
+        self.toon = Toon('de', 'ls', False, 'ls', 'l', 'f', head_color='Cartoonival Blue', arm_color='Cartoonival Blue', leg_color='Cartoonival Blue', animation_type='Neutral', shirt_texture='ToonFest 2017 Blue Attendee Shirt', short_texture='ToonFest 2018 Blue Attendee Shorts', skirt_texture='Bee Skirt', bottom_color='White', shoes_type=2, shoes_texture=None, long_boot_texture=None, short_boot_texture=None, backpack=None, glasses=None, is60FPS=True, wearsShoes=True)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

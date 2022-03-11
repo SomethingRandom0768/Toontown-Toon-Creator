@@ -335,11 +335,11 @@ class OptionsMenu(DirectObject):
             self.selectedToon.setBottomColor(bottom_color)
 
         def updateShoeTexture(shoe_texture):
-            self.selectedToon.shoe_texture = shoe_texture
-            if self.selectedToon.shoe_type == 1: # Shoes
+            try:
+                self.selectedToon.shoe_texture = shoe_texture
                 self.selectedToon.applyShoeTexture(shoe_texture)
                 print(f"Shoe has been changed to {shoe_texture}")
-            else:
+            except:
                 pass
         
         def updateShortBootTexture(shoe_texture):

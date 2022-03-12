@@ -326,7 +326,7 @@ class OptionsMenu(DirectObject):
             self.selectedToon.generateActor()
             self.selectedToon.toonActor.setH(
                 self.rotation_slider.slider['value'])
-            print(f"Animation has been changed to {species}")
+            print(f"Species has been changed to {species}")
 
         def updateAnim(anim):
             self.selectedToon.animationType = anim

@@ -326,39 +326,48 @@ class OptionsMenu(DirectObject):
             self.selectedToon.generateActor()
             self.selectedToon.toonActor.setH(
                 self.rotation_slider.slider['value'])
+            print(f"Animation has been changed to {species}")
 
         def updateAnim(anim):
             self.selectedToon.animationType = anim
             self.selectedToon.toonActor.stop()
             self.selectedToon.toonActor.loop(anim)
+            print(f"Animation has been changed to {anim}")
 
         def updateBackpack(backpack_type):
             self.selectedToon.backpack_type = backpack_type
             self.selectedToon.attachBackpack(backpack_type)
+            print(f"Backpack has been changed to {backpack_type}")
 
         def updateGlasses(glasses_type):
             self.selectedToon.glasses_type = glasses_type
             self.selectedToon.attachGlasses(glasses_type)
+            print(f"Glasses has been changed to {glasses_type}")
 
-        def updateShirtTexture(shirt):
-            self.selectedToon.shirt_texture = shirt
-            self.selectedToon.setShirtTexture(shirt)
+        def updateShirtTexture(shirt_texture):
+            self.selectedToon.shirt_texture = shirt_texture
+            self.selectedToon.setShirtTexture(shirt_texture)
+            print(f"Shirt Texture has been changed to {shirt_texture}")
 
         def updateShortTexture(short_texture):
             self.selectedToon.short_texture = short_texture
             self.selectedToon.setShortTexture(short_texture)
+            print(f"Short Texture has been changed to {short_texture}")
 
         def updateSkirtTexture(skirt_texture):
             self.selectedToon.skirt_texture = skirt_texture
             self.selectedToon.setSkirtTexture(skirt_texture)
+            print(f"Skirt Texture has been changed to {skirt_texture}")
 
         def updateShirtColor(shirt_color):
             self.selectedToon.shirt_color = shirt_color
             self.selectedToon.setShirtColor(shirt_color)
+            print(f"Shirt color has been changed to {shirt_color}")
 
         def updateBottomColor(bottom_color):
             self.selectedToon.bottom_color = bottom_color
             self.selectedToon.setBottomColor(bottom_color)
+            print(f"Bottom color has been changed to {bottom_color}")
 
         def updateShoeTexture(shoe_texture):
             try:

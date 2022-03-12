@@ -350,6 +350,7 @@ class Toon:
  # Accessory related functions
     def attachBackpack(self, backpack_to_attach):
         '''Attaches a backpack based on the type of backpack.'''
+        print('Backpack has been changed to ' + backpack_to_attach)
 
         # So if we already had a model before changing it, remove its node.
         if self.backpack_model:
@@ -363,16 +364,16 @@ class Toon:
             self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
             self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][4] )
 
-            if 'Sword' in backpack_to_attach:
+            if backpack_to_attach == 'Pirate Sword':
                 self.backpack_model.setHpr(180,15,30)
-            elif "Bag" or 'Trash Lid' in backpack_to_attach:
-                self.backpack_model.setHpr(0,0,0)
-            elif 'Tail' in backpack_to_attach or 'Fin' in backpack_to_attach:
+            elif backpack_to_attach == "Santa's Bag" or backpack_to_attach == 'Trash Lid (SPOILERS!)':
+                self.backpack_model.setHpr(180,0,0)
+            elif backpack_to_attach == 'Toonosaur Tail' or 'Shark Fin' == backpack_to_attach:
                 self.backpack_model.setHpr(180,20,0)
             elif 'Bowtie' in backpack_to_attach:
                 self.backpack_model.setHpr(180,-50,0)
-            elif 'Oil Pale Pack' in backpack_to_attach:
-                self.backpack_model.setHpr(180,0,0)
+            elif backpack_to_attach == 'Oil Pale Pack':
+                self.backpack_model.setHpr(180,0,0)       
             else:    
                 self.backpack_model.setHpr(180,0,0)
 

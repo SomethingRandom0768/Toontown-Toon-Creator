@@ -301,7 +301,7 @@ class Toon:
             shirtTexturePath = shirt_dict[shirt][0]
             shirtTexture = loader.loadTexture(shirtTexturePath)
             self.toonActor.find('**/torso-top').setTexture(shirtTexture, 1)
-
+            
             if len(shirt_dict[shirt]) == 2:
                 sleeveTexturePath = shirt_dict[shirt][1]
                 sleeveTexture = loader.loadTexture(sleeveTexturePath)
@@ -309,7 +309,8 @@ class Toon:
             else:
                 pass
         except:
-            print(f"Your Shirt Texture {shirt} will result in a crash. Please check either ToonDNA.py or the main file. ")
+            pass
+            # If nothing happens when changing shirts, it's potentially misspelled, not in ToonDNA, or the correct dictionary.
 
     def setShortTexture(self, short):
         '''Sets the Toon's short texture. Used when generating the Toon'''
@@ -319,19 +320,21 @@ class Toon:
                 shortTexture = loader.loadTexture(shortTexturePath)
                 self.toonActor.find('**/torso-bot').setTexture(shortTexture, 1)
             except:
-                print(f"Your Short Texture {short} will result in a crash. Please check either ToonDNA.py or the main file. ")
+                pass
+                # If nothing happens when changing shorts, it's potentially misspelled, not in ToonDNA, or the correct dictionary.
         else:
             pass
 
     def setSkirtTexture(self, skirt):
-        '''Sets the Toon's short texture. Used when generating the Toon'''
+        '''Sets the Toon's short texture. Used when generating the Toon and through Options Menu'''
         if self.torso_type[-1] == 'd':
             try:
                 skirtTexturePath = skirt_dict[skirt]
                 skirtTexture = loader.loadTexture(skirtTexturePath)
                 self.toonActor.find('**/torso-bot').setTexture(skirtTexture, 1)
             except:
-                print(f"Your Short Texture {skirt} will result in a crash. Please check either ToonDNA.py or the main file. ")
+                pass
+                # If nothing happens when changing skirts, it's potentially misspelled, not in ToonDNA, or the correct dictionary.
         else:
             pass
 

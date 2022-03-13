@@ -2,7 +2,7 @@ from direct.gui.DirectGuiGlobals import FLAT, HORIZONTAL, SUNKEN, VERTICAL, RAIS
 from direct.gui import DirectGui
 from direct.gui.DirectGui import *
 from direct.showbase.DirectObject import DirectObject
-from panda3d.core import NodePath, TextNode
+from panda3d.core import *
 from direct.interval.LerpInterval import *
 from Toon import Toon
 from ToonDNA import *
@@ -11,7 +11,6 @@ options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
 gui_click_sound = 'phase_3/audio/sfx/GUI_create_toon_fwd.ogg'
 gui_rollover_sound = 'phase_3/audio/sfx/GUI_rollover.ogg'
 toon_font = 'phase_3/fonts/ImpressBT.ttf'
-
 
 class OptionsMenu(DirectObject):
     '''The main OptionsMenu
@@ -411,6 +410,10 @@ class OptionsMenu(DirectObject):
                 self.selectedToon.shoe_type = 4
                 self.selectedToon.hideShoePieces()
 
+        def generateToon():
+            '''Just prints out the Toon's toString'''
+            print(self.selectedToon)
+
         self.rotation_slider = OptionsSlider(
             aspect2d, '', -0.80, rotateToon, (0, 360))
         self.rotation_slider.containerFrame.setX(-1.75)
@@ -474,6 +477,20 @@ class OptionsMenu(DirectObject):
         ), 'Shirt Color:', -0.1, -2.1, 10, colorsList, updateShirtColor, 0)
         self.shirt_menu = OptionsChoosingMenu(self.optionsScroll.getCanvas(
         ), 'Shirt:', -0.2, -1.9, 25, shirt_dict, updateShirtTexture, 0)
+
+        generateButtonGeom = loader.loadModel(options_geom).find('**/*ttr_t_gui_gen_buttons_squareButton')
+
+        self.generateToonButton = DirectButton(
+            parent = self.optionsScroll.getCanvas(),
+            geom = generateButtonGeom,
+            pos = (-0.25,0,-4.25),
+            scale=0.2,
+            text='Generate Toon',
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            relief=None,
+            command=generateToon
+        )
 
     def hideOrShowOptions(self):
         if self.showOptions:
@@ -624,7 +641,7 @@ class OptionsChoosingMenu(OptionsModal):
     def __init__(self, modalParent, modalText, x, z, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.options_geom = loader.loadModel(
-            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
+            options_geom)
         self.clickable = self.generateClickableFrame(
             x, width_of_clickable, chosen_command, keyOrValue, used_dictionary)
         self.selectables = self.generateSelectablesFrame(
@@ -918,7 +935,6 @@ class OptionsChoosingMenu(OptionsModal):
 
         if self.populateBoolean:
             pass  # We've already populated it.
-            print('This Selection Frame has already been generated')
         else:
             print('Generating Selectable Frame for the first time')
             if keyOrValue == 1:  # If we want to return the values

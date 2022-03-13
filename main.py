@@ -32,7 +32,12 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
         base.disableMouse()
 
-        self.toon = Toon('de', 'ls', False, 'ls', 'l', 'm', head_color='Cartoonival Blue', arm_color='Cartoonival Blue', leg_color='Cartoonival Blue', animation_type='Neutral', shirt_texture='ToonFest 2017 Blue Attendee Shirt', short_texture='ToonFest 2018 Blue Attendee Shorts', skirt_texture='Bee Skirt', bottom_color='White', shoes_type=2, shoes_texture=None, long_boot_texture=None, short_boot_texture=None, backpack='Trash Lid (SPOILERS!)', glasses=None, is60FPS=True, wearsShoes=True)
+        # Music
+        self.music = loader.loadSfx('phase_3/audio/bgm/create_a_toon.ogg')
+        self.music.setLoop(True)
+        self.music.play()
+
+        self.toon = Toon('ca', 'ss', False, 'ls', 'l', 'm', 'Cartoonival Blue', 'Cartoonival Blue', 'White', 'Cartoonival Blue', None, None, None, 'White', 'White', None, None, 1, None, None, None, 'Neutral', True, False)
         self.options = OptionsMenu(self.toon)
     
 app = MyApp()

@@ -18,7 +18,7 @@ class MyApp(ShowBase):
 
         # Window settings
         windowSettings = WindowProperties()
-        windowSettings.setSize(1280, 720)
+        windowSettings.setSize(640, 380)
         windowSettings.setIconFilename('phase_3/etc/icon.ico')
         self.win.requestProperties(windowSettings)
 

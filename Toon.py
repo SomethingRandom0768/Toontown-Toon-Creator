@@ -4,29 +4,32 @@ from ToonHead import *
 from ToonDNA import *
 
 
-toonTorsoTypes = { "ss": 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_1000.bam', # short shorts
-                   "ms": 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_1000.bam', # medium shorts
-                   "ls": 'phase_3/models/char/tt_a_chr_dgl_shorts_torso_1000.bam', # long shorts
-                   "sd": 'phase_3/models/char/tt_a_chr_dgs_skirt_torso_1000.bam', # short dress (Should be given this one and below if species is girl) 
-                   "md": 'phase_3/models/char/tt_a_chr_dgm_skirt_torso_1000.bam', # medium dress
-                   "ld": 'phase_3/models/char/tt_a_chr_dgl_skirt_torso_1000.bam', # long dress
-                 } 
+toonTorsoTypes = {"ss": 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_1000.bam',  # short shorts
+                  "ms": 'phase_3/models/char/tt_a_chr_dgm_shorts_torso_1000.bam',  # medium shorts
+                  "ls": 'phase_3/models/char/tt_a_chr_dgl_shorts_torso_1000.bam',  # long shorts
+                  # short dress (Should be given this one and below if species is girl)
+                  "sd": 'phase_3/models/char/tt_a_chr_dgs_skirt_torso_1000.bam',
+                  "md": 'phase_3/models/char/tt_a_chr_dgm_skirt_torso_1000.bam',  # medium dress
+                  "ld": 'phase_3/models/char/tt_a_chr_dgl_skirt_torso_1000.bam',  # long dress
+                  }
 
-toonLegTypes = { "s":'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam', # small
-                 "m":'phase_3/models/char/tt_a_chr_dgm_shorts_legs_1000.bam', # medium
-                 "l":'phase_3/models/char/tt_a_chr_dgl_shorts_legs_1000.bam'  # long
-                } 
+toonLegTypes = {"s": 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam',  # small
+                "m": 'phase_3/models/char/tt_a_chr_dgm_shorts_legs_1000.bam',  # medium
+                "l": 'phase_3/models/char/tt_a_chr_dgl_shorts_legs_1000.bam'  # long
+                }
+
 
 class Toon:
     '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses = None, shoes_type = None, long_boot_texture = None, short_boot_texture = None, shoes_texture = None, animation_type=None, is60FPS=None, wearsShoes=None):
+
+    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, gender=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses=None, shoes_type=None, long_boot_texture=None, short_boot_texture=None, shoes_texture=None, animation_type=None, is60FPS=None, wearsShoes=None):
         # DNA based stuff
         self.toonActor = None
         self.species = species
         self.headtype = head_type
         self.torso_type = torso_type
         self.leg_size = leg_size
-        self.gender= gender
+        self.gender = gender
         self.head_color = head_color
         self.arm_color = arm_color
         self.glove_color = glove_color
@@ -60,7 +63,7 @@ class Toon:
         self.head = ToonHead(self.species, self.headtype, self.eyelashes)
         self.torso = toonTorsoTypes[self.torso_type]
         self.legs = toonLegTypes[self.leg_size]
-    
+
         self.generateActor()
 
     def generateActor(self):
@@ -71,24 +74,24 @@ class Toon:
 
         self.toonActor = Actor(
 
-        {
-            'head': self.returnHead(),
-            'torso': self.returnTorso(),
-            'legs': self.returnLegs()
-        },
+            {
+                'head': self.returnHead(),
+                'torso': self.returnTorso(),
+                'legs': self.returnLegs()
+            },
 
-        {
-         'head': self.returnHeadAnim(self.headtype),
-         'torso': self.returnTorsoAnim(self.torso_type),
-         'legs':  self.returnLegsAnim(self.leg_size)
-        })
+            {
+                'head': self.returnHeadAnim(self.headtype),
+                'torso': self.returnTorsoAnim(self.torso_type),
+                'legs':  self.returnLegsAnim(self.leg_size)
+            })
 
         self.toonActor.attach('head', 'torso', 'def_head')
         self.toonActor.attach('torso', 'legs', 'joint_hips')
 
         self.toonActor.reparentTo(render)
-        self.toonActor.setPos(2,35,0)
-        self.toonActor.setHpr(180,0,0)
+        self.toonActor.setPos(2, 35, 0)
+        self.toonActor.setHpr(180, 0, 0)
 
         if self.smooth_enabled:
             self.toonActor.setBlend(frameBlend=True)
@@ -145,12 +148,12 @@ class Toon:
             self.attachShoes(self.shoe_type)
         else:
             pass
-            
+
         if self.shoe_texture:
             self.applyShoeTexture(self.shoe_texture)
         else:
             pass
-        
+
         if self.short_boot_texture:
             self.applyShortBootTexture(self.short_boot_texture)
         else:
@@ -186,32 +189,54 @@ class Toon:
         self.head_color = color_to_set
 
         if self.species == 'd':
-            self.toonActor.find('**/head').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front').setColor(colorsList[self.head_color])
-        elif self.species == 'de': # Gotta account for Deers only having one head type.
-            self.toonActor.find('**/*ears-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
-        elif self.species == 'du': # Gotta account for ducks not having ears
-            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
-        elif self.species == 'ri': # Riggy only has one head type.
-            self.toonActor.find('**/*ears').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front').setColor(colorsList[self.head_color])
-        elif self.species == 'mo': # Monkeys can't get their ears colored.
-            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/head').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front').setColor(colorsList[self.head_color])
+        # Gotta account for Deers only having one head type.
+        elif self.species == 'de':
+            self.toonActor.find(
+                '**/*ears-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front-short').setColor(colorsList[self.head_color])
+        elif self.species == 'du':  # Gotta account for ducks not having ears
+            self.toonActor.find(
+                '**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-long').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front-long').setColor(colorsList[self.head_color])
+        elif self.species == 'ri':  # Riggy only has one head type.
+            self.toonActor.find(
+                '**/*ears').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front').setColor(colorsList[self.head_color])
+        elif self.species == 'mo':  # Monkeys can't get their ears colored.
+            self.toonActor.find(
+                '**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-long').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front-long').setColor(colorsList[self.head_color])
         else:
-            self.toonActor.find('**/*ears-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front-short').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-long').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*ears-long').setColor(colorsList[self.head_color])
-            self.toonActor.find('**/*head-front-long').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*ears-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front-short').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-long').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*ears-long').setColor(colorsList[self.head_color])
+            self.toonActor.find(
+                '**/*head-front-long').setColor(colorsList[self.head_color])
 
     def updateTorso(self, torso_type):
         '''Updates the torso type'''
@@ -301,7 +326,7 @@ class Toon:
             shirtTexturePath = shirt_dict[shirt][0]
             shirtTexture = loader.loadTexture(shirtTexturePath)
             self.toonActor.find('**/torso-top').setTexture(shirtTexture, 1)
-            
+
             if len(shirt_dict[shirt]) == 2:
                 sleeveTexturePath = shirt_dict[shirt][1]
                 sleeveTexture = loader.loadTexture(sleeveTexturePath)
@@ -314,7 +339,7 @@ class Toon:
 
     def setShortTexture(self, short):
         '''Sets the Toon's short texture. Used when generating the Toon'''
-        if self.torso_type[-1] == 's':            
+        if self.torso_type[-1] == 's':
             try:
                 shortTexturePath = short_dict[short]
                 shortTexture = loader.loadTexture(shortTexturePath)
@@ -340,15 +365,19 @@ class Toon:
 
     def setShirtColor(self, shirt_color):
         '''Colors the Toon's current shirt'''
-        self.toonActor.find('**/torso-top').setColorScale(colorsList[shirt_color])
-        self.toonActor.find('**/sleeves').setColorScale(colorsList[shirt_color])
+        self.toonActor.find(
+            '**/torso-top').setColorScale(colorsList[shirt_color])
+        self.toonActor.find(
+            '**/sleeves').setColorScale(colorsList[shirt_color])
 
     def setBottomColor(self, bottom_color):
         '''Colors the Toon's current bottom'''
         if self.torso_type == 'ls':
-            self.toonActor.find('**/torso-bot').setColor(colorsList[bottom_color])
+            self.toonActor.find(
+                '**/torso-bot').setColor(colorsList[bottom_color])
         else:
-            self.toonActor.find('**/torso-bot').setColorScale(colorsList[bottom_color])
+            self.toonActor.find(
+                '**/torso-bot').setColorScale(colorsList[bottom_color])
 
  # Accessory related functions
     def attachBackpack(self, backpack_to_attach):
@@ -362,64 +391,82 @@ class Toon:
             pass
 
         # Doing this because some backpacks require a model and texture while others just need the bam file.
-        if len( backpack_dict[backpack_to_attach] ) == 5:
-            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
-            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][4] )
+        if len(backpack_dict[backpack_to_attach]) == 5:
+            self.backpack_model = loader.loadModel(
+                backpack_dict[backpack_to_attach][0])
+            self.backpack_model.reparentTo(
+                self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale(backpack_dict[backpack_to_attach][4])
 
             if backpack_to_attach == 'Pirate Sword':
-                self.backpack_model.setHpr(180,15,30)
+                self.backpack_model.setHpr(180, 15, 30)
             elif backpack_to_attach == "Santa's Bag" or backpack_to_attach == 'Trash Lid (SPOILERS!)':
-                self.backpack_model.setHpr(180,0,0)
+                self.backpack_model.setHpr(180, 0, 0)
             elif backpack_to_attach == 'Toonosaur Tail' or 'Shark Fin' == backpack_to_attach:
-                self.backpack_model.setHpr(180,20,0)
+                self.backpack_model.setHpr(180, 20, 0)
             elif 'Bowtie' in backpack_to_attach:
-                self.backpack_model.setHpr(180,-50,0)
+                self.backpack_model.setHpr(180, -50, 0)
             elif backpack_to_attach == 'Oil Pale Pack':
-                self.backpack_model.setHpr(180,0,0)       
-            else:    
-                self.backpack_model.setHpr(180,0,0)
+                self.backpack_model.setHpr(180, 0, 0)
+            else:
+                self.backpack_model.setHpr(180, 0, 0)
 
             if self.torso_type[0] == 's':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][1] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][1])
             elif self.torso_type[0] == 'm':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][2])
             elif self.torso_type[0] == 'l':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][3])
             else:
                 print("What kind of torso are you rockin?")
 
-        elif len( backpack_dict[backpack_to_attach] ) == 6: # This is when we need to retexture something like the ToonFest backpacks, or scarves.
-            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
-            texture = loader.loadTexture( backpack_dict[backpack_to_attach][1])
+        # This is when we need to retexture something like the ToonFest backpacks, or scarves.
+        elif len(backpack_dict[backpack_to_attach]) == 6:
+            self.backpack_model = loader.loadModel(
+                backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture(backpack_dict[backpack_to_attach][1])
             self.backpack_model.setTexture(texture, 1)
-            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][5] )
-            self.backpack_model.setHpr(180,0,0)
+            self.backpack_model.reparentTo(
+                self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale(backpack_dict[backpack_to_attach][5])
+            self.backpack_model.setHpr(180, 0, 0)
 
             if self.torso_type[0] == 's':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][2] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][2])
             elif self.torso_type[0] == 'm':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][3])
             elif self.torso_type[0] == 'l':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][4])
             else:
                 print("What kind of torso are you rockin?")
 
-        elif len( backpack_dict[backpack_to_attach] ) == 7: # This is when we need to retexture something like the Jellybean Jar reskins, which have an RGB file.
-            self.backpack_model = loader.loadModel(backpack_dict[backpack_to_attach][0])
-            texture = loader.loadTexture( texturePath = backpack_dict[backpack_to_attach][1], alphaPath= backpack_dict[backpack_to_attach][2])
+        # This is when we need to retexture something like the Jellybean Jar reskins, which have an RGB file.
+        elif len(backpack_dict[backpack_to_attach]) == 7:
+            self.backpack_model = loader.loadModel(
+                backpack_dict[backpack_to_attach][0])
+            texture = loader.loadTexture(
+                texturePath=backpack_dict[backpack_to_attach][1], alphaPath=backpack_dict[backpack_to_attach][2])
             self.backpack_model.setTexture(texture, 1)
-            self.backpack_model.reparentTo(self.toonActor.find('**/*def_joint_attachFlower'))
-            self.backpack_model.setScale( backpack_dict[ backpack_to_attach ][6] )
-            self.backpack_model.setHpr(180,0,0)
+            self.backpack_model.reparentTo(
+                self.toonActor.find('**/*def_joint_attachFlower'))
+            self.backpack_model.setScale(backpack_dict[backpack_to_attach][6])
+            self.backpack_model.setHpr(180, 0, 0)
 
             if self.torso_type[0] == 's':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][3] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][3])
             elif self.torso_type[0] == 'm':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][4] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][4])
             elif self.torso_type[0] == 'l':
-                self.backpack_model.setPos( backpack_dict[ backpack_to_attach ][5] )
+                self.backpack_model.setPos(
+                    backpack_dict[backpack_to_attach][5])
             else:
                 print("What kind of torso are you rockin?")
 
@@ -432,15 +479,21 @@ class Toon:
 
         self.glasses_type = glasses_to_attach
 
-        if len(glasses_dict[glasses_to_attach]) == 1: # Regular glasses model.
-            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
-        elif len(glasses_dict[glasses_to_attach]) == 2: # Glasses model with different texture
-            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
+        if len(glasses_dict[glasses_to_attach]) == 1:  # Regular glasses model.
+            self.glasses_model = loader.loadModel(
+                glasses_dict[glasses_to_attach][0])
+        # Glasses model with different texture
+        elif len(glasses_dict[glasses_to_attach]) == 2:
+            self.glasses_model = loader.loadModel(
+                glasses_dict[glasses_to_attach][0])
             texture = loader.loadTexture(glasses_dict[glasses_to_attach][1])
-            self.glasses_model.setTexture(texture, 1)     
-        elif len(glasses_dict[glasses_to_attach]) == 3: # Glasses model with different texture and different rgb file
-            self.glasses_model = loader.loadModel( glasses_dict[glasses_to_attach][0] )
-            texture = loader.loadTexture(glasses_dict[glasses_to_attach][1], alphaPath=glasses_dict[glasses_to_attach][2])
+            self.glasses_model.setTexture(texture, 1)
+        # Glasses model with different texture and different rgb file
+        elif len(glasses_dict[glasses_to_attach]) == 3:
+            self.glasses_model = loader.loadModel(
+                glasses_dict[glasses_to_attach][0])
+            texture = loader.loadTexture(
+                glasses_dict[glasses_to_attach][1], alphaPath=glasses_dict[glasses_to_attach][2])
             self.glasses_model.setTexture(texture, 1)
 
         self.glasses_model.reparentTo(self.toonActor.find('**/*def_head'))
@@ -449,252 +502,253 @@ class Toon:
         placement_list = glasses_placement_dict[self.species]
 
         self.glasses_model.setPos(placement_list[0])
-        self.glasses_model.setHpr(180,0,0)
+        self.glasses_model.setHpr(180, 0, 0)
         self.glasses_model.setScale(placement_list[1])
-        
+
         # Some of the glasses don't have correctly placed models, so we do them here.
 
         if 'Snowy Shades' in glasses_to_attach or 'Experimental Eyewear' == glasses_to_attach:
-            if self.species == 'b': # Bear
-                self.glasses_model.setHpr(0,0,0)        
+            if self.species == 'b':  # Bear
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'ca': # Cat
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'ca':  # Cat
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'cr': # Crocodile
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'cr':  # Crocodile
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'de': # Deer
-                self.glasses_model.setPos(0,0.2,0.2)
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'de':  # Deer
+                self.glasses_model.setPos(0, 0.2, 0.2)
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.25)
-            elif self.species == 'd': # Dog
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'd':  # Dog
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'du': # Duck
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'du':  # Duck
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.75)
-            elif self.species == 'h': # Horse
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'h':  # Horse
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'mo': # Monkey
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'mo':  # Monkey
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'mi': # Mouse/Mice
-                self.glasses_model.setHpr(0,0,0)        
-                self.glasses_model.setScale(1.6,1.5,1.5)
-                self.glasses_model.setPos(0,0.2,0.45)
-            elif self.species == 'p': # Pig
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'mi':  # Mouse/Mice
+                self.glasses_model.setHpr(0, 0, 0)
+                self.glasses_model.setScale(1.6, 1.5, 1.5)
+                self.glasses_model.setPos(0, 0.2, 0.45)
+            elif self.species == 'p':  # Pig
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'r': # Rabbit
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'r':  # Rabbit
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.275)
-            elif self.species == 'ri': # Riggy
-                self.glasses_model.setHpr(0,0,0)        
+            elif self.species == 'ri':  # Riggy
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.45)
             else:
-                self.glasses_model.setHpr(0,0,0)        
+                self.glasses_model.setHpr(0, 0, 0)
                 self.glasses_model.setScale(1.25)
         elif 'Black Mask' in glasses_to_attach or 'Blue Mask' in glasses_to_attach:
-            if self.species == 'b': # Bear
-                self.glasses_model.setHpr(180,0,0)        
+            if self.species == 'b':  # Bear
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.2)
-                self.glasses_model.setPos(0,0.5,0)
-            elif self.species == 'ca': # Cat
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.5, 0)
+            elif self.species == 'ca':  # Cat
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.2)
-                self.glasses_model.setPos(0,0.5,0)
-            elif self.species == 'cr': # Crocodile
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.5, 0)
+            elif self.species == 'cr':  # Crocodile
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.2)
-                self.glasses_model.setPos(0,0.39,-0.035)
-            elif self.species == 'de': # Deer
-                self.glasses_model.setPos(0,0.5,0)
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.39, -0.035)
+            elif self.species == 'de':  # Deer
+                self.glasses_model.setPos(0, 0.5, 0)
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.2)
-            elif self.species == 'd': # Dog
-                self.glasses_model.setHpr(180,0,0)        
+            elif self.species == 'd':  # Dog
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.2)
-                self.glasses_model.setPos(0,0.4,0.2)
-            elif self.species == 'du': # Duck
-                self.glasses_model.setHpr(180,0,0)        
-                self.glasses_model.setScale(0.3,0.3,0.35)
-                self.glasses_model.setPos(0,0.5,-0.1)
-            elif self.species == 'h': # Horse
-                self.glasses_model.setHpr(180,-15,0)        
+                self.glasses_model.setPos(0, 0.4, 0.2)
+            elif self.species == 'du':  # Duck
+                self.glasses_model.setHpr(180, 0, 0)
+                self.glasses_model.setScale(0.3, 0.3, 0.35)
+                self.glasses_model.setPos(0, 0.5, -0.1)
+            elif self.species == 'h':  # Horse
+                self.glasses_model.setHpr(180, -15, 0)
                 self.glasses_model.setScale(0.2)
-                self.glasses_model.setPos(0,0.3,0.05)
-            elif self.species == 'mo': # Monkey
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.3, 0.05)
+            elif self.species == 'mo':  # Monkey
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.2)
-                self.glasses_model.setPos(0,0.5,0.05)
-            elif self.species == 'mi': # Mouse/Mice
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.5, 0.05)
+            elif self.species == 'mi':  # Mouse/Mice
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.3)
-                self.glasses_model.setPos(0,0.4,0.15)
-            elif self.species == 'p': # Pig
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.4, 0.15)
+            elif self.species == 'p':  # Pig
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.2)
-                self.glasses_model.setPos(0,0.5,-0.09)
-            elif self.species == 'r': # Rabbit
-                self.glasses_model.setHpr(180,0,0)        
-                self.glasses_model.setScale(0.25,0.2,0.25)
-                self.glasses_model.setPos(0,0.4,-0.2)
-            elif self.species == 'ri': # Riggy
-                self.glasses_model.setHpr(180,0,0)        
-                self.glasses_model.setScale(0.25,0.2,0.25)
-                self.glasses_model.setPos(0,0.4,-0.2)
+                self.glasses_model.setPos(0, 0.5, -0.09)
+            elif self.species == 'r':  # Rabbit
+                self.glasses_model.setHpr(180, 0, 0)
+                self.glasses_model.setScale(0.25, 0.2, 0.25)
+                self.glasses_model.setPos(0, 0.4, -0.2)
+            elif self.species == 'ri':  # Riggy
+                self.glasses_model.setHpr(180, 0, 0)
+                self.glasses_model.setScale(0.25, 0.2, 0.25)
+                self.glasses_model.setPos(0, 0.4, -0.2)
             else:
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(1.25)
-        elif 'Bug-eyed Binoculars' == glasses_to_attach: # Little higher than the head
-            if self.species == 'b': # Bear
-                self.glasses_model.setHpr(180,0,0)        
+        elif 'Bug-eyed Binoculars' == glasses_to_attach:  # Little higher than the head
+            if self.species == 'b':  # Bear
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.3, 0.35, 0.35)
-                self.glasses_model.setPos(0,0.2,0.1)
-            elif self.species == 'ca': # Cat
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.2, 0.1)
+            elif self.species == 'ca':  # Cat
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.32, 0.35, 0.35)
-                self.glasses_model.setPos(0,0.25,0)
-            elif self.species == 'cr': # Crocodile
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.25, 0)
+            elif self.species == 'cr':  # Crocodile
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.25, 0.3, 0.3)
-                self.glasses_model.setPos(0,0.25,0)
-            elif self.species == 'de': # Deer
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.25, 0)
+            elif self.species == 'de':  # Deer
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.32, 0.35, 0.35)
-                self.glasses_model.setPos(0,0.25,0)
-            elif self.species == 'd': # Dog
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.25, 0)
+            elif self.species == 'd':  # Dog
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.25, 0.35, 0.35)
-                self.glasses_model.setPos(0,0.25,0.25)
-            elif self.species == 'du': # Duck
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.25, 0.25)
+            elif self.species == 'du':  # Duck
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.375, 0.35, 0.35)
-                self.glasses_model.setPos(0,0.25,0)
-            elif self.species == 'h': # Horse
-                self.glasses_model.setHpr(180,0,0)        
-                self.glasses_model.setScale(0.3,0.25,0.35)
-                self.glasses_model.setPos(0,0.1,0.05)
-            elif self.species == 'mo': # Monkey
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.25, 0)
+            elif self.species == 'h':  # Horse
+                self.glasses_model.setHpr(180, 0, 0)
+                self.glasses_model.setScale(0.3, 0.25, 0.35)
+                self.glasses_model.setPos(0, 0.1, 0.05)
+            elif self.species == 'mo':  # Monkey
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.35, 0.35, 0.35)
-                self.glasses_model.setPos(0,0.25,0.05)
-            elif self.species == 'mi': # Mouse/Mice
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.25, 0.05)
+            elif self.species == 'mi':  # Mouse/Mice
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.4)
-                self.glasses_model.setPos(0,0.1,0.25)
-            elif self.species == 'p': # Pig
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.1, 0.25)
+            elif self.species == 'p':  # Pig
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.35)
-                self.glasses_model.setPos(0,0.2,-0.1)
-            elif self.species == 'r': # Rabbit
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.2, -0.1)
+            elif self.species == 'r':  # Rabbit
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.32)
-                self.glasses_model.setPos(0,0.1,-0.1)
-            elif self.species == 'ri': # Riggy
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0, 0.1, -0.1)
+            elif self.species == 'ri':  # Riggy
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.32)
-                self.glasses_model.setPos(0,0.1,-0.1)
+                self.glasses_model.setPos(0, 0.1, -0.1)
             else:
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(1.25)
         elif 'Groucho Glasses' == glasses_to_attach or 'Vintage Teashades' == glasses_to_attach:
             if self.species == 'd':
-                self.glasses_model.setPos(0,0.1,0.25)
+                self.glasses_model.setPos(0, 0.1, 0.25)
             elif self.species == 'ri':
-                self.glasses_model.setPos(0,0,-0.100)  
+                self.glasses_model.setPos(0, 0, -0.100)
             else:
-                self.glasses_model.setPos(0,0.1,-0.025)   
+                self.glasses_model.setPos(0, 0.1, -0.025)
         elif 'Heart Throbbers' == glasses_to_attach:
             if self.species == 'd':
-                self.glasses_model.setPos(0,0.1,0.25)
+                self.glasses_model.setPos(0, 0.1, 0.25)
             elif self.species == 'ri':
-                self.glasses_model.setScale(0.3,0.2,0.3)
-                self.glasses_model.setPos(0,0.2,-0.125)
+                self.glasses_model.setScale(0.3, 0.2, 0.3)
+                self.glasses_model.setPos(0, 0.2, -0.125)
             else:
-                self.glasses_model.setPos(0,0.1,-0.025)
+                self.glasses_model.setPos(0, 0.1, -0.025)
         elif 'The Fancy Focal' == glasses_to_attach:
-            if self.species == 'b': # Bear
-                self.glasses_model.setHpr(180,0,0)        
+            if self.species == 'b':  # Bear
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.3, 0.35, 0.35)
-                self.glasses_model.setPos(0.175,0.5,-0.15)
-            elif self.species == 'ca': # Cat
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.175, 0.5, -0.15)
+            elif self.species == 'ca':  # Cat
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.32, 0.4, 0.3)
-                self.glasses_model.setPos(0.2,0.5,-0.15)
-            elif self.species == 'cr': # Crocodile
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.2, 0.5, -0.15)
+            elif self.species == 'cr':  # Crocodile
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.25, 0.3, 0.3)
-                self.glasses_model.setPos(0.2,0.5,-0.15)
-            elif self.species == 'de': # Deer
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.2, 0.5, -0.15)
+            elif self.species == 'de':  # Deer
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.32, 0.35, 0.35)
-                self.glasses_model.setPos(0.2,0.55,-0.2)
-            elif self.species == 'd': # Dog
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.2, 0.55, -0.2)
+            elif self.species == 'd':  # Dog
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.25, 0.35, 0.35)
-                self.glasses_model.setPos(0.2,0.45,0)
-            elif self.species == 'du': # Duck
-                self.glasses_model.setHpr(180,0,0)        
-                self.glasses_model.setPos(0.25,0.55,-0.25)
-            elif self.species == 'h': # Horse
-                self.glasses_model.setHpr(180,-15,0)        
-                self.glasses_model.setScale(0.3,0.25,0.35)
-                self.glasses_model.setPos(0.2,0.35,-0.1)
-            elif self.species == 'mo': # Monkey
-                self.glasses_model.setHpr(180,0,0)        
-                self.glasses_model.setPos(0.25,0.55,-0.2)
-            elif self.species == 'mi': # Mouse/Mice
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.2, 0.45, 0)
+            elif self.species == 'du':  # Duck
+                self.glasses_model.setHpr(180, 0, 0)
+                self.glasses_model.setPos(0.25, 0.55, -0.25)
+            elif self.species == 'h':  # Horse
+                self.glasses_model.setHpr(180, -15, 0)
+                self.glasses_model.setScale(0.3, 0.25, 0.35)
+                self.glasses_model.setPos(0.2, 0.35, -0.1)
+            elif self.species == 'mo':  # Monkey
+                self.glasses_model.setHpr(180, 0, 0)
+                self.glasses_model.setPos(0.25, 0.55, -0.2)
+            elif self.species == 'mi':  # Mouse/Mice
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.5)
-                self.glasses_model.setPos(0.25,0.5,-0.1)
-            elif self.species == 'p': # Pig
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.25, 0.5, -0.1)
+            elif self.species == 'p':  # Pig
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.35)
-                self.glasses_model.setPos(0.15,0.55,-0.25)
-            elif self.species == 'r': # Rabbit
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.15, 0.55, -0.25)
+            elif self.species == 'r':  # Rabbit
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.35)
-                self.glasses_model.setPos(0.25,0.40,-0.25)
-            elif self.species == 'ri': # Riggy
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setPos(0.25, 0.40, -0.25)
+            elif self.species == 'ri':  # Riggy
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(0.35)
-                self.glasses_model.setPos(0.25,0.40,-0.25)
+                self.glasses_model.setPos(0.25, 0.40, -0.25)
             else:
-                self.glasses_model.setHpr(180,0,0)        
+                self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setScale(1.25)
-        elif 'ToonFest 2020 Pink Glasses' == glasses_to_attach or 'ToonFest 2020 Blue Glasses' == glasses_to_attach: # Gotta move these down a little bit.
+        # Gotta move these down a little bit.
+        elif 'ToonFest 2020 Pink Glasses' == glasses_to_attach or 'ToonFest 2020 Blue Glasses' == glasses_to_attach:
             if self.species == 'd':
-                self.glasses_model.setPos(0,0.1,0.25)
-                self.glasses_model.setHpr(180,0,0)
+                self.glasses_model.setPos(0, 0.1, 0.25)
+                self.glasses_model.setHpr(180, 0, 0)
             elif self.species == 'p':
                 self.glasses_model.setScale(0.3, 0.32, 0.35)
-                self.glasses_model.setPos(0,0.2,-0.1)
-                self.glasses_model.setHpr(180,0,0)
+                self.glasses_model.setPos(0, 0.2, -0.1)
+                self.glasses_model.setHpr(180, 0, 0)
             elif self.species == 'r' or self.species == 'ri':
                 self.glasses_model.setScale(0.35, 0.32, 0.35)
-                self.glasses_model.setPos(0,0.1,-0.1)
-                self.glasses_model.setHpr(180,0,0)
+                self.glasses_model.setPos(0, 0.1, -0.1)
+                self.glasses_model.setHpr(180, 0, 0)
             else:
-                self.glasses_model.setHpr(180,0,0)
-                self.glasses_model.setPos(0,0.25,0.05)
+                self.glasses_model.setHpr(180, 0, 0)
+                self.glasses_model.setPos(0, 0.25, 0.05)
 
     def attachShoes(self, shoe_type):
-        '''Attaches the shoe based on the type of shoe given.'''   
+        '''Attaches the shoe based on the type of shoe given.'''
 
-        if shoe_type == 1: # Shoes
+        if shoe_type == 1:  # Shoes
             self.toonActor.find('**/*shoes').show()
             self.toonActor.find('**/*boots_short').hide()
             self.toonActor.find('**/*boots_long').hide()
             self.toonActor.find('**/*feet').hide()
-        elif shoe_type == 2: # Short boots
+        elif shoe_type == 2:  # Short boots
             self.toonActor.find('**/*shoes').hide()
             self.toonActor.find('**/*boots_short').show()
             self.toonActor.find('**/*boots_long').hide()
             self.toonActor.find('**/*feet').hide()
-        elif shoe_type == 3: # Long boots
+        elif shoe_type == 3:  # Long boots
             self.toonActor.find('**/*shoes').hide()
             self.toonActor.find('**/*boots_short').hide()
             self.toonActor.find('**/*boots_long').show()
@@ -712,10 +766,12 @@ class Toon:
         '''Applies the long boot texture to the long boot node'''
         try:
             if len(boot_long_texture_dict[long_boot_texture]) == 1:
-                texture = loader.loadTexture(boot_long_texture_dict[long_boot_texture][0])
+                texture = loader.loadTexture(
+                    boot_long_texture_dict[long_boot_texture][0])
                 self.toonActor.find('**/*boots_long').setTexture(texture, 1)
             elif len(boot_long_texture_dict[long_boot_texture]) == 2:
-                texture = loader.loadTexture(boot_long_texture_dict[long_boot_texture][0], boot_long_texture_dict[long_boot_texture][1])
+                texture = loader.loadTexture(
+                    boot_long_texture_dict[long_boot_texture][0], boot_long_texture_dict[long_boot_texture][1])
                 self.toonActor.find('**/*boots_long').setTexture(texture, 1)
         except:
             pass
@@ -728,14 +784,92 @@ class Toon:
             pass
 
     def applyShoeTexture(self, shoe_texture):
+
         '''Applies the shoe texture to the shoe nodes'''
         try:
             texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
             self.toonActor.find('**/*shoes').setTexture(texture, 1)
         except:
             pass
-
-
-
-
     
+    def __str__(self) -> str:
+        '''String representation of a Toon object'''
+        #toonString = ', {self.shirt_texture}, {self.short_texture}, {self.skirt_texture}, '{self.bottom_color}', {self.shoe_type}, {self.shoe_texture}, {self.long_boot_texture}, {self.short_boot_texture}, {self.backpack_type}, {self.glasses_type}, {self.smooth_enabled}, {self.wearsShoes})"
+        toonString = ''
+        toonString += f"Toon('{self.species}', "
+        toonString += f"'{self.headtype}', "
+        toonString += f"{str(self.eyelashes)}, "
+        toonString += f"'{self.torso_type}', "
+        toonString += f"'{self.leg_size}', "
+        toonString += f"'{self.gender}', "
+        toonString += f"'{self.head_color}', "
+        toonString += f"'{self.arm_color}', "
+        toonString += f"'{self.glove_color}', "
+        toonString += f"'{self.leg_color}', "
+        
+        if self.shirt_texture:
+            toonString += f"'{self.shirt_texture}', "
+        else:
+            toonString += f"{self.shirt_texture}, "
+
+        if self.short_texture:
+            toonString += f"'{self.short_texture}', "
+        else:
+            toonString += f"{self.short_texture}, "
+
+        if self.skirt_texture:
+            toonString += f"'{self.skirt_texture}', "
+        else:
+            toonString += f"{self.skirt_texture}, "
+        
+        toonString += f"'{self.shirt_color}', "
+        toonString += f"'{self.bottom_color}', "
+        
+        if self.backpack_type:
+            toonString += f"'{self.backpack_type}', "
+        else:
+            toonString += f"{self.backpack_type}, "
+
+        if self.glasses_type:
+            toonString += f"'{self.glasses_type}', "
+        else:
+            toonString += f"{self.glasses_type}, "
+
+        if self.shoe_type:
+            toonString += f"{self.shoe_type}, "
+        else:
+            toonString += f"{self.shoe_type}, "
+
+        if self.long_boot_texture:
+            toonString += f"'{self.long_boot_texture}', "
+        else:
+            toonString += f"{self.long_boot_texture}, "
+
+        if self.short_boot_texture:
+            toonString += f"'{self.short_boot_texture}', "
+        else:
+            toonString += f"{self.short_boot_texture}, "
+
+        if self.shoe_texture:
+            toonString += f"'{self.shoe_texture}', "
+        else:
+            toonString += f"{self.shoe_texture}, "
+
+        if self.animationType:
+            toonString += f"'{self.animationType}', "
+        else:
+            toonString += f"{self.animationType}, "
+
+        if self.smooth_enabled:
+            toonString += f"{self.smooth_enabled}, "
+        else:
+            toonString += f"{self.smooth_enabled}, "
+
+        if self.wearsShoes:
+            toonString += f"'{self.wearsShoes}', "
+        else:
+            toonString += f"{self.wearsShoes}"
+
+        toonString+= ')'
+
+        return toonString

@@ -866,7 +866,7 @@ class Toon:
             toonString += f"{self.smooth_enabled}, "
 
         if self.wearsShoes:
-            toonString += f"'{self.wearsShoes}', "
+            toonString += f"{self.wearsShoes}"
         else:
             toonString += f"{self.wearsShoes}"
 

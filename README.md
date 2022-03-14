@@ -1,3 +1,7 @@
+
+**Disclaimer: You may use any Toons you generate from this Tool without crediting me. However, if you do decide to use any part of this code, I ask that you provide credit as you are using my work. You will also have to credit Toontown Rewritten as this project utilizes their assets.**
+
+
 # Toontown-Toon-Creator
 
 **===Requirements===**
@@ -20,3 +24,8 @@ Discord server for this is https://discord.gg/TWE6gvBmUg
 
 **Controls**
 Spacebar - hides the Options Menu
+
+**CREDITS**
+- Toontown Rewritten, whose assets were used for this project. Also huge thanks to some of the staff members who helped me out with feedback or the technical design of the project (I'm avoiding putting their names here for their privacy). 
+- Friends who supported me throughout this project (if you got the Friend role in the Toon Creator Discord server, you can be rest assured you are part of this group)
+- @loonaticx for helping out regarding Panda3D details and for providing feedback before the project was publicized (She's awesome, go check her work out!)

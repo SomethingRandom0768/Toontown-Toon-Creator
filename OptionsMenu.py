@@ -489,7 +489,10 @@ class OptionsMenu(DirectObject):
             text_scale=0.35,
             text_font = loader.loadFont(toon_font),
             relief=None,
-            command=generateToon
+            command=generateToon,
+            clickSound=loader.loadSfx(gui_click_sound),
+            rolloverSound=loader.loadSfx(gui_rollover_sound),            
+
         )
 
     def hideOrShowOptions(self):

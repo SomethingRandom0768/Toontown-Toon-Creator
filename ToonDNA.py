@@ -2077,7 +2077,7 @@ glasses_dict = {
     'Fancy Blue Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask3.bam'],
     'Fancy Green Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask3.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_masqueradeTypeMask5.jpg'],
     'Fancy Purple Mask': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_masqueradeTypeMask3.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_masqueradeTypeMask4.jpg'],
-    'Four Eyes': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23_a.rgb'],
+    'Four Eyes': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/tt_t_chr_avt_acc_msk_dorkGlasses.jpg', 'phase_4/maps/tt_t_chr_avt_acc_msk_dorkGlasses_a.rgb'],
     'Gadzooks Goggles': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_goggles.bam'],
     'Green Glasses':  ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_23_a.rgb'],
     'Green Narrow Glasses' : ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_narrowGlasses.bam','phase_4/maps/ttr_t_chr_avt_acc_msk_narrowGlassesPurple_4.jpg'],

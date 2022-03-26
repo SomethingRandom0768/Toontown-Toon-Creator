@@ -165,11 +165,11 @@ class Toon:
             pass
 
         # Add shadow
-        shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
-        shadow.reparentTo(self.toonActor.find('**/joint_shadow'))
+        self.shadow = loader.loadModel("phase_3/models/props/drop_shadow.bam")
+        self.shadow.reparentTo(self.toonActor.find('**/joint_shadow'))
 
-        shadow.setSx(0.5)
-        shadow.setSy(0.5)
+        self.shadow.setSx(0.5)
+        self.shadow.setSy(0.5)
 
 # DNA Related functions
 

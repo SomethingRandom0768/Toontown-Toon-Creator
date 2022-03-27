@@ -331,7 +331,11 @@ class Toon:
                 sleeveTexturePath = shirt_dict[shirt][1]
                 sleeveTexture = loader.loadTexture(sleeveTexturePath)
                 self.toonActor.find('**/sleeves').setTexture(sleeveTexture, 1)
-            else:
+            elif len(shirt_dict[shirt]) == 3:
+                sleeveTexturePath = shirt_dict[shirt][1]
+                sleeveRGBTexturePath = shirt_dict[shirt][2]
+                sleeveTexture = loader.loadTexture(sleeveTexturePath, sleeveRGBTexturePath)
+                self.toonActor.find('**/sleeves').setTexture(sleeveTexture, 1)
                 pass
         except:
             pass
@@ -354,9 +358,15 @@ class Toon:
         '''Sets the Toon's short texture. Used when generating the Toon and through Options Menu'''
         if self.torso_type[-1] == 'd':
             try:
-                skirtTexturePath = skirt_dict[skirt]
-                skirtTexture = loader.loadTexture(skirtTexturePath)
-                self.toonActor.find('**/torso-bot').setTexture(skirtTexture, 1)
+                if len( skirt_dict[skirt] ) == 1:
+                    skirtTexturePath = skirt_dict[skirt][0]
+                    skirtTexture = loader.loadTexture(skirtTexturePath)
+                    self.toonActor.find('**/torso-bot').setTexture(skirtTexture, 1)
+                elif len( skirt_dict[skirt] ) == 2:
+                    skirtTexturePath = skirt_dict[skirt][0]
+                    rgbTexturePath = skirt_dict[skirt][1]
+                    skirtTexture = loader.loadTexture(skirtTexturePath, rgbTexturePath)
+                    self.toonActor.find('**/torso-bot').setTexture(skirtTexture, 1)
             except:
                 pass
                 # If nothing happens when changing skirts, it's potentially misspelled, not in ToonDNA, or the correct dictionary.

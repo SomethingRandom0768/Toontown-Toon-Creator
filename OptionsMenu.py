@@ -98,7 +98,7 @@ class OptionsMenu(DirectObject):
             parent=self.first_page,
             # GUI of the box
             frameSize=(-0.8, 0.85, -0.55, 0.35),
-            canvasSize=(-1, 0, -5, 1),
+            canvasSize=(-1, 0, -7, 1),
             frameColor=(0, 0, 0, 0),
 
             # GUI DirectScrollBar attributes
@@ -336,11 +336,23 @@ class OptionsMenu(DirectObject):
         def updateBackpack(backpack_type):
             self.selectedToon.backpack_type = backpack_type
             self.selectedToon.attachBackpack(backpack_type)
+
+            self.backpackXEntry.set( str( round( self.selectedToon.returnBackpackPosition().getX(), 2 ) ) )
+            self.backpackYEntry.set( str( round( self.selectedToon.returnBackpackPosition().getY(), 2 ) ) )
+            self.backpackZEntry.set( str( round( self.selectedToon.returnBackpackPosition().getZ(), 2 ) ) )
+            self.backpackScaleEntry.set( str( ( round(self.selectedToon.backpack_model.getScale().getX(), 2), round(self.selectedToon.backpack_model.getScale().getY(), 2), round(self.selectedToon.backpack_model.getScale().getZ(), 2)  ) )    ) 
+
             print(f"Backpack has been changed to {backpack_type}")
 
         def updateGlasses(glasses_type):
             self.selectedToon.glasses_type = glasses_type
             self.selectedToon.attachGlasses(glasses_type)
+
+            self.glassesXEntry.set( str( round( self.selectedToon.returnGlassesPosition().getX(), 2 ) ) )
+            self.glassesYEntry.set( str( round( self.selectedToon.returnGlassesPosition().getY(), 2 ) ) )
+            self.glassesZEntry.set( str( round( self.selectedToon.returnGlassesPosition().getZ(), 2 ) ) )
+            self.glassesScaleEntry.set( str( ( round(self.selectedToon.glasses_model.getScale().getX(), 2), round(self.selectedToon.backpack_model.getScale().getY(), 2), round(self.selectedToon.backpack_model.getScale().getZ(), 2)  ) )    ) 
+
             print(f"Glasses has been changed to {glasses_type}")
 
         def updateShirtTexture(shirt_texture):
@@ -494,6 +506,273 @@ class OptionsMenu(DirectObject):
             rolloverSound=loader.loadSfx(gui_rollover_sound),            
 
         )
+
+
+        hatPositioningLabel = OptionsLabel(self.optionsScroll.getCanvas(), "Hat Placement", -4.50)
+        backpackPositioningLabel = OptionsLabel(self.optionsScroll.getCanvas(), "Backpack Placement", -4.95)
+        glassesPositioningLabel = OptionsLabel(self.optionsScroll.getCanvas(), "Glasses Placement", -5.40)
+
+        textEntryGui = loader.loadModel(options_geom).find('**/*ttr_t_gui_gen_buttons_box')
+
+# Hat Frames
+
+        self.hatXFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='x position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.775, 0, -4.70)
+        )
+
+        self.hatXEntry = DirectEntry(
+            parent=self.hatXFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.5),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.hatYFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='y position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.45, 0, -4.70)
+        )
+
+        self.hatYEntry = DirectEntry(
+            parent=self.hatYFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.5),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.hatZFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='z position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.125, 0, -4.70)
+        )
+
+        self.hatZEntry = DirectEntry(
+            parent=self.hatZFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.5),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.hatScaleFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='scale',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (0.150, 0, -4.70)
+        )
+
+        self.hatScaleEntry = DirectEntry(
+            parent=self.hatScaleFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.5),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+
+# Backpack frames
+
+        self.backpackXFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='x position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.775, 0, -5.15)
+        )
+
+        self.backpackXEntry = DirectEntry(
+            parent=self.backpackXFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.backpackYFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='y position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.45, 0, -5.15)
+        )
+
+        self.backpackYEntry = DirectEntry(
+            parent=self.backpackYFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.backpackZFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='z position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.125, 0, -5.15)
+        )
+
+        self.backpackZEntry = DirectEntry(
+            parent=self.backpackZFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.backpackScaleFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='scale',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (0.150, 0, -5.15)
+        )
+
+        self.backpackScaleEntry = DirectEntry(
+            parent=self.backpackScaleFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+# Glasses frames
+
+        self.glassesXFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='x position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.775, 0, -5.60)
+        )
+
+        self.glassesXEntry = DirectEntry(
+            parent=self.glassesXFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.glassesYFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='y position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.45, 0, -5.60)
+        )
+
+        self.glassesYEntry = DirectEntry(
+            parent=self.glassesYFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.glassesZFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='z position',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (-0.125, 0, -5.60)
+        )
+
+        self.glassesZEntry = DirectEntry(
+            parent=self.glassesZFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
+        self.glassesScaleFrame = DirectFrame(
+            parent = self.optionsScroll.getCanvas(),
+            geom = textEntryGui,
+            relief=None,
+            scale=(0.15,0.15,0.15),
+            text='scale',
+            text_font = loader.loadFont(toon_font),
+            text_scale=0.5,
+            text_pos=(0,0.5,0),
+            pos = (0.150, 0, -5.60)
+        )
+
+        self.glassesScaleEntry = DirectEntry(
+            parent=self.glassesScaleFrame,
+            text_scale=0.35,
+            text_font = loader.loadFont(toon_font),
+            frameSize=(-0.2,1.25,-0.55,0.2),
+            relief=None,
+            pos=(-0.5,0,-0.08)
+        )
+
 
     def hideOrShowOptions(self):
         if self.showOptions:

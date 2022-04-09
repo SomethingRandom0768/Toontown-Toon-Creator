@@ -46,7 +46,8 @@ class Toon:
         # Accessory based stuff
         self.backpack_type = backpack
         self.backpack_model = None
-        self.hat = None
+        self.hat_type = None
+        self.hat_model = None
         # Also counts for mask since they're both the same.
         self.glasses_type = glasses
         self.glasses_model = None
@@ -392,7 +393,6 @@ class Toon:
  # Accessory related functions
     def attachBackpack(self, backpack_to_attach):
         '''Attaches a backpack based on the type of backpack.'''
-        print('Backpack has been changed to ' + backpack_to_attach)
 
         # So if we already had a model before changing it, remove its node.
         if self.backpack_model:
@@ -479,6 +479,12 @@ class Toon:
                     backpack_dict[backpack_to_attach][5])
             else:
                 print("What kind of torso are you rockin?")
+
+    def returnBackpackPosition(self):
+        return self.backpack_model.getPos()
+
+    def returnGlassesPosition(self):
+        return self.glasses_model.getPos()
 
     def attachGlasses(self, glasses_to_attach):
         '''Attaches glasses to the Toon.'''
@@ -801,7 +807,13 @@ class Toon:
             self.toonActor.find('**/*shoes').setTexture(texture, 1)
         except:
             pass
-    
+
+# Toon Functions
+
+    def setPosition(self, x, y, z):
+        '''Sets the position of the Toon's actor'''
+        self.toonActor.setPos(x,y,z)
+
     def __str__(self) -> str:
         '''String representation of a Toon object'''
         #toonString = ', {self.shirt_texture}, {self.short_texture}, {self.skirt_texture}, '{self.bottom_color}', {self.shoe_type}, {self.shoe_texture}, {self.long_boot_texture}, {self.short_boot_texture}, {self.backpack_type}, {self.glasses_type}, {self.smooth_enabled}, {self.wearsShoes})"

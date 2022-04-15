@@ -1814,7 +1814,7 @@ shirt_dict = {
     'Cog Buster Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_cogbuster.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_cogbuster.jpg'],
     'Cog Stopper Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_mostCogsDefeated01.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_mostCogsDefeated01.jpg'],
     'Crashed Cashbot Shirt': ['phase_4/maps/ttr_t_chr_avt_shirt_cashbotIcon.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_cashbotIcon.jpg'],
-    'Cupid Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_valentine1.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_cashbotIcon.jpg'],
+    'Cupid Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_valentine1.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_valentine1.jpg'],
     'Explorer Vest' : ['phase_4/maps/ttr_t_chr_avt_shirt_taskForceExplorer.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_taskForce.jpg'],
     'Extraordinaire Jacket': ['phase_4/maps/tt_t_chr_avt_shirt_toonfest_1m.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_toonfest_1m.jpg'],
     'Extraordinaire Vest': ['phase_4/maps/tt_t_chr_avt_shirt_toonfest_1f.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_toonfest_1f.jpg'],
@@ -1891,6 +1891,8 @@ shirt_dict = {
     'Trap Shirt': ['phase_4/maps/PJBlueBanana2.jpg', 'phase_4/maps/PJSleeveBlue.jpg'],
     'Treemendous Gardener Shirt': ['phase_4/maps/ttr_t_chr_avt_shirt_gardeningMax.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_gardeningMax.jpg'],
     'Turtle Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_halloweenTurtle.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_halloweenTurtle.jpg'],
+    'Valentine Shirt 2': ['phase_4/maps/tt_t_chr_avt_shirt_valentine2.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_valentine2.jpg'],
+    'Valentine Shirt 3': ['phase_4/maps/tt_t_chr_avt_shirt_valentine3.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_valentine3.jpg'],
     'Vampire Shirt': ['phase_4/maps/tt_t_chr_avt_shirt_vampire.jpg', 'phase_4/maps/tt_t_chr_avt_shirtSleeve_vampire.jpg'],
     "Victor's Varsity Shirt": ['phase_4/maps/ttr_t_chr_avt_shirt_victorsVarsity.jpg', 'phase_4/maps/ttr_t_chr_avt_shirtSleeve_victorsVarsity.jpg']
 }
@@ -1960,6 +1962,8 @@ short_dict = {
     'Trap Shorts': 'phase_4/maps/Blue_shorts_1.jpg',
     'Treemendous Gardener Shorts': 'phase_4/maps/ttr_t_chr_avt_shorts_gardeningMax.jpg',
     'Turtle Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_halloweenTurtle.jpg',
+    'Valentine Shorts 1': 'phase_4/maps/tt_t_chr_avt_shorts_valentine1.jpg',
+    'Valentine Shorts 2': 'phase_4/maps/tt_t_chr_avt_shorts_valentine2.jpg', 
     'Vampire Shorts': 'phase_4/maps/tt_t_chr_avt_shorts_vampire.jpg'
 }
 
@@ -2012,6 +2016,8 @@ skirt_dict = {
  "ToonFest 2018 Pink Skirt" : ['phase_4/maps/ttr_t_chr_avt_skirt_pub18pink.jpg'],
  "Trainee Skirt" : ['phase_4/maps/ttr_t_chr_avt_skirt_taskForceTrainee.jpg'],
  "Treemendous Gardener Skirt" : ['phase_4/maps/ttr_t_chr_avt_skirt_gardeningMax.jpg'],
+ "Valentine Skirt 1": ['phase_4/maps/tt_t_chr_avt_skirt_valentine1.jpg'],
+ "Valentine Skirt 2": ['phase_4/maps/tt_t_chr_avt_skirt_valentine2.jpg']
 }
 
 # Backpack model, (potentially texture if reskin), (potentially what to retexture), small torso position, medium torso position, large torso position, accessory scale
@@ -2163,6 +2169,7 @@ glasses_dict = {
     'Yellow Summer Shades': ['phase_4/models/accessories/tt_m_chr_avt_acc_msk_dorkGlasses.bam', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_4.jpg', 'phase_4/maps/ttr_t_chr_avt_acc_msk_dorkGlasses_4_a.rgb']
 }
 
+
 # Species type : model position, scale
 
 glasses_placement_dict = {
@@ -2179,6 +2186,8 @@ glasses_placement_dict = {
     'r': [ (0,0,0), (0.3, 0.32, 0.375) ],
     'ri': [ (0,0,0), (0.3, 0.32, 0.375) ]
 }
+
+
 
 # Shoes : texture
 

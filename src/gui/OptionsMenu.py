@@ -6,7 +6,8 @@ from panda3d.core import *
 from direct.interval.LerpInterval import *
 from toon.Toon import Toon
 from toon.ToonDNA import *
-from direct.showbase.DirectObject import DirectObject
+from direct.directnotify import DirectNotifyGlobal
+
 options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
 gui_click_sound = 'phase_3/audio/sfx/GUI_create_toon_fwd.ogg'
 gui_rollover_sound = 'phase_3/audio/sfx/GUI_rollover.ogg'
@@ -15,6 +16,8 @@ toon_font = 'phase_3/fonts/ImpressBT.ttf'
 class OptionsMenu(DirectObject):
     '''The main OptionsMenu
        Houses the DirectFrame that is the entire frame.'''
+
+    notify = DirectNotifyGlobal.directNotify.newCategory('OptionsMenu')
 
     def __init__(self, toon):
         self.showOptions = True
@@ -84,7 +87,7 @@ class OptionsMenu(DirectObject):
         self.firstTabGeom = self.icon.find('**/*eyes')
 
         def funnyFunction():
-            print("You clicked on a button that has no function yet..or does it? Only time will tell......just kidding, I'm tired.\nIf you found this, I'd like a cookie, preferably chocolate chip.")
+            self.notify.warning("You clicked on a button that has no function yet..or does it? Only time will tell......just kidding, I'm tired.\nIf you found this, I'd like a cookie, preferably chocolate chip.")
 
         self.first_Tab = DirectGui.DirectButton(
             geom=self.firstTabGeom,
@@ -325,13 +328,13 @@ class OptionsMenu(DirectObject):
             self.selectedToon.generateActor()
             self.selectedToon.toonActor.setH(
                 self.rotation_slider.slider['value'])
-            print(f"Species has been changed to {species}")
+            self.notify.debug(f"Species has been changed to {species}")
 
         def updateAnim(anim):
             self.selectedToon.animationType = anim
             self.selectedToon.toonActor.stop()
             self.selectedToon.toonActor.loop(anim)
-            print(f"Animation has been changed to {anim}")
+            self.notify.debug(f"Animation has been changed to {anim}")
 
         def updateBackpack(backpack_type):
             self.selectedToon.backpack_type = backpack_type
@@ -342,7 +345,7 @@ class OptionsMenu(DirectObject):
             self.backpackZEntry.set( str( round( self.selectedToon.returnBackpackPosition().getZ(), 2 ) ) )
             self.backpackScaleEntry.set( str( ( round(self.selectedToon.backpack_model.getScale().getX(), 2), round(self.selectedToon.backpack_model.getScale().getY(), 2), round(self.selectedToon.backpack_model.getScale().getZ(), 2)  ) )    ) 
 
-            print(f"Backpack has been changed to {backpack_type}")
+            self.notify.debug(f"Backpack has been changed to {backpack_type}")
 
         def updateGlasses(glasses_type):
             self.selectedToon.glasses_type = glasses_type
@@ -353,38 +356,38 @@ class OptionsMenu(DirectObject):
             self.glassesZEntry.set( str( round( self.selectedToon.returnGlassesPosition().getZ(), 2 ) ) )
             self.glassesScaleEntry.set( str( ( round(self.selectedToon.glasses_model.getScale().getX(), 2), round(self.selectedToon.backpack_model.getScale().getY(), 2), round(self.selectedToon.backpack_model.getScale().getZ(), 2)  ) )    ) 
 
-            print(f"Glasses has been changed to {glasses_type}")
+            self.notify.debug(f"Glasses has been changed to {glasses_type}")
 
         def updateShirtTexture(shirt_texture):
             self.selectedToon.shirt_texture = shirt_texture
             self.selectedToon.setShirtTexture(shirt_texture)
-            print(f"Shirt Texture has been changed to {shirt_texture}")
+            self.notify.debug(f"Shirt Texture has been changed to {shirt_texture}")
 
         def updateShortTexture(short_texture):
             self.selectedToon.short_texture = short_texture
             self.selectedToon.setShortTexture(short_texture)
-            print(f"Short Texture has been changed to {short_texture}")
+            self.notify.debug(f"Short Texture has been changed to {short_texture}")
 
         def updateSkirtTexture(skirt_texture):
             self.selectedToon.skirt_texture = skirt_texture
             self.selectedToon.setSkirtTexture(skirt_texture)
-            print(f"Skirt Texture has been changed to {skirt_texture}")
+            self.notify.debug(f"Skirt Texture has been changed to {skirt_texture}")
 
         def updateShirtColor(shirt_color):
             self.selectedToon.shirt_color = shirt_color
             self.selectedToon.setShirtColor(shirt_color)
-            print(f"Shirt color has been changed to {shirt_color}")
+            self.notify.debug(f"Shirt color has been changed to {shirt_color}")
 
         def updateBottomColor(bottom_color):
             self.selectedToon.bottom_color = bottom_color
             self.selectedToon.setBottomColor(bottom_color)
-            print(f"Bottom color has been changed to {bottom_color}")
+            self.notify.debug(f"Bottom color has been changed to {bottom_color}")
 
         def updateShoeTexture(shoe_texture):
             try:
                 self.selectedToon.shoe_texture = shoe_texture
                 self.selectedToon.applyShoeTexture(shoe_texture)
-                print(f"Shoe has been changed to {shoe_texture}")
+                self.notify.debug(f"Shoe has been changed to {shoe_texture}")
             except:
                 pass
 
@@ -392,7 +395,7 @@ class OptionsMenu(DirectObject):
             try:
                 self.selectedToon.short_boot_texture = shoe_texture
                 self.selectedToon.applyShortBootTexture(shoe_texture)
-                print(f"Short Boots has been changed to {shoe_texture}")
+                self.notify.debug(f"Short Boots has been changed to {shoe_texture}")
             except:
                 pass
 
@@ -400,7 +403,7 @@ class OptionsMenu(DirectObject):
             try:
                 self.selectedToon.long_boot_texture = shoe_texture
                 self.selectedToon.applyLongBootTexture(shoe_texture)
-                print(f"Long Boots has been changed to {shoe_texture}")
+                self.notify.debug(f"Long Boots has been changed to {shoe_texture}")
             except:
                 pass
 
@@ -424,7 +427,7 @@ class OptionsMenu(DirectObject):
 
         def generateToon():
             '''Just prints out the Toon's toString'''
-            print(self.selectedToon)
+            self.notify.info(self.selectedToon)
 
         self.rotation_slider = OptionsSlider(
             aspect2d, '', -0.80, rotateToon, (0, 360))
@@ -1218,7 +1221,7 @@ class OptionsChoosingMenu(OptionsModal):
         if self.populateBoolean:
             pass  # We've already populated it.
         else:
-            print('Generating Selectable Frame for the first time')
+            self.notify.info('Generating Selectable Frame for the first time')
             if keyOrValue == 1:  # If we want to return the values
                 i = 0
                 for item in selectables_dictionary.keys():

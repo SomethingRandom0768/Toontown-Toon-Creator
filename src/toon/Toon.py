@@ -1,7 +1,7 @@
 from direct.actor.Actor import Actor
 from panda3d.core import *
-from ToonHead import *
-from ToonDNA import *
+from .ToonHead import *
+from .ToonDNA import *
 
 
 toonTorsoTypes = {"ss": 'phase_3/models/char/tt_a_chr_dgs_shorts_torso_1000.bam',  # short shorts

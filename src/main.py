@@ -1,26 +1,11 @@
-
-from panda3d.core import loadPrcFileData
-
-loadPrcFileData('', 'interpolate-frames true')
-loadPrcFileData('', 'fullscreen false')
-loadPrcFileData('', 'window-title Toon Creator')
-loadPrcFileData('',  'notify-level fatal')
-
 from direct.showbase.ShowBase import ShowBase
-from panda3d.core import WindowProperties
-from OptionsMenu import *
-from Toon import Toon
+from settings.OptionsMenu import *
+from toon.Toon import Toon
 
 class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         base.setFrameRateMeter(True)
-
-        # Window settings
-        windowSettings = WindowProperties()
-        windowSettings.setSize(640, 380)
-        windowSettings.setIconFilename('phase_3/etc/icon.ico')
-        self.win.requestProperties(windowSettings)
 
         # Environment
         self.environment = loader.loadModel('phase_3.5/models/modules/tt_m_ara_int_toonhall.bam')

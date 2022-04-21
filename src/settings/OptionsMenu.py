@@ -4,8 +4,8 @@ from direct.gui.DirectGui import *
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import *
 from direct.interval.LerpInterval import *
-from Toon import Toon
-from ToonDNA import *
+from toon.Toon import Toon
+from toon.ToonDNA import *
 from direct.showbase.DirectObject import DirectObject
 options_geom = 'phase_3/models/gui/ttr_m_gui_gen_buttons.bam'
 gui_click_sound = 'phase_3/audio/sfx/GUI_create_toon_fwd.ogg'

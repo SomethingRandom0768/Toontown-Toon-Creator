@@ -5,7 +5,7 @@ loadPrcFileData('', 'window-title Test File')
 
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import WindowProperties
-from Toon import Toon
+from src.toon.Toon import Toon
 
 class MyApp(ShowBase):
     def __init__(self):

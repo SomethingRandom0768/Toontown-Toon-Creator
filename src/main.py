@@ -1,3 +1,10 @@
+
+from panda3d.core import loadPrcFileData, loadPrcFile
+
+loadPrcFile('../config/general.prc')
+loadPrcFileData('', 'model-path $RESOURCES_DIR')
+loadPrcFileData('',  'notify-level fatal')
+
 from direct.showbase.ShowBase import ShowBase
 from settings.OptionsMenu import *
 from toon.Toon import Toon

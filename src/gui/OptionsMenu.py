@@ -791,6 +791,7 @@ class OptionsMenu(DirectObject):
 class OptionsLabel:
     '''Used as labels for the bigger letters
     Lower Z means lower on the DirectScrolledFrame'''
+    notify = DirectNotifyGlobal.directNotify.newCategory('OptionsLabel')
 
     def __init__(self, labelParent, labelText, z):
         label_outer_font = loader.loadFont('phase_3/fonts/MinnieFont.ttf')
@@ -814,6 +815,8 @@ class OptionsLabel:
 
 class OptionsModal(DirectGui.DirectFrame):
     '''This is the left part of any Options Modal, everything else past this class inherits from this and adds to it'''
+    notify = DirectNotifyGlobal.directNotify.newCategory('OptionsModal')
+
 
     def __init__(self, modalParent, modalText, z):
         modal_font = loader.loadFont('phase_3/fonts/ImpressBT.ttf')
@@ -836,6 +839,8 @@ class OptionsModal(DirectGui.DirectFrame):
 
 class OptionsSlider(OptionsModal):
     '''Creates a Slider which is useful for functions with arguments that include a range'''
+    notify = DirectNotifyGlobal.directNotify.newCategory('OptionsSlider')
+
 
     def __init__(self, modalParent, modalText, z, slider_command=None, given_range=(0, 100)):
         super().__init__(modalParent, modalText, z)  # Creates the text on the left
@@ -863,6 +868,8 @@ class OptionsSlider(OptionsModal):
 
 class OptionsToggle(OptionsModal):
     '''Creates a toggle that creates an off/on switch'''
+    notify = DirectNotifyGlobal.directNotify.newCategory('OptionsToggle')
+
 
     def __init__(self, modalParent, modalText, z, toggle_command=None):
         super().__init__(modalParent, modalText, z)  # Creates the text on the left
@@ -922,6 +929,8 @@ class OptionsChoosingMenu(OptionsModal):
        chosen_command - What function does this menu run once an object in the selection menu is chosen?
        keyOrValue - 0 returns the key, 1 returns the value in the used_dictionary 
     '''
+
+    notify = DirectNotifyGlobal.directNotify.newCategory('OptionsChoosingMenu')
 
     def __init__(self, modalParent, modalText, x, z, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)

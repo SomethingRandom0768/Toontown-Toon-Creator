@@ -375,7 +375,7 @@ class OptionsMenu(DirectObject):
             self.glassesYEntry.set( str( round( self.selectedToon.returnGlassesPosition().getY(), 2 ) ) )
             self.glassesZEntry.set( str( round( self.selectedToon.returnGlassesPosition().getZ(), 2 ) ) )
             self.glassesScaleEntry.set(f"{ round(self.selectedToon.glasses_model.getScale().getX(), 2) } ")
-            print(f"Glasses has been changed to {glasses_type}")
+            self.notify.debug(f"Glasses has been changed to {glasses_type}")
 
         def updateGlassesXPos(xPosition):
             self.selectedToon.glasses_model.setX(float(xPosition))

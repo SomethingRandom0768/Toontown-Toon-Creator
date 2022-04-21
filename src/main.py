@@ -6,7 +6,7 @@ loadPrcFileData('', 'model-path $RESOURCES_DIR')
 loadPrcFileData('',  'notify-level fatal')
 
 from direct.showbase.ShowBase import ShowBase
-from settings.OptionsMenu import *
+from gui.OptionsMenu import *
 from toon.Toon import Toon
 
 class MyApp(ShowBase):

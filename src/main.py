@@ -9,7 +9,7 @@ from direct.showbase.ShowBase import ShowBase
 from gui.OptionsMenu import *
 from toon.Toon import Toon
 
-class MyApp(ShowBase):
+class ToonCreator(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         base.setFrameRateMeter(True)
@@ -32,5 +32,5 @@ class MyApp(ShowBase):
         self.toon = Toon('ca', 'ss', False, 'ls', 'l', 'm', 'Cartoonival Blue', 'Cartoonival Blue', 'White', 'Cartoonival Blue', None, None, None, 'White', 'White', None, None, 1, None, None, None, 'Neutral', True, False)
         self.options = OptionsMenu(self.toon)
     
-app = MyApp()
+app = ToonCreator()
 app.run()

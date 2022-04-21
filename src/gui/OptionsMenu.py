@@ -128,6 +128,13 @@ class OptionsMenu(DirectObject):
             scrollBarWidth=0.1,
         )
 
+        self.hidingButton = DirectGui.DirectButton(parent=self.optionsScroll.getCanvas(),
+        frameSize=(-1.25,0.75,-15,5),
+        command=self.hideSelectables,
+        pos=(0,2.5,0),
+        frameColor=(0,0,0,0)
+        )
+
         def updateHead():
             '''Updates the Toon's head based on the value'''
             sliderValue = self.head_slider.slider['value']
@@ -343,20 +350,43 @@ class OptionsMenu(DirectObject):
             self.backpackXEntry.set( str( round( self.selectedToon.returnBackpackPosition().getX(), 2 ) ) )
             self.backpackYEntry.set( str( round( self.selectedToon.returnBackpackPosition().getY(), 2 ) ) )
             self.backpackZEntry.set( str( round( self.selectedToon.returnBackpackPosition().getZ(), 2 ) ) )
-            self.backpackScaleEntry.set( str( ( round(self.selectedToon.backpack_model.getScale().getX(), 2), round(self.selectedToon.backpack_model.getScale().getY(), 2), round(self.selectedToon.backpack_model.getScale().getZ(), 2)  ) )    ) 
+            self.backpackScaleEntry.set(f"{ round(self.selectedToon.backpack_model.getScale().getX(), 2) } ")
 
             self.notify.debug(f"Backpack has been changed to {backpack_type}")
+
+        def updateBackpackXPos(xPosition):
+            self.selectedToon.backpack_model.setX(float(xPosition))
+
+        def updateBackpackYPos(yPosition):
+            self.selectedToon.backpack_model.setY(float(yPosition))
+
+        def updateBackpackZPos(zPosition):
+            self.selectedToon.backpack_model.setZ(float(zPosition))
+
+        def updateBackpackScale(newScale):
+            self.selectedToon.backpack_model.setScale(float(newScale))
 
         def updateGlasses(glasses_type):
             self.selectedToon.glasses_type = glasses_type
             self.selectedToon.attachGlasses(glasses_type)
-
+            
             self.glassesXEntry.set( str( round( self.selectedToon.returnGlassesPosition().getX(), 2 ) ) )
             self.glassesYEntry.set( str( round( self.selectedToon.returnGlassesPosition().getY(), 2 ) ) )
             self.glassesZEntry.set( str( round( self.selectedToon.returnGlassesPosition().getZ(), 2 ) ) )
-            self.glassesScaleEntry.set( str( ( round(self.selectedToon.glasses_model.getScale().getX(), 2), round(self.selectedToon.backpack_model.getScale().getY(), 2), round(self.selectedToon.backpack_model.getScale().getZ(), 2)  ) )    ) 
+            self.glassesScaleEntry.set(f"{ round(self.selectedToon.glasses_model.getScale().getX(), 2) } ")
+            print(f"Glasses has been changed to {glasses_type}")
 
-            self.notify.debug(f"Glasses has been changed to {glasses_type}")
+        def updateGlassesXPos(xPosition):
+            self.selectedToon.glasses_model.setX(float(xPosition))
+
+        def updateGlassesYPos(yPosition):
+            self.selectedToon.glasses_model.setY(float(yPosition))
+
+        def updateGlassesZPos(zPosition):
+            self.selectedToon.glasses_model.setZ(float(zPosition))
+
+        def updateGlassesScale(newScale):
+            self.selectedToon.glasses_model.setScale(float(newScale))
 
         def updateShirtTexture(shirt_texture):
             self.selectedToon.shirt_texture = shirt_texture
@@ -624,6 +654,7 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateBackpackXPos,
             pos=(-0.5,0,-0.08)
         )
 
@@ -645,6 +676,7 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateBackpackYPos,
             pos=(-0.5,0,-0.08)
         )
 
@@ -666,6 +698,7 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateBackpackZPos,
             pos=(-0.5,0,-0.08)
         )
 
@@ -687,6 +720,7 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateBackpackScale,
             pos=(-0.5,0,-0.08)
         )
 
@@ -710,6 +744,7 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateGlassesXPos,
             pos=(-0.5,0,-0.08)
         )
 
@@ -731,6 +766,7 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateGlassesYPos,
             pos=(-0.5,0,-0.08)
         )
 
@@ -752,6 +788,7 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateGlassesZPos,
             pos=(-0.5,0,-0.08)
         )
 
@@ -773,9 +810,58 @@ class OptionsMenu(DirectObject):
             text_font = loader.loadFont(toon_font),
             frameSize=(-0.2,1.25,-0.55,0.2),
             relief=None,
+            command=updateGlassesScale,
             pos=(-0.5,0,-0.08)
         )
 
+    def hideSelectables(self):
+        self.shoes_texture_menu.selectablesFrame.hide()
+        self.shoes_texture_menu.clickable.show()
+
+        self.boot_short_texture_menu.selectablesFrame.hide()
+        self.boot_short_texture_menu.clickable.show()
+
+        self.boot_long_texture_menu.selectablesFrame.hide()
+        self.boot_long_texture_menu.clickable.show()
+
+        self.glasses_menu.selectablesFrame.hide()
+        self.glasses_menu.clickable.show()
+
+        self.backpack_menu.selectablesFrame.hide()
+        self.backpack_menu.clickable.show()
+
+        self.glove_color_menu.selectablesFrame.hide()
+        self.glove_color_menu.clickable.show()
+
+        self.leg_color_menu.selectablesFrame.hide()
+        self.leg_color_menu.clickable.show()
+
+        self.arm_color_menu.selectablesFrame.hide()
+        self.arm_color_menu.clickable.show()
+
+        self.head_color_menu.selectablesFrame.hide()
+        self.head_color_menu.clickable.show()
+
+        self.anim_menu.selectablesFrame.hide()
+        self.anim_menu.clickable.show()
+
+        self.species_menu.selectablesFrame.hide()
+        self.species_menu.clickable.show()
+        
+        self.bottom_coloring_menu.selectablesFrame.hide()
+        self.bottom_coloring_menu.clickable.show()
+
+        self.skirts_menu.selectablesFrame.hide()
+        self.skirts_menu.clickable.show()
+
+        self.shorts_menu.selectablesFrame.hide()
+        self.shorts_menu.clickable.show()
+
+        self.shirt_color_menu.selectablesFrame.hide()
+        self.shirt_color_menu.clickable.show()
+
+        self.shirt_menu.selectablesFrame.hide()
+        self.shirt_menu.clickable.show()
 
     def hideOrShowOptions(self):
         if self.showOptions:
@@ -786,7 +872,6 @@ class OptionsMenu(DirectObject):
             self.showOptions = True
             self.outer_page.show()
             self.rotation_slider.slider.show()
-
 
 class OptionsLabel:
     '''Used as labels for the bigger letters
@@ -853,6 +938,7 @@ class OptionsSlider(OptionsModal):
             thumb_geom=self.slider_thumb_geom,
             thumb_geom_scale=(0.4, 0.1, 0.25),
             thumb_relief=None,
+            thumb_frameSize=(-0.25,0.25,-0.25,0.25),
             thumb_clickSound=loader.loadSfx(gui_click_sound),
             thumb_rolloverSound=loader.loadSfx(gui_rollover_sound),
             geom=self.slider_scroll_geom,

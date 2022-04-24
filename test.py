@@ -28,7 +28,7 @@ class MyApp(ShowBase):
 
 
         # The following Toon's concept was created by Lovealot/Ghosheart, go check her work out at https://toyhou.se/Ghosheart
-        self.toon = Toon('du', 'ss', False, 'ls', 's', 'f', 'Yellow', 'Yellow', 'White', 'Yellow', 'Oiled Sellbot Cog-Crusher Shirt', 'Oiled Sellbot Cog-Crusher Shorts', 'Oiled Sellbot Cog-Crusher Skirt', 'White', 'White', None, 'Four Eyes', 1, None, None, 'Sleuthing Sneakers', 'fewaf', True, True)
+        self.toon = Toon('du', 'ss', False, 'ls', 's', 'Yellow', 'Yellow', 'White', 'Yellow', 'Oiled Sellbot Cog-Crusher Shirt', 'Oiled Sellbot Cog-Crusher Shorts', 'Oiled Sellbot Cog-Crusher Skirt', 'White', 'White', None, 'Four Eyes', 1, None, None, 'Sleuthing Sneakers', 'fewaf', True, True)
         self.toon.toonActor.setPos(10,0,0)
         self.toon.toonActor.pose('Call Pet', 50)
 

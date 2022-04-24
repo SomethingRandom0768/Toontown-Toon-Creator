@@ -206,32 +206,30 @@ class OptionsMenu(DirectObject):
             sliderValue = self.torso_slider.slider['value']
             tested_value = int(sliderValue)
 
-            if self.selectedToon.gender == 'm':
-                if tested_value < 20 and tested_value > 15:
-                    self.selectedToon.updateTorso('ss')
-                    self.selectedToon.toonActor.delete()
-                    self.selectedToon.generateActor()
-                elif tested_value < 40 and tested_value > 35:
-                    self.selectedToon.updateTorso('ms')
-                    self.selectedToon.toonActor.delete()
-                    self.selectedToon.generateActor()
-                elif tested_value < 60 and tested_value > 55:
-                    self.selectedToon.updateTorso('ls')
-                    self.selectedToon.toonActor.delete()
-                    self.selectedToon.generateActor()
-            elif self.selectedToon.gender == 'f':
-                if tested_value < 20 and tested_value > 15:
-                    self.selectedToon.updateTorso('sd')
-                    self.selectedToon.toonActor.delete()
-                    self.selectedToon.generateActor()
-                elif tested_value < 40 and tested_value > 35:
-                    self.selectedToon.updateTorso('md')
-                    self.selectedToon.toonActor.delete()
-                    self.selectedToon.generateActor()
-                elif tested_value < 60 and tested_value > 55:
-                    self.selectedToon.updateTorso('ld')
-                    self.selectedToon.toonActor.delete()
-                    self.selectedToon.generateActor()
+            if tested_value < 20 and tested_value > 15:
+                self.selectedToon.updateTorso('ss')
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.generateActor()
+            elif tested_value < 40 and tested_value > 35:
+                self.selectedToon.updateTorso('ms')
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.generateActor()
+            elif tested_value < 60 and tested_value > 55:
+                self.selectedToon.updateTorso('ls')
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.generateActor()
+            if tested_value < 80 and tested_value > 75:
+                self.selectedToon.updateTorso('sd')
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.generateActor()
+            elif tested_value < 100 and tested_value > 95:
+                self.selectedToon.updateTorso('md')
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.generateActor()
+            elif tested_value < 120 and tested_value > 115:
+                self.selectedToon.updateTorso('ld')
+                self.selectedToon.toonActor.delete()
+                self.selectedToon.generateActor()
 
             self.selectedToon.toonActor.setH(
                 self.rotation_slider.slider['value'])
@@ -273,23 +271,7 @@ class OptionsMenu(DirectObject):
 
             self.selectedToon.toonActor.setH(tested_value)
 
-        def changeGender():
-            '''Changes the toon's gender based on the current gender'''
-            if self.selectedToon.gender == 'm':
-                self.selectedToon.gender = 'f'
-                self.selectedToon.toonActor.delete()
-                self.selectedToon.updateTorso(
-                    self.selectedToon.torso_type[0] + 'd')
-                self.selectedToon.generateActor()
-            elif self.selectedToon.gender == 'f':
-                self.selectedToon.gender = 'm'
-                self.selectedToon.toonActor.delete()
-                self.selectedToon.updateTorso(
-                    self.selectedToon.torso_type[0] + 's')
-                self.selectedToon.generateActor()
 
-            self.selectedToon.toonActor.setH(
-                self.rotation_slider.slider['value'])
 
         def eyelashToggle():
             '''Toggles the eyelashes on the Toon's head'''
@@ -477,8 +459,6 @@ class OptionsMenu(DirectObject):
             self.optionsScroll.getCanvas(), 'Legs:', 0.35, updateLegs)
         self.eyelash_toggle = OptionsToggle(
             self.optionsScroll.getCanvas(), 'Eyelashes:', 0.20, eyelashToggle)
-        self.gender_toggle = OptionsToggle(
-            self.optionsScroll.getCanvas(), 'Gender:', 0.05, changeGender)
         self.smoothanim_toggle = OptionsToggle(
             self.optionsScroll.getCanvas(), 'Smooth Animation:', -0.1, smoothanimationToggle)
         self.shoes_toggle = OptionsToggle(

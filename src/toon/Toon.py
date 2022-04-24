@@ -29,7 +29,6 @@ class Toon:
         self.headtype = head_type
         self.torso_type = torso_type
         self.leg_size = leg_size
-        self.gender = gender
         self.head_color = head_color
         self.arm_color = arm_color
         self.glove_color = glove_color
@@ -823,7 +822,6 @@ class Toon:
         toonString += f"{str(self.eyelashes)}, "
         toonString += f"'{self.torso_type}', "
         toonString += f"'{self.leg_size}', "
-        toonString += f"'{self.gender}', "
         toonString += f"'{self.head_color}', "
         toonString += f"'{self.arm_color}', "
         toonString += f"'{self.glove_color}', "

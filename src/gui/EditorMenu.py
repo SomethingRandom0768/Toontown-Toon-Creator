@@ -375,8 +375,9 @@ class OptionsModal(DirectGui.DirectFrame):
 
     def __init__(self, modalParent, modalText, z):
         self.modalFont = loader.loadFont('phase_3/fonts/ImpressBT.ttf')
-        self.sliderGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_lineThick')
+        self.sliderGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_lineSkinny')
         self.sliderThumbGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_slider2')
+        self.selectionFrameThumbGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_slider1')
         self.guiClickSound = loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg')
         self.guiRolloverSound = loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg')
         self.toggleButtonGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_toggleButton')
@@ -726,9 +727,6 @@ class OptionsChoosingMenu(OptionsModal):
 
         bottom_piece.flattenStrong()
 
-      #  self.sliderGeom = self.optionsGeom.find('**/slider1')
-   #     self.troughGeom = self.options_geom.find('**/lineSkinny')
-
         self.selectablesFrame = DirectGui.DirectFrame(
             geom=self.selectableDynamicFrame,
             parent=self.containerFrame,
@@ -755,7 +753,7 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_resizeThumb=True,
             verticalScroll_relief=None,
             verticalScroll_thumb_relief=None,
-            verticalScroll_thumb_geom=self.sliderThumbGeom,
+            verticalScroll_thumb_geom=self.selectionFrameThumbGeom,
             verticalScroll_thumb_geom_scale=0.05,
             verticalScroll_thumb_geom_pos=(0, 0, 0),
 

@@ -15,7 +15,7 @@ class EditorMenu(DirectObject):
         self.showOptions = True
         self.accept('space', self.hideOrShowOptions)
 
-        notify = DirectNotifyGlobal.directNotify.newCategory('OptionsMenu')
+        notify = DirectNotifyGlobal.directNotify.newCategory('EditorMenu')
         notify.setDebug(1)
 
         # General GUI variables

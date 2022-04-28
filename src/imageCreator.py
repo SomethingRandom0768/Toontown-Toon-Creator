@@ -1,7 +1,7 @@
 from datetime import datetime
 from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'fullscreen true')
-loadPrcFileData('', 'window-title Test File')
+loadPrcFileData('', 'window-title Image Creator')
 
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import WindowProperties
@@ -27,13 +27,10 @@ class MyApp(ShowBase):
         base.cam.setHpr(0,0,0)
 
 
-        # The following Toon's concept was created by Lovealot/Ghosheart, go check her work out at https://toyhou.se/Ghosheart
         self.toon = Toon('ri', 'ls', False, 'ls', 'l', 'm', 'Black', 'Black', 'White', 'Black', 'Sellbot Cog-Crusher Shirt', 'Sellbot Cog-Crusher Shorts', None, 'White', 'White', None, 'Sellbot Cog-Crusher Shades', 1, None, None, 'Sellbot Cog-Crusher Shoes', 'Riggy Neutral', True, True)
         self.toon.toonActor.setPos(10,0,0)
-        self.toon.toonActor.pose('Call Pet', 50)
+        self.toon.toonActor.pose('Neutral', 0)
 
-        # Use the print-screen function on your keyboard to take a screenshot, and then post it in 
-        # https://www.aatbio.com/tools/online-automatic-green-screen-remover, a tool you can use to get rid of green screen!
 
         self.isShadowHidden = False
 

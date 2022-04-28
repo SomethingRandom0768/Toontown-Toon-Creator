@@ -2,7 +2,7 @@ from direct.actor.Actor import Actor
 from panda3d.core import NodePath
 
 class ToonHead:
-    def __init__(self, species, headType, hasEyelashes, gender='m'):
+    def __init__(self, species, headType, hasEyelashes):
         '''Species - what species the toon is
            Type - What type of head are we going for (what head type and muzzle type?)
         '''
@@ -15,7 +15,7 @@ class ToonHead:
         self.generateHeadDetails(self.head_model, species, headType, hasEyelashes)
 
     def generateHead(self, species, headType=None):
-        '''Generates the head model based on the species. Passes headType and gender to the details function.
+        '''Generates the head model based on the species. Passes headType to the details function.
         Use headType only for dogs.'''
 
         # All the bears
@@ -66,7 +66,7 @@ class ToonHead:
         return headModel
 
     def generateHeadDetails(self, headModel, species, head_type, has_eyelashes):
-        '''Based on the species and head type and gender, changes the head detail'''
+        '''Based on the species and head type, changes the head detail'''
         toonType = species + head_type # toonType is a string, basically returns something like "cls" or "cals"
 
         # Bears

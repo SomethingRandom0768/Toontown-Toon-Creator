@@ -457,17 +457,17 @@ class ToonEditorMenu(EditorMenu):
         tested_value = int(sliderValue)
 
         if tested_value >= 0 and tested_value <= 25:
-            self.selectedToon.shoe_type = 1
-            self.selectedToon.attachShoes(self.selectedToon.shoe_type)
-        elif tested_value > 25 and tested_value <= 50:
-            self.selectedToon.shoe_type = 2
-            self.selectedToon.attachShoes(self.selectedToon.shoe_type)
-        elif tested_value > 50 and tested_value <= 75:
-            self.selectedToon.shoe_type = 3
-            self.selectedToon.attachShoes(self.selectedToon.shoe_type)
-        else:
             self.selectedToon.shoe_type = 4
             self.selectedToon.hideShoePieces()
+        elif tested_value > 25 and tested_value <= 50:
+            self.selectedToon.shoe_type = 1
+            self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+        elif tested_value > 50 and tested_value <= 75:
+            self.selectedToon.shoe_type = 2
+            self.selectedToon.attachShoes(self.selectedToon.shoe_type)
+        else:
+            self.selectedToon.shoe_type = 3
+            self.selectedToon.attachShoes(self.selectedToon.shoe_type)
 
     def generateToon(self):
         '''Just prints out the Toon's toString'''

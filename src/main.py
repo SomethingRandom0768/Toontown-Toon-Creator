@@ -6,7 +6,7 @@ loadPrcFileData('', 'model-path $RESOURCES_DIR')
 loadPrcFileData('',  'notify-level fatal')
 
 from direct.showbase.ShowBase import ShowBase
-from gui.OptionsMenu import *
+from gui.ToonEditorMenu import *
 from toon.Toon import Toon
 
 class ToonCreator(ShowBase):
@@ -30,7 +30,7 @@ class ToonCreator(ShowBase):
         self.music.play()
 
         self.toon = Toon('ca', 'ss', False, 'ls', 'l', 'm', 'Cartoonival Blue', 'Cartoonival Blue', 'White', 'Cartoonival Blue', None, None, None, 'White', 'White', None, None, 1, None, None, None, 'Neutral', True, False)
-        self.options = OptionsMenu(self.toon)
+        self.options = ToonEditorMenu(self.toon)
     
 app = ToonCreator()
 app.run()

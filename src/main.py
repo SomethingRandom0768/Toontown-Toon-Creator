@@ -7,6 +7,8 @@ loadPrcFileData('',  'notify-level fatal')
 
 from direct.showbase.ShowBase import ShowBase
 from gui.ToonEditorMenu import *
+from gui.CogEditorMenu import *
+from gui.NPCEditorMenu import *
 from toon.Toon import Toon
 
 class ToonCreator(ShowBase):

@@ -6,7 +6,9 @@ loadPrcFileData('', 'model-path $RESOURCES_DIR')
 loadPrcFileData('',  'notify-level fatal')
 
 from direct.showbase.ShowBase import ShowBase
-from gui.OptionsMenu import *
+from gui.ToonEditorMenu import *
+from gui.CogEditorMenu import *
+from gui.NPCEditorMenu import *
 from toon.Toon import Toon
 
 class ToonCreator(ShowBase):
@@ -29,8 +31,8 @@ class ToonCreator(ShowBase):
         self.music.setLoop(True)
         self.music.play()
 
-        self.toon = Toon('ca', 'ss', False, 'ls', 'l', 'm', 'Cartoonival Blue', 'Cartoonival Blue', 'White', 'Cartoonival Blue', None, None, None, 'White', 'White', None, None, 1, None, None, None, 'Neutral', True, False)
-        self.options = OptionsMenu(self.toon)
+        self.toon = Toon('ca', 'ss', False, 'ls', 'l', 'Cartoonival Blue', 'Cartoonival Blue', 'White', 'Cartoonival Blue', None, None, None, 'White', 'White', None, None, 1, None, None, None, 'Neutral', True, False)
+        self.options = ToonEditorMenu(self.toon)
     
 app = ToonCreator()
 app.run()

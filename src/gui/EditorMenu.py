@@ -619,7 +619,7 @@ class OptionsChoosingMenu(OptionsModal):
     def showAndHide(self, function, args_to_insert):
         '''This basically reparents clickable so you can see it again and hides the selectables_frame'''
         self.clickable.show()
-        self.clickable_text['text'] = args_to_insert
+        self.clickable_text['text'] = str(args_to_insert)
         self.selectablesFrame.hide()
         try:
             function(args_to_insert)

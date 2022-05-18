@@ -624,7 +624,7 @@ class OptionsChoosingMenu(OptionsModal):
         try:
             function(args_to_insert)
         except:
-            self.notify.info("Nothing will happen as this selectable frame isn't hooked up to a particular function.")
+            self.notify.debug("Nothing will happen as this selectable frame isn't hooked up to a particular function.")
 
     def generateSelectablesFrame(self,
                                  x_position,
@@ -756,6 +756,7 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_thumb_geom=self.selectionFrameThumbGeom,
             verticalScroll_thumb_geom_scale=0.05,
             verticalScroll_thumb_geom_pos=(0, 0, 0),
+            verticalScroll_thumb_frameSize=(-15,15,-15,15),
 
             verticalScroll_geom=self.sliderGeom,
             verticalScroll_geom_scale=0.085,

@@ -214,7 +214,7 @@ class ToonEditorMenu(EditorMenu):
         sliderValue = self.torso_slider.slider['value']
         tested_value = int(sliderValue)
 
-        if self.selectedToon.torso_type[1] == 's':
+        if self.selectedToon.torsoType[1] == 's':
             if tested_value < 20 and tested_value > 15:
                 self.selectedToon.updateTorso('ss')
                 self.selectedToon.toonActor.delete()
@@ -227,7 +227,7 @@ class ToonEditorMenu(EditorMenu):
                 self.selectedToon.updateTorso('ls')
                 self.selectedToon.toonActor.delete()
                 self.selectedToon.generateActor()
-        elif self.selectedToon.torso_type[1] == 'd':
+        elif self.selectedToon.torsoType[1] == 'd':
             if tested_value < 20 and tested_value > 15:
                 self.selectedToon.updateTorso('sd')
                 self.selectedToon.toonActor.delete()
@@ -284,16 +284,16 @@ class ToonEditorMenu(EditorMenu):
     def changeBottomType(self):
         '''Changes the toon's bottom (shorts/skirts) based on the current bottom type'''
 
-        if self.selectedToon.torso_type[1] == 's':
+        if self.selectedToon.torsoType[1] == 's':
             self.selectedToon.toonActor.delete()
             self.selectedToon.updateTorso(
-                self.selectedToon.torso_type[0] + 'd')
+                self.selectedToon.torsoType[0] + 'd')
             self.selectedToon.generateActor()
 
-        elif self.selectedToon.torso_type[1] == 'd':
+        elif self.selectedToon.torsoType[1] == 'd':
             self.selectedToon.toonActor.delete()
             self.selectedToon.updateTorso(
-                self.selectedToon.torso_type[0] + 's')
+                self.selectedToon.torsoType[0] + 's')
             self.selectedToon.generateActor()
 
 

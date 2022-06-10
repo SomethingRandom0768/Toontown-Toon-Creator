@@ -19,16 +19,23 @@ class EditorMenu(DirectObject):
         notify.setDebug(1)
 
         # General GUI variables
-        self.optionsGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
-        self.guiClickSound = loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg')
-        self.guiRolloverSound = loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg')
-        self.menuGUI = loader.loadModel('phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
-        self.editorLabelFont = loader.loadFont('phase_3/fonts/MickeyFontMaximum.bam')
+        self.optionsGeom = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam')
+        self.guiClickSound = loader.loadSfx(
+            'phase_3/audio/sfx/GUI_create_toon_fwd.ogg')
+        self.guiRolloverSound = loader.loadSfx(
+            'phase_3/audio/sfx/GUI_rollover.ogg')
+        self.menuGUI = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_sbk_settingsPanel.bam')
+        self.editorLabelFont = loader.loadFont(
+            'phase_3/fonts/MickeyFontMaximum.bam')
         self.modalFont = loader.loadFont('phase_3/fonts/ImpressBT.ttf')
-        self.sliderGeom = self.optionsGeom.find('**/ttr_t_gui_gen_buttons_lineThick')
-        self.sliderThumbGeom = self.optionsGeom.find('**/ttr_t_gui_gen_buttons_slider1')
+        self.sliderGeom = self.optionsGeom.find(
+            '**/ttr_t_gui_gen_buttons_lineThick')
+        self.sliderThumbGeom = self.optionsGeom.find(
+            '**/ttr_t_gui_gen_buttons_slider1')
 
-        # This menu frame contains all of the 
+        # This menu frame contains all of the
         self.menuFrame = DirectGui.DirectFrame(
             parent=aspect2d,
             geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_panelMain'),
@@ -36,22 +43,21 @@ class EditorMenu(DirectObject):
             geom_pos=(0.85, 0, 0),
             geom_hpr=(0, 9, 0),
             relief=None,
-            sortOrder= 0
+            sortOrder=0
         )
 
 
-
 ############# FIRST PAGE #########################
-        
 
         self.firstPage = DirectGui.DirectFrame(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabActive1'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabActive1'),
             geom_scale=0.15,
             geom_pos=(0.85, 0, 0.1),
             geom_hpr=(0, 9, 0),
             relief=None,
-            sortOrder = 2
+            sortOrder=2
         )
 
         self.firstPageOptionsScroll = DirectGui.DirectScrolledFrame(
@@ -61,7 +67,7 @@ class EditorMenu(DirectObject):
             canvasSize=(-1, 0, -7, 1),
             frameColor=(0, 0, 0, 0),
             pos=(0.825, 0, -0.025),
-        
+
             # GUI DirectScrollBar attributes
             # Getting rid of the horizontal scroll
             horizontalScroll_frameSize=(0, 0, 0, 0),
@@ -82,7 +88,7 @@ class EditorMenu(DirectObject):
             verticalScroll_geom_pos=(0.81, 0, -0.10),
             verticalScroll_geom_hpr=(0, 0, 90),
             verticalScroll_geom_scale=(0.2, 0.1, 0.1),
-            sortOrder = 3
+            sortOrder=3
         )
 
 
@@ -93,7 +99,7 @@ class EditorMenu(DirectObject):
             frameSize=(0, 1.6, 0, 0.15),
             pos=(0.05, 0, 0.35),
             relief=None,
-            sortOrder = 2
+            sortOrder=2
         )
 
         self.menuLabel = OnscreenText(
@@ -110,16 +116,16 @@ class EditorMenu(DirectObject):
 ############# FIRST PAGE ENDS HERE #########################
 
 ############# SECOND PAGE #########################
-        
 
         self.secondPage = DirectGui.DirectFrame(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabActive2'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabActive2'),
             geom_scale=0.15,
             geom_pos=(0.85, 0, 0.1),
             geom_hpr=(0, 9, 0),
             relief=None,
-            sortOrder = 2
+            sortOrder=2
         )
 
         self.secondPageOptionsScroll = DirectGui.DirectScrolledFrame(
@@ -129,7 +135,7 @@ class EditorMenu(DirectObject):
             canvasSize=(-1, 0, -7, 1),
             frameColor=(0, 0, 0, 0),
             pos=(0.825, 0, -0.025),
-        
+
             # GUI DirectScrollBar attributes
             # Getting rid of the horizontal scroll
             horizontalScroll_frameSize=(0, 0, 0, 0),
@@ -150,33 +156,33 @@ class EditorMenu(DirectObject):
             verticalScroll_geom_pos=(0.81, 0, -0.10),
             verticalScroll_geom_hpr=(0, 0, 90),
             verticalScroll_geom_scale=(0.2, 0.1, 0.1),
-            sortOrder = 3
+            sortOrder=3
         )
 
 
 ############# SECOND PAGE ENDS HERE #########################
 
 ############# THIRD PAGE #########################
-        
 
         self.thirdPage = DirectGui.DirectFrame(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabActive3'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabActive3'),
             geom_scale=0.15,
             geom_pos=(0.85, 0, 0.1),
             geom_hpr=(0, 9, 0),
             relief=None,
-            sortOrder = 2
+            sortOrder=2
         )
 
-        self.thirdPageOptionsScroll  = DirectGui.DirectScrolledFrame(
+        self.thirdPageOptionsScroll = DirectGui.DirectScrolledFrame(
             parent=self.thirdPage,
             # GUI of the box
             frameSize=(-0.8, 0.85, -0.55, 0.35),
             canvasSize=(-1, 0, -7, 1),
             frameColor=(0, 0, 0, 0),
             pos=(0.825, 0, -0.025),
-        
+
             # GUI DirectScrollBar attributes
             # Getting rid of the horizontal scroll
             horizontalScroll_frameSize=(0, 0, 0, 0),
@@ -197,33 +203,33 @@ class EditorMenu(DirectObject):
             verticalScroll_geom_pos=(0.81, 0, -0.10),
             verticalScroll_geom_hpr=(0, 0, 90),
             verticalScroll_geom_scale=(0.2, 0.1, 0.1),
-            sortOrder = 3
+            sortOrder=3
         )
 
 ############# THIRD PAGE ENDS HERE #########################
 
 
 ############# FOURTH PAGE #########################
-        
 
         self.fourthPage = DirectGui.DirectFrame(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabActive4'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabActive4'),
             geom_scale=0.15,
             geom_pos=(0.85, 0, 0.1),
             geom_hpr=(0, 9, 0),
             relief=None,
-            sortOrder = 2
+            sortOrder=2
         )
 
-        self.fourthPageOptionsScroll  = DirectGui.DirectScrolledFrame(
+        self.fourthPageOptionsScroll = DirectGui.DirectScrolledFrame(
             parent=self.fourthPage,
             # GUI of the box
             frameSize=(-0.8, 0.85, -0.55, 0.35),
             canvasSize=(-1, 0, -7, 1),
             frameColor=(0, 0, 0, 0),
             pos=(0.825, 0, -0.025),
-        
+
             # GUI DirectScrollBar attributes
             # Getting rid of the horizontal scroll
             horizontalScroll_frameSize=(0, 0, 0, 0),
@@ -244,7 +250,7 @@ class EditorMenu(DirectObject):
             verticalScroll_geom_pos=(0.81, 0, -0.10),
             verticalScroll_geom_hpr=(0, 0, 90),
             verticalScroll_geom_scale=(0.2, 0.1, 0.1),
-            sortOrder = 3
+            sortOrder=3
         )
 
 ############# FOURTH PAGE ENDS HERE #########################
@@ -257,48 +263,51 @@ class EditorMenu(DirectObject):
 
         self.firstTab = DirectGui.DirectButton(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
             geom_scale=0.15,
             relief=None,
-            frameSize=(-0.15,0.15,-0.15,0.15),
-            pos=(0.25,1,0.625),
-            sortOrder= 1,
+            frameSize=(-0.15, 0.15, -0.15, 0.15),
+            pos=(0.25, 1, 0.625),
+            sortOrder=1,
             command=self.showFirst
         )
 
         self.secondTab = DirectGui.DirectButton(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
             geom_scale=0.15,
             relief=None,
-            frameSize=(-0.15,0.15,-0.15,0.15),
-            pos=(0.65,1,0.625),
-            sortOrder= 1,
+            frameSize=(-0.15, 0.15, -0.15, 0.15),
+            pos=(0.65, 1, 0.625),
+            sortOrder=1,
             command=self.showSecond
         )
 
         self.thirdTab = DirectGui.DirectButton(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
             geom_scale=0.15,
             relief=None,
-            frameSize=(-0.15,0.15,-0.15,0.15),
-            pos=(1.05,1,0.625),
-            sortOrder= 1,
+            frameSize=(-0.15, 0.15, -0.15, 0.15),
+            pos=(1.05, 1, 0.625),
+            sortOrder=1,
             command=self.showThird
         )
 
         self.fourthTab = DirectGui.DirectButton(
             parent=self.menuFrame,
-            geom=self.menuGUI.find('**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
+            geom=self.menuGUI.find(
+                '**/ttr_t_gui_sbk_settingsPanel_tabInactive'),
             geom_scale=0.15,
             relief=None,
-            frameSize=(-0.15,0.15,-0.15,0.15),
-            pos=(1.45,1,0.625),
-            sortOrder= 1,
+            frameSize=(-0.15, 0.15, -0.15, 0.15),
+            pos=(1.45, 1, 0.625),
+            sortOrder=1,
             command=self.showFourth
         )
-    
 
     # Editor Functions
 
@@ -375,14 +384,22 @@ class OptionsModal(DirectGui.DirectFrame):
 
     def __init__(self, modalParent, modalText, z):
         self.modalFont = loader.loadFont('phase_3/fonts/ImpressBT.ttf')
-        self.sliderGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_lineSkinny')
-        self.sliderThumbGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_slider2')
-        self.selectionFrameThumbGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_slider1')
-        self.guiClickSound = loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg')
-        self.guiRolloverSound = loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg')
-        self.toggleButtonGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_toggleButton')
-        self.warmToggleButtonGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/*toggleWarm')
-        self.coolToggleButtonGeom = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/*toggleCool')
+        self.sliderGeom = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_lineSkinny')
+        self.sliderThumbGeom = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_slider2')
+        self.selectionFrameThumbGeom = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_slider1')
+        self.guiClickSound = loader.loadSfx(
+            'phase_3/audio/sfx/GUI_create_toon_fwd.ogg')
+        self.guiRolloverSound = loader.loadSfx(
+            'phase_3/audio/sfx/GUI_rollover.ogg')
+        self.toggleButtonGeom = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/ttr_t_gui_gen_buttons_toggleButton')
+        self.warmToggleButtonGeom = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/*toggleWarm')
+        self.coolToggleButtonGeom = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_buttons.bam').find('**/*toggleCool')
 
         self.containerFrame = DirectGui.DirectLabel(
             parent=modalParent,
@@ -409,7 +426,6 @@ class OptionsSlider(OptionsModal):
     def __init__(self, modalParent, modalText, z, slider_command=None, given_range=(0, 100)):
         super().__init__(modalParent, modalText, z)  # Creates the text on the left
 
-    
         self.slider = DirectGui.DirectSlider(
             thumb_geom=self.sliderThumbGeom,
             thumb_geom_scale=(0.4, 0.1, 0.25),
@@ -493,9 +509,12 @@ class OptionsChoosingMenu(OptionsModal):
     def __init__(self, modalParent, modalText, x, z, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
         self.selectableGUIFont = self.modalFont
-        self.dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
-        self.clickable = self.generateClickableFrame(x, width_of_clickable, chosen_command, keyOrValue, used_dictionary)
-        self.selectables = self.generateSelectablesFrame(x, used_dictionary, width_of_clickable)
+        self.dynamicFrameFile = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+        self.clickable = self.generateClickableFrame(
+            x, width_of_clickable, chosen_command, keyOrValue, used_dictionary)
+        self.selectables = self.generateSelectablesFrame(
+            x, used_dictionary, width_of_clickable)
         self.populateBoolean = False
 
     def generateClickableFrame(self,
@@ -510,11 +529,15 @@ class OptionsChoosingMenu(OptionsModal):
         clickableTopMiddleModel = self.dynamicFrameFile.find('**/topMiddle')
         clickableTopRightModel = self.dynamicFrameFile.find('**/topRight')
         clickableCenterLeftModel = self.dynamicFrameFile.find('**/centerLeft')
-        clickableCenterMiddleModel = self.dynamicFrameFile.find('**/centerMiddle')
-        clickableCenterRightModel = self.dynamicFrameFile.find('**/centerRight')
+        clickableCenterMiddleModel = self.dynamicFrameFile.find(
+            '**/centerMiddle')
+        clickableCenterRightModel = self.dynamicFrameFile.find(
+            '**/centerRight')
         clickableBottomLeftModel = self.dynamicFrameFile.find('**/bottomLeft')
-        clickableBottomMiddleModel = self.dynamicFrameFile.find('**/bottomMiddle')
-        clickableBottomRightModel = self.dynamicFrameFile.find('**/bottomRight')
+        clickableBottomMiddleModel = self.dynamicFrameFile.find(
+            '**/bottomMiddle')
+        clickableBottomRightModel = self.dynamicFrameFile.find(
+            '**/bottomRight')
 
         self.clickableNode = NodePath('clickable_frame_node')
 
@@ -527,11 +550,12 @@ class OptionsChoosingMenu(OptionsModal):
         clickableTopMiddleModel.reparentTo(self.clickableNode)
         clickableTopMiddleModel.setScale(0.05)
         clickableTopMiddleModel.setPos(clickableTopLeftModel.getX() +
-                                0.05, 0, clickableTopLeftModel.getZ())
+                                       0.05, 0, clickableTopLeftModel.getZ())
 
         # The Top Middle repetitions
         for i in range(1, width_of_clickable):
-            self.topCenterCopy = clickableTopMiddleModel.copyTo(self.clickableNode)
+            self.topCenterCopy = clickableTopMiddleModel.copyTo(
+                self.clickableNode)
             self.topCenterCopy.setPos(
                 clickableTopMiddleModel.getX()+(i*0.05), 0, clickableTopMiddleModel.getZ())
 
@@ -624,7 +648,8 @@ class OptionsChoosingMenu(OptionsModal):
         try:
             function(args_to_insert)
         except:
-            self.notify.debug("Nothing will happen as this selectable frame isn't hooked up to a particular function.")
+            self.notify.debug(
+                "Nothing will happen as this selectable frame isn't hooked up to a particular function.")
 
     def generateSelectablesFrame(self,
                                  x_position,
@@ -632,7 +657,8 @@ class OptionsChoosingMenu(OptionsModal):
                                  width=6,
                                  height=6):
         '''Creates the selectable menu based on the provided args'''
-        dynamicFrameFile = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
+        dynamicFrameFile = loader.loadModel(
+            'phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
         topLeftModel = dynamicFrameFile.find('**/topLeft')
         topMiddleModel = dynamicFrameFile.find('**/topMiddle')
         topRightModel = dynamicFrameFile.find('**/topRight')
@@ -656,7 +682,7 @@ class OptionsChoosingMenu(OptionsModal):
         topMiddleModel.setScale(0.05)
         topMiddleModel.reparentTo(topPiece)
         topMiddleModel.setPos(topLeftModel.getX() +
-                                0.05, 0, topLeftModel.getZ())
+                              0.05, 0, topLeftModel.getZ())
 
         # The Top Middle repetitions
         for i in range(1, width):
@@ -740,7 +766,7 @@ class OptionsChoosingMenu(OptionsModal):
 
         selectable_height = (len(selectablesDictionary)) * -0.1005
 
-        self.selectableScrollFrame = DirectGui.DirectScrolledFrame(
+        self.selectableListFrame = DirectGui.DirectScrolledFrame(
             parent=self.selectablesFrame,
             frameSize=(0, width*0.052, -0.4, 0),
             canvasSize=(0, 1.5, selectable_height, 0),
@@ -756,7 +782,7 @@ class OptionsChoosingMenu(OptionsModal):
             verticalScroll_thumb_geom=self.selectionFrameThumbGeom,
             verticalScroll_thumb_geom_scale=0.05,
             verticalScroll_thumb_geom_pos=(0, 0, 0),
-            verticalScroll_thumb_frameSize=(-15,15,-15,15),
+            verticalScroll_thumb_frameSize=(-15, 15, -15, 15),
 
             verticalScroll_geom=self.sliderGeom,
             verticalScroll_geom_scale=0.085,
@@ -789,7 +815,7 @@ class OptionsChoosingMenu(OptionsModal):
                 for item in selectablesDictionary.keys():
                     i += 1
                     button = DirectButton(
-                        parent=self.selectableScrollFrame.getCanvas(),
+                        parent=self.selectableListFrame.getCanvas(),
                         text=item,
                         text_font=self.selectableGUIFont,
                         text_align=TextNode.ALeft,
@@ -809,7 +835,7 @@ class OptionsChoosingMenu(OptionsModal):
                 for item in selectablesDictionary.keys():
                     i += 1
                     button = DirectButton(
-                        parent=self.selectableScrollFrame.getCanvas(),
+                        parent=self.selectableListFrame.getCanvas(),
                         text=item,
                         text_font=self.selectableGUIFont,
                         text_align=TextNode.ALeft,

@@ -22,47 +22,47 @@ toonLegTypes = {"s": 'phase_3/models/char/tt_a_chr_dgs_shorts_legs_1000.bam',  #
 class Toon:
     '''Toon Actor, contains the body and the legs, but attaches on the head retrieved from ToonHead'''
 
-    def __init__(self, species, head_type=None, has_eyelashes=False, torso_type=None, leg_size=None, head_color='White', arm_color='White', glove_color='White', leg_color='White', shirt_texture=None, short_texture=None, skirt_texture=None, shirt_color='White', bottom_color='White', backpack=None, glasses=None, shoes_type=None, long_boot_texture=None, short_boot_texture=None, shoes_texture=None, animation_type=None, is60FPS=None, wearsShoes=None):
+    def __init__(self, species='r', headType='ss', hasEyelashes=False, torsoType='md', legSize='l', headColor='White', armColor='White', gloveColor='White', legColor='White', shirtTexture=None, shortTexture=None, skirtTexture=None, shirtColor='White', bottomColor='White', backpack=None, glasses=None, shoes_type=None, longBootTexture=None, shortBootTexture=None, shoes_texture=None, animation_type='Neutral', is60FPS=False, wearsShoes=False):
         # DNA based stuff
         self.toonActor = None
         self.species = species
-        self.headtype = head_type
-        self.torso_type = torso_type
-        self.leg_size = leg_size
-        self.head_color = head_color
-        self.arm_color = arm_color
-        self.glove_color = glove_color
-        self.leg_color = leg_color
-        self.eyelashes = has_eyelashes
+        self.headtype = headType
+        self.torsoType = torsoType
+        self.legSize = legSize
+        self.headColor = headColor
+        self.armColor = armColor
+        self.gloveColor = gloveColor
+        self.legColor = legColor
+        self.eyelashes = hasEyelashes
 
         # Clothing based stuff
-        self.shirt_texture = shirt_texture
-        self.shirt_color = shirt_color
-        self.short_texture = short_texture
-        self.skirt_texture = skirt_texture
-        self.bottom_color = bottom_color
+        self.shirtTexture = shirtTexture
+        self.shirtColor = shirtColor
+        self.shortTexture = shortTexture
+        self.skirtTexture = skirtTexture
+        self.bottomColor = bottomColor
 
         # Accessory based stuff
-        self.backpack_type = backpack
+        self.backpackType = backpack
         self.backpack_model = None
         self.hat_type = None
         self.hat_model = None
         # Also counts for mask since they're both the same.
-        self.glasses_type = glasses
+        self.glassesType = glasses
         self.glasses_model = None
 
-        self.shoe_type = shoes_type
-        self.short_boot_texture = short_boot_texture
-        self.long_boot_texture = long_boot_texture
-        self.shoe_texture = shoes_texture
+        self.shoeType = shoes_type
+        self.shortBootTexture = shortBootTexture
+        self.longBootTexture = longBootTexture
+        self.shoeTexture = shoes_texture
 
         self.animationType = animation_type
-        self.smooth_enabled = is60FPS
+        self.smoothEnabled = is60FPS
         self.wearsShoes = wearsShoes
 
         self.head = ToonHead(self.species, self.headtype, self.eyelashes)
-        self.torso = toonTorsoTypes[self.torso_type]
-        self.legs = toonLegTypes[self.leg_size]
+        self.torso = toonTorsoTypes[self.torsoType]
+        self.legs = toonLegTypes[self.legSize]
 
         self.generateActor()
 
@@ -82,8 +82,8 @@ class Toon:
 
             {
                 'head': self.returnHeadAnim(self.headtype),
-                'torso': self.returnTorsoAnim(self.torso_type),
-                'legs':  self.returnLegsAnim(self.leg_size)
+                'torso': self.returnTorsoAnim(self.torsoType),
+                'legs':  self.returnLegsAnim(self.legSize)
             })
 
         self.toonActor.attach('head', 'torso', 'def_head')
@@ -93,7 +93,7 @@ class Toon:
         self.toonActor.setPos(2, 35, 0)
         self.toonActor.setHpr(180, 0, 0)
 
-        if self.smooth_enabled:
+        if self.smoothEnabled:
             self.toonActor.setBlend(frameBlend=True)
         else:
             pass
@@ -101,41 +101,41 @@ class Toon:
         self.toonActor.loop(self.animationType)
 
         # Add the coloring to the Toon based on its color variables.
-        self.updateHeadColor(self.head_color)
-        self.updateArmsColor(self.arm_color)
-        self.updateLegsColor(self.leg_color)
-        self.updateGloveColor(self.glove_color)
+        self.updateHeadColor(self.headColor)
+        self.updateArmsColor(self.armColor)
+        self.updateLegsColor(self.legColor)
+        self.updateGloveColor(self.gloveColor)
 
         # Clothing related stuff
-        if self.shirt_texture:
-            self.setShirtTexture(self.shirt_texture)
+        if self.shirtTexture:
+            self.setShirtTexture(self.shirtTexture)
         else:
             pass
 
-        if self.torso_type:
-            self.setShortTexture(self.short_texture)
-            self.setSkirtTexture(self.skirt_texture)
+        if self.torsoType:
+            self.setShortTexture(self.shortTexture)
+            self.setSkirtTexture(self.skirtTexture)
         else:
             pass
 
-        if self.shirt_color:
-            self.setShirtColor(self.shirt_color)
+        if self.shirtColor:
+            self.setShirtColor(self.shirtColor)
         else:
             pass
 
-        if self.bottom_color:
-            self.setBottomColor(self.bottom_color)
+        if self.bottomColor:
+            self.setBottomColor(self.bottomColor)
         else:
             pass
 
         # Accessory related stuff
-        if self.backpack_type:
-            self.attachBackpack(self.backpack_type)
+        if self.backpackType:
+            self.attachBackpack(self.backpackType)
         else:
             pass
 
-        if self.glasses_type:
-            self.attachGlasses(self.glasses_type)
+        if self.glassesType:
+            self.attachGlasses(self.glassesType)
         else:
             pass
 
@@ -145,22 +145,22 @@ class Toon:
         self.toonActor.find('**/*shoes').hide()
 
         if self.wearsShoes:
-            self.attachShoes(self.shoe_type)
+            self.attachShoes(self.shoeType)
         else:
             pass
 
-        if self.shoe_texture:
-            self.applyShoeTexture(self.shoe_texture)
+        if self.shoeTexture:
+            self.applyShoeTexture(self.shoeTexture)
         else:
             pass
 
-        if self.short_boot_texture:
-            self.applyShortBootTexture(self.short_boot_texture)
+        if self.shortBootTexture:
+            self.applyShortBootTexture(self.shortBootTexture)
         else:
             pass
 
-        if self.long_boot_texture:
-            self.applyLongBootTexture(self.long_boot_texture)
+        if self.longBootTexture:
+            self.applyLongBootTexture(self.longBootTexture)
         else:
             pass
 
@@ -177,92 +177,92 @@ class Toon:
         self.species = species_to_change_to
         self.head = ToonHead(self.species, self.headtype, self.eyelashes)
 
-    def updateHead(self, species, head_type, has_eyelashes):
+    def updateHead(self, species, headType, hasEyelashes):
         '''Updates the head type.'''
-        self.headtype = head_type
+        self.headtype = headType
         self.species = species
-        self.eyelashes = has_eyelashes
-        self.head = ToonHead(species, head_type, has_eyelashes)
+        self.eyelashes = hasEyelashes
+        self.head = ToonHead(species, headType, hasEyelashes)
 
     def updateHeadColor(self, color_to_set):
         '''Updates the Toon's head color'''
-        self.head_color = color_to_set
+        self.headColor = color_to_set
 
         if self.species == 'd':
             self.toonActor.find(
-                '**/head').setColor(colorsList[self.head_color])
+                '**/head').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front').setColor(colorsList[self.head_color])
+                '**/*head-front').setColor(colorsList[self.headColor])
         # Gotta account for Deers only having one head type.
         elif self.species == 'de':
             self.toonActor.find(
-                '**/*ears-short').setColor(colorsList[self.head_color])
+                '**/*ears-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-short').setColor(colorsList[self.head_color])
+                '**/*head-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front-short').setColor(colorsList[self.head_color])
+                '**/*head-front-short').setColor(colorsList[self.headColor])
         elif self.species == 'du':  # Gotta account for ducks not having ears
             self.toonActor.find(
-                '**/*head-short').setColor(colorsList[self.head_color])
+                '**/*head-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front-short').setColor(colorsList[self.head_color])
+                '**/*head-front-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-long').setColor(colorsList[self.head_color])
+                '**/*head-long').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front-long').setColor(colorsList[self.head_color])
+                '**/*head-front-long').setColor(colorsList[self.headColor])
         elif self.species == 'ri':  # Riggy only has one head type.
             self.toonActor.find(
-                '**/*ears').setColor(colorsList[self.head_color])
+                '**/*ears').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front').setColor(colorsList[self.head_color])
+                '**/*head-front').setColor(colorsList[self.headColor])
         elif self.species == 'mo':  # Monkeys can't get their ears colored.
             self.toonActor.find(
-                '**/*head-short').setColor(colorsList[self.head_color])
+                '**/*head-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front-short').setColor(colorsList[self.head_color])
+                '**/*head-front-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-long').setColor(colorsList[self.head_color])
+                '**/*head-long').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front-long').setColor(colorsList[self.head_color])
+                '**/*head-front-long').setColor(colorsList[self.headColor])
         else:
             self.toonActor.find(
-                '**/*ears-short').setColor(colorsList[self.head_color])
+                '**/*ears-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-short').setColor(colorsList[self.head_color])
+                '**/*head-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front-short').setColor(colorsList[self.head_color])
+                '**/*head-front-short').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-long').setColor(colorsList[self.head_color])
+                '**/*head-long').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*ears-long').setColor(colorsList[self.head_color])
+                '**/*ears-long').setColor(colorsList[self.headColor])
             self.toonActor.find(
-                '**/*head-front-long').setColor(colorsList[self.head_color])
+                '**/*head-front-long').setColor(colorsList[self.headColor])
 
-    def updateTorso(self, torso_type):
+    def updateTorso(self, torsoType):
         '''Updates the torso type'''
-        self.torso = toonTorsoTypes[torso_type]
-        self.torso_type = torso_type
+        self.torso = toonTorsoTypes[torsoType]
+        self.torsoType = torsoType
 
     def updateArmsColor(self, color_to_set):
-        self.arm_color = color_to_set
-        self.toonActor.find('**/arms').setColor(colorsList[self.arm_color])
-        self.toonActor.find('**/neck').setColor(colorsList[self.arm_color])
+        self.armColor = color_to_set
+        self.toonActor.find('**/arms').setColor(colorsList[self.armColor])
+        self.toonActor.find('**/neck').setColor(colorsList[self.armColor])
 
     def updateLegs(self, legs_type):
         '''Updates the leg type'''
-        self.leg_size = legs_type
+        self.legSize = legs_type
         self.legs = toonLegTypes[legs_type]
 
     def updateLegsColor(self, color_to_set):
         '''Update the Toon leg colors'''
-        self.leg_color = color_to_set
-        self.toonActor.find('**/legs').setColor(colorsList[self.leg_color])
-        self.toonActor.find('**/feet').setColor(colorsList[self.leg_color])
+        self.legColor = color_to_set
+        self.toonActor.find('**/legs').setColor(colorsList[self.legColor])
+        self.toonActor.find('**/feet').setColor(colorsList[self.legColor])
 
     def updateGloveColor(self, color_to_set):
         '''Colors the Toon's gloves'''
-        self.glove_color = color_to_set
-        self.toonActor.find('**/hands').setColor(colorsList[self.glove_color])
+        self.gloveColor = color_to_set
+        self.toonActor.find('**/hands').setColor(colorsList[self.gloveColor])
 
     def returnHead(self):
         '''Just returns the head'''
@@ -271,7 +271,7 @@ class Toon:
     def returnHeadAnim(self, headType):
         headSizeIndex = headType[0]
 
-        if self.torso_type[1] == 's':
+        if self.torsoType[1] == 's':
             if headSizeIndex == 'l':
                 return long_head_shorts_anim_dict
             elif headSizeIndex == 'm':
@@ -343,7 +343,7 @@ class Toon:
 
     def setShortTexture(self, short):
         '''Sets the Toon's short texture. Used when generating the Toon'''
-        if self.torso_type[-1] == 's':
+        if self.torsoType[-1] == 's':
             try:
                 shortTexturePath = short_dict[short]
                 shortTexture = loader.loadTexture(shortTexturePath)
@@ -356,7 +356,7 @@ class Toon:
 
     def setSkirtTexture(self, skirt):
         '''Sets the Toon's short texture. Used when generating the Toon and through Options Menu'''
-        if self.torso_type[-1] == 'd':
+        if self.torsoType[-1] == 'd':
             try:
                 if len( skirt_dict[skirt] ) == 1:
                     skirtTexturePath = skirt_dict[skirt][0]
@@ -373,21 +373,21 @@ class Toon:
         else:
             pass
 
-    def setShirtColor(self, shirt_color):
+    def setShirtColor(self, shirtColor):
         '''Colors the Toon's current shirt'''
         self.toonActor.find(
-            '**/torso-top').setColorScale(colorsList[shirt_color])
+            '**/torso-top').setColorScale(colorsList[shirtColor])
         self.toonActor.find(
-            '**/sleeves').setColorScale(colorsList[shirt_color])
+            '**/sleeves').setColorScale(colorsList[shirtColor])
 
-    def setBottomColor(self, bottom_color):
+    def setBottomColor(self, bottomColor):
         '''Colors the Toon's current bottom'''
-        if self.torso_type == 'ls':
+        if self.torsoType == 'ls':
             self.toonActor.find(
-                '**/torso-bot').setColor(colorsList[bottom_color])
+                '**/torso-bot').setColor(colorsList[bottomColor])
         else:
             self.toonActor.find(
-                '**/torso-bot').setColorScale(colorsList[bottom_color])
+                '**/torso-bot').setColorScale(colorsList[bottomColor])
 
  # Accessory related functions
     def attachBackpack(self, backpack_to_attach):
@@ -420,13 +420,13 @@ class Toon:
             else:
                 self.backpack_model.setHpr(180, 0, 0)
 
-            if self.torso_type[0] == 's':
+            if self.torsoType[0] == 's':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][1])
-            elif self.torso_type[0] == 'm':
+            elif self.torsoType[0] == 'm':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][2])
-            elif self.torso_type[0] == 'l':
+            elif self.torsoType[0] == 'l':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][3])
             else:
@@ -443,13 +443,13 @@ class Toon:
             self.backpack_model.setScale(backpack_dict[backpack_to_attach][5])
             self.backpack_model.setHpr(180, 0, 0)
 
-            if self.torso_type[0] == 's':
+            if self.torsoType[0] == 's':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][2])
-            elif self.torso_type[0] == 'm':
+            elif self.torsoType[0] == 'm':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][3])
-            elif self.torso_type[0] == 'l':
+            elif self.torsoType[0] == 'l':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][4])
             else:
@@ -467,13 +467,13 @@ class Toon:
             self.backpack_model.setScale(backpack_dict[backpack_to_attach][6])
             self.backpack_model.setHpr(180, 0, 0)
 
-            if self.torso_type[0] == 's':
+            if self.torsoType[0] == 's':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][3])
-            elif self.torso_type[0] == 'm':
+            elif self.torsoType[0] == 'm':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][4])
-            elif self.torso_type[0] == 'l':
+            elif self.torsoType[0] == 'l':
                 self.backpack_model.setPos(
                     backpack_dict[backpack_to_attach][5])
             else:
@@ -492,7 +492,7 @@ class Toon:
         if self.glasses_model:
             self.glasses_model.removeNode()
 
-        self.glasses_type = glasses_to_attach
+        self.glassesType = glasses_to_attach
 
         if len(glasses_dict[glasses_to_attach]) == 1:  # Regular glasses model.
             self.glasses_model = loader.loadModel(
@@ -750,20 +750,20 @@ class Toon:
                 self.glasses_model.setHpr(180, 0, 0)
                 self.glasses_model.setPos(0, 0.25, 0.05)
 
-    def attachShoes(self, shoe_type):
+    def attachShoes(self, shoeType):
         '''Attaches the shoe based on the type of shoe given.'''
 
-        if shoe_type == 1:  # Shoes
+        if shoeType == 1:  # Shoes
             self.toonActor.find('**/*shoes').show()
             self.toonActor.find('**/*boots_short').hide()
             self.toonActor.find('**/*boots_long').hide()
             self.toonActor.find('**/*feet').hide()
-        elif shoe_type == 2:  # Short boots
+        elif shoeType == 2:  # Short boots
             self.toonActor.find('**/*shoes').hide()
             self.toonActor.find('**/*boots_short').show()
             self.toonActor.find('**/*boots_long').hide()
             self.toonActor.find('**/*feet').hide()
-        elif shoe_type == 3:  # Long boots
+        elif shoeType == 3:  # Long boots
             self.toonActor.find('**/*shoes').hide()
             self.toonActor.find('**/*boots_short').hide()
             self.toonActor.find('**/*boots_long').show()
@@ -777,37 +777,72 @@ class Toon:
         self.toonActor.find('**/*shoes').hide()
         self.toonActor.find('**/*feet').show()
 
-    def applyLongBootTexture(self, long_boot_texture):
+    def applyLongBootTexture(self, longBootTexture):
         '''Applies the long boot texture to the long boot node'''
         try:
-            if len(boot_long_texture_dict[long_boot_texture]) == 1:
+            if len(boot_long_texture_dict[longBootTexture]) == 1:
                 texture = loader.loadTexture(
-                    boot_long_texture_dict[long_boot_texture][0])
+                    boot_long_texture_dict[longBootTexture][0])
                 self.toonActor.find('**/*boots_long').setTexture(texture, 1)
-            elif len(boot_long_texture_dict[long_boot_texture]) == 2:
+            elif len(boot_long_texture_dict[longBootTexture]) == 2:
                 texture = loader.loadTexture(
-                    boot_long_texture_dict[long_boot_texture][0], boot_long_texture_dict[long_boot_texture][1])
+                    boot_long_texture_dict[longBootTexture][0], boot_long_texture_dict[longBootTexture][1])
                 self.toonActor.find('**/*boots_long').setTexture(texture, 1)
         except:
             pass
 
-    def applyShortBootTexture(self, short_boot_texture):
+    def applyShortBootTexture(self, shortBootTexture):
         try:
-            texture = loader.loadTexture(shoe_texture_dict[short_boot_texture])
+            texture = loader.loadTexture(shoeTexture_dict[shortBootTexture])
             self.toonActor.find('**/*boots_short').setTexture(texture, 1)
         except:
             pass
 
-    def applyShoeTexture(self, shoe_texture):
+    def applyShoeTexture(self, shoeTexture):
 
         '''Applies the shoe texture to the shoe nodes'''
         try:
-            texture = loader.loadTexture(shoe_texture_dict[shoe_texture])
+            texture = loader.loadTexture(shoeTexture_dict[shoeTexture])
             self.toonActor.find('**/*shoes').setTexture(texture, 1)
         except:
             pass
 
 # Toon Functions
+
+    def updateToonInfo(self, species, headType, hasEyelashes, torsoType, legSize, headColor, armColor, gloveColor, legColor, shirtTexture, shortTexture, skirtTexture, shirtColor, bottomColor, backpack, glasses, shoes_type, longBootTexture, shortBootTexture, shoes_texture, animation_type, is60FPS, wearsShoes):
+        '''Updates the Toon's DNA with the arguments'''
+
+        self.updateSpecies(species)
+        self.updateHead(species, headType, hasEyelashes)
+        self.updateTorso(torsoType)
+        self.updateLegs(legSize)
+        
+        self.updateHeadColor(headColor)
+        self.updateArmsColor(armColor)
+        self.updateGloveColor(gloveColor)
+        self.updateLegsColor(legColor)
+        
+        self.setShirtTexture(shirtTexture)
+        self.setShortTexture(shortTexture)
+        self.setSkirtTexture(skirtTexture)
+
+        self.setShirtColor(shirtColor)
+        self.setBottomColor(bottomColor)
+
+        self.attachBackpack(backpack)
+        self.attachGlasses(glasses)
+        self.attachShoes(shoes_type)
+
+        self.applyShoeTexture(shoes_texture)
+        self.applyShortBootTexture(shortBootTexture)
+        self.applyLongBootTexture(longBootTexture)
+
+        self.animationType = animation_type
+        self.smoothEnabled = is60FPS
+
+        self.wearsShoes = wearsShoes
+
+
 
     def setPosition(self, x, y, z):
         '''Sets the position of the Toon's actor'''
@@ -815,75 +850,75 @@ class Toon:
 
     def __str__(self) -> str:
         '''String representation of a Toon object'''
-        #toonString = ', {self.shirt_texture}, {self.short_texture}, {self.skirt_texture}, '{self.bottom_color}', {self.shoe_type}, {self.shoe_texture}, {self.long_boot_texture}, {self.short_boot_texture}, {self.backpack_type}, {self.glasses_type}, {self.smooth_enabled}, {self.wearsShoes})"
+        #toonString = ', {self.shirtTexture}, {self.shortTexture}, {self.skirtTexture}, '{self.bottomColor}', {self.shoeType}, {self.shoeTexture}, {self.longBootTexture}, {self.shortBootTexture}, {self.backpackType}, {self.glassesType}, {self.smoothEnabled}, {self.wearsShoes})"
         toonString = ''
         toonString += f"Toon('{self.species}', "
         toonString += f"'{self.headtype}', "
         toonString += f"{str(self.eyelashes)}, "
-        toonString += f"'{self.torso_type}', "
-        toonString += f"'{self.leg_size}', "
-        toonString += f"'{self.head_color}', "
-        toonString += f"'{self.arm_color}', "
-        toonString += f"'{self.glove_color}', "
-        toonString += f"'{self.leg_color}', "
+        toonString += f"'{self.torsoType}', "
+        toonString += f"'{self.legSize}', "
+        toonString += f"'{self.headColor}', "
+        toonString += f"'{self.armColor}', "
+        toonString += f"'{self.gloveColor}', "
+        toonString += f"'{self.legColor}', "
         
-        if self.shirt_texture:
-            toonString += f"'{self.shirt_texture}', "
+        if self.shirtTexture:
+            toonString += f"'{self.shirtTexture}', "
         else:
-            toonString += f"{self.shirt_texture}, "
+            toonString += f"{self.shirtTexture}, "
 
-        if self.short_texture:
-            toonString += f"'{self.short_texture}', "
+        if self.shortTexture:
+            toonString += f"'{self.shortTexture}', "
         else:
-            toonString += f"{self.short_texture}, "
+            toonString += f"{self.shortTexture}, "
 
-        if self.skirt_texture:
-            toonString += f"'{self.skirt_texture}', "
+        if self.skirtTexture:
+            toonString += f"'{self.skirtTexture}', "
         else:
-            toonString += f"{self.skirt_texture}, "
+            toonString += f"{self.skirtTexture}, "
         
-        toonString += f"'{self.shirt_color}', "
-        toonString += f"'{self.bottom_color}', "
+        toonString += f"'{self.shirtColor}', "
+        toonString += f"'{self.bottomColor}', "
         
-        if self.backpack_type:
-            toonString += f"'{self.backpack_type}', "
+        if self.backpackType:
+            toonString += f"'{self.backpackType}', "
         else:
-            toonString += f"{self.backpack_type}, "
+            toonString += f"{self.backpackType}, "
 
-        if self.glasses_type:
-            toonString += f"'{self.glasses_type}', "
+        if self.glassesType:
+            toonString += f"'{self.glassesType}', "
         else:
-            toonString += f"{self.glasses_type}, "
+            toonString += f"{self.glassesType}, "
 
-        if self.shoe_type:
-            toonString += f"{self.shoe_type}, "
+        if self.shoeType:
+            toonString += f"{self.shoeType}, "
         else:
-            toonString += f"{self.shoe_type}, "
+            toonString += f"{self.shoeType}, "
 
-        if self.long_boot_texture:
-            toonString += f"'{self.long_boot_texture}', "
+        if self.longBootTexture:
+            toonString += f"'{self.longBootTexture}', "
         else:
-            toonString += f"{self.long_boot_texture}, "
+            toonString += f"{self.longBootTexture}, "
 
-        if self.short_boot_texture:
-            toonString += f"'{self.short_boot_texture}', "
+        if self.shortBootTexture:
+            toonString += f"'{self.shortBootTexture}', "
         else:
-            toonString += f"{self.short_boot_texture}, "
+            toonString += f"{self.shortBootTexture}, "
 
-        if self.shoe_texture:
-            toonString += f"'{self.shoe_texture}', "
+        if self.shoeTexture:
+            toonString += f"'{self.shoeTexture}', "
         else:
-            toonString += f"{self.shoe_texture}, "
+            toonString += f"{self.shoeTexture}, "
 
         if self.animationType:
             toonString += f"'{self.animationType}', "
         else:
             toonString += f"{self.animationType}, "
 
-        if self.smooth_enabled:
-            toonString += f"{self.smooth_enabled}, "
+        if self.smoothEnabled:
+            toonString += f"{self.smoothEnabled}, "
         else:
-            toonString += f"{self.smooth_enabled}, "
+            toonString += f"{self.smoothEnabled}, "
 
         if self.wearsShoes:
             toonString += f"{self.wearsShoes}"

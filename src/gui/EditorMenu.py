@@ -508,6 +508,8 @@ class OptionsChoosingMenu(OptionsModal):
 
     def __init__(self, modalParent, modalText, x, z, width_of_clickable, used_dictionary=None, chosen_command=None, keyOrValue=1):
         super().__init__(modalParent, modalText, z)
+        self.failSound = loader.loadSfx('src/phase_3.5/audio/sfx/tt_s_gui_sbk_cdrFailure.ogg')
+        self.failSound.setVolume(0.5)
         self.selectableGUIFont = self.modalFont
         self.dynamicFrameFile = loader.loadModel(
             'phase_3/models/gui/ttr_m_gui_gen_dynamicFrame.bam')
@@ -648,8 +650,9 @@ class OptionsChoosingMenu(OptionsModal):
         try:
             function(args_to_insert)
         except:
+            self.failSound.play()
             self.notify.debug(
-                "Nothing will happen as this selectable frame isn't hooked up to a particular function.")
+                "Either this'll crash or it won't work")
 
     def generateSelectablesFrame(self,
                                  x_position,

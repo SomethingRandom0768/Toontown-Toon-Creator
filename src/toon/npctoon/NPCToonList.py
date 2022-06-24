@@ -21,6 +21,24 @@ NPC_SCIENTIST = 11
 # variable on the NPCToonNames dict. lnames is short for localized names.
 lnames = NPCToonNames
 
+# This should be the ToonDNA in its entirety
+#         self.type = 't'
+#         self.head = head
+#         self.torso = torso
+#         self.legs = legs
+#         self.gender = gender
+#         self.armColor = armColor
+#         self.gloveColor = gloveColor
+#         self.legColor = legColor
+#         self.headColor = headColor
+#         self.topTex = topTexture
+#         self.topTexColor = topTextureColor
+#         self.sleeveTex = sleeveTexture
+#         self.sleeveTexColor = sleeveTextureColor
+#         self.botTex = bottomTexture
+#         self.botTexColor = bottomTextureColor 
+
+
 NPCToonDict = {
     # (INTERIOR zoneId, "name", "r"|<dna>, "m"|"f", protected, type),
     # if protected is 1, the building will not be taken over automatically.

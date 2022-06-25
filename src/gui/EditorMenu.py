@@ -642,17 +642,22 @@ class OptionsChoosingMenu(OptionsModal):
 
         return self.clickableButton
 
-    def showAndHide(self, function, args_to_insert):
+    def showAndHide(self, function=None, args_to_insert=None):
         '''This basically reparents clickable so you can see it again and hides the selectables_frame'''
         self.clickable.show()
         self.clickable_text['text'] = str(args_to_insert)
         self.selectablesFrame.hide()
-        try:
+        self.ignore('wheel_up')
+        self.ignore('wheel_down')
+    #    try:
+        if function and args_to_insert:
             function(args_to_insert)
-        except:
-            self.failSound.play()
-            self.notify.debug(
-                "Either this'll crash or it won't work")
+        else:
+            pass
+        # except:
+        #     self.failSound.play()
+        #     self.notify.debug(
+        #         "Either this'll crash or it won't work")
 
     def generateSelectablesFrame(self,
                                  x_position,
@@ -808,6 +813,9 @@ class OptionsChoosingMenu(OptionsModal):
                         selectablesDictionary):
         self.selectablesFrame.show()
         self.clickable.hide()
+        self.accept('wheel_up', self.scrollFrameUp)
+        self.accept('wheel_down', self.scrollFrameDown)
+        self.accept('mouse3', self.showAndHide)
 
         if self.populateBoolean:
             pass  # We've already populated it.
@@ -815,7 +823,7 @@ class OptionsChoosingMenu(OptionsModal):
             self.notify.info('Generating Selectable Frame for the first time')
             if keyOrValue == 1:  # If we want to return the values
                 i = 0
-                for item in selectablesDictionary.keys():
+                for item in sorted(selectablesDictionary.keys()):
                     i += 1
                     button = DirectButton(
                         parent=self.selectableListFrame.getCanvas(),
@@ -853,3 +861,9 @@ class OptionsChoosingMenu(OptionsModal):
                         extraArgs=[command_to_execute, item]
                     )
             self.populateBoolean = True
+
+    def scrollFrameDown(self):
+        self.selectableListFrame['verticalScroll_value']+=0.005
+
+    def scrollFrameUp(self):
+        self.selectableListFrame['verticalScroll_value']-=0.005

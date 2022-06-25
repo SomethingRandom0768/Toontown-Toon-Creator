@@ -843,7 +843,7 @@ class OptionsChoosingMenu(OptionsModal):
                     )
             else:  # If we want to return the key
                 i = 0
-                for item in selectablesDictionary.keys():
+                for item in sorted(selectablesDictionary.keys()):
                     i += 1
                     button = DirectButton(
                         parent=self.selectableListFrame.getCanvas(),
